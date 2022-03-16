@@ -1,7 +1,9 @@
-# Introduction 
+# Introduction
+
 This is the repo of XOJ's online editor, which consists an extension for VSC and a modified VSC for web.
 
 ## Features & To-dos
+
 * VS code extension
   - [ ] Connect to OJ backend and retrieve problem (description, sample input/output, etc)
   - [ ] Connect to OJ backend for code submission and execution
@@ -12,6 +14,7 @@ This is the repo of XOJ's online editor, which consists an extension for VSC and
   - [ ] User preference storage
 
 ## Requirements
+
 TBD
 
 ## Extension Settings
