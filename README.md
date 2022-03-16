@@ -1,11 +1,17 @@
 # Introduction 
-This is the repo of XOJ's online editor based on a forked version of [Monaco](https://github.com/microsoft/monaco-editor).
+This is the repo of XOJ's online editor, which consists an extension for VSC and a modified VSC for web.
 
+# To-do
 
+* VS code extension
 
-# TODO
-
-TBD
+  - [ ] Connect to OJ backend and retrieve problem (description, sample input/output, etc)
+  - [ ] Connect to OJ backend for code submission and execution
+  - [ ] Problem information display (AC rate, total submission, etc.)
+  - [ ] Desktop VS code activation
+* Modified version of VS code web
+  - [ ] User authentication
+  - [ ] User preference storage
 
 # Getting Started
 TBD
@@ -13,6 +19,3 @@ TBD
 # Build and Test
 TBD
 
-# Contribute
-
-TBD

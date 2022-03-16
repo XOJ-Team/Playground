@@ -1,3 +1,0 @@
-[submodule "monaco-editor"]
-	path = monaco-editor
-	url = git@github.com:microsoft/monaco-editor.git
