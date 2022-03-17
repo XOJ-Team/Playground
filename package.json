@@ -10,7 +10,7 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:xoj-playground.helloWorld"
+        "*"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
