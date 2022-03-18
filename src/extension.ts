@@ -8,7 +8,8 @@ export function activate(context: vscode.ExtensionContext) {
 	// register a command that is invoked when extension is activated
 	const connectionStatsCommandName = 'xoj-playground.showConnectionStatus';
 	let connectionStatsCommand = vscode.commands.registerCommand(connectionStatsCommandName, () => {
-		// TODO:check connection status to XOJ backend 
+		// TODO: check connection status to XOJ backend
+		// TODO (skk): implment dedicated function to check connection status async.
 		vscode.window.showInformationMessage(`Connected to XOJ Server.`);
 	});
 

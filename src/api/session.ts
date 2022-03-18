@@ -1,4 +1,4 @@
-interface XojSession {
+export interface XojSession {
     sessionId: number;
     userId: number;
     problemId: number;
