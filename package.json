@@ -6,11 +6,18 @@
 	"engines": {
 		"vscode": "^1.65.0"
 	},
+	"extensionKind": [
+		"ui",
+		"workspace"
+	],
 	"categories": [
 		"Other"
 	],
 	"activationEvents": [
-        "*"
+        "*",
+		"onView:calicoColors.colorsView",
+		"onCommand:calicoColors.addColor",
+		"onCommand:calicoColors.clearColors"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
