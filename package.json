@@ -1,5 +1,5 @@
 {
-  "name": "xoj-playground",
+	"name": "xoj-playground",
 	"displayName": "XOJ Playground",
 	"description": "",
 	"version": "0.0.1",
@@ -21,6 +21,26 @@
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "xoj-action-center",
+					"title": "XOJ Action Center",
+					"icon": "notebook-execute-all"
+				}
+			]
+		},
+		"views": {
+			"package-explorer": [
+				{
+					"id": "nodeDependencies",
+					"name": "Node Dependencies",
+					"icon": "notebook-execute-all",
+					"contextualTitle": "XOJ Action Center",
+					"visibility": "visible"
+				}
+			]
+		},
 		"commands": [
 			{
 				"command": "xoj-playground.helloWorld",
