@@ -1,31 +1,16 @@
 import * as vscode from 'vscode';
-import * as activity from './ui/actionCenter';
 
-let connectionStatsBarItem: vscode.StatusBarItem;
+import { StatusIndicator } from './ui/statusIndicator';
+import { ActionCenterView } from './ui/actionCenter';
 
 export function activate(context: vscode.ExtensionContext) {
-	console.log('"xoj-playground" is now active!');
 
-	// register a command that is invoked when extension is activated
-	const connectionStatsCommandName = 'xoj-playground.showConnectionStatus';
-	let connectionStatsCommand = vscode.commands.registerCommand(connectionStatsCommandName, () => {
-		// TODO: check connection status to XOJ backend
-		// TODO (skk): implment dedicated function to check connection status async.
-		vscode.window.showInformationMessage(`Connected to XOJ Server.`);
-	});
+	const statusIndicator = new StatusIndicator(context);
 
-	connectionStatsBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-	connectionStatsBarItem.command = connectionStatsCommandName;
-	context.subscriptions.push(connectionStatsBarItem);
-	context.subscriptions.push(connectionStatsCommand);
-
-	context.subscriptions.push(vscode.window.onDidChangeActiveTextEditor(updateStatusBarItem));
-	context.subscriptions.push(vscode.window.onDidChangeTextEditorSelection(updateStatusBarItem));
-
-	const actionCenter = new activity.ActionCenterView(context.extensionUri);
+	const actionCenter = new ActionCenterView(context.extensionUri);
 
 	context.subscriptions.push(
-		vscode.window.registerWebviewViewProvider(activity.ActionCenterView.viewType, actionCenter));
+		vscode.window.registerWebviewViewProvider(ActionCenterView.viewType, actionCenter));
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('calicoColors.addColor', () => {
@@ -37,15 +22,10 @@ export function activate(context: vscode.ExtensionContext) {
 			actionCenter.clearColors();
 		}));
 
-	// update status bar item once at start
-	updateStatusBarItem();
+	console.log('[INFO] XOJ Playground is now active!');
+
 }
 
 export function deactivate() {
 	vscode.window.showInformationMessage('XOJ Playground extension is deactivated.');
-}
-
-function updateStatusBarItem(): void {
-	connectionStatsBarItem.text = `$(megaphone) Connected to XOJ Server`;
-	connectionStatsBarItem.show();
 }

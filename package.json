@@ -23,6 +23,14 @@
 	"main": "./dist/extension.js",
 	"contributes": {
 		"views": {
+			"package-explorer": [
+				{
+					"id": "nodeDependencies",
+					"name": "Node Dependencies",
+					"icon": "media/dep.svg",
+					"contextualTitle": "Package Explorer"
+				}
+			],
 			"explorer": [
 				{
 					"type": "webview",
@@ -36,7 +44,7 @@
 				{
 					"id": "xoj-action-center",
 					"title": "XOJ Action Center",
-					"icon": "notebook-execute-all"
+					"icon": "assets/dep.svg"
 				}
 			]
 		},
