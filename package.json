@@ -1,8 +1,9 @@
 {
-  "name": "xoj-playground",
+	"name": "xoj-playground",
 	"displayName": "XOJ Playground",
-	"description": "",
+	"description": "A playground extension for XOJ Web IDE and desktop VSC",
 	"version": "0.0.1",
+	"publisher": "XOJ-Team",
 	"engines": {
 		"vscode": "^1.65.0"
 	},
@@ -14,17 +15,37 @@
 		"Other"
 	],
 	"activationEvents": [
-        "*",
-		"onView:calicoColors.colorsView",
+		"*",
+		"onView:playground.actionCenter",
 		"onCommand:calicoColors.addColor",
 		"onCommand:calicoColors.clearColors"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
+		"views": {
+			"explorer": [
+				{
+					"type": "webview",
+					"id": "playground.actionCenter",
+					"name": "XOJ Action Center"
+				}
+			]
+		},
 		"commands": [
 			{
 				"command": "xoj-playground.helloWorld",
 				"title": "Hello World"
+			},
+			{
+				"command": "calicoColors.addColor",
+				"category": "Calico Colors",
+				"title": "Add Color"
+			},
+			{
+				"command": "calicoColors.clearColors",
+				"category": "Calico Colors",
+				"title": "Clear Colors",
+				"icon": "$(clear-all)"
 			}
 		]
 	},
