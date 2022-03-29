@@ -22,12 +22,6 @@
 		"views": {
 			"playground-actionCenter-container": [
 				{
-					"id": "nodeDependencies",
-					"name": "Node Dependencies",
-					"icon": "media/dep.svg",
-					"contextualTitle": "Package Explorer"
-				},
-				{
 					"type": "webview",
 					"id": "playground.actionCenter",
 					"name": "XOJ Action Center"
