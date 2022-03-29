@@ -23,8 +23,13 @@
 			"playground-actionCenter-container": [
 				{
 					"type": "webview",
-					"id": "playground.actionCenter",
-					"name": "XOJ Action Center"
+					"id": "playground.actionCenter.questionDescription",
+					"name": "Question Description"
+				},
+				{
+					"type": "webview",
+					"id": "playground.actionCenter.actionPanel",
+					"name": "Action Panel"
 				}
 			]
 		},

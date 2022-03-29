@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
+import {Marked} from '@ts-stack/markdown';
+export class QuestionDescriptionView implements vscode.WebviewViewProvider {
 
-export class ActionCenterView implements vscode.WebviewViewProvider {
-
-    private static readonly viewType = 'playground.actionCenter';
+    private static readonly viewType = 'playground.actionCenter.questionDescription';
 
     private _view?: vscode.WebviewView;
 
@@ -10,7 +10,7 @@ export class ActionCenterView implements vscode.WebviewViewProvider {
         private readonly _extensionContext: vscode.ExtensionContext
     ) {
         _extensionContext.subscriptions.push(
-            vscode.window.registerWebviewViewProvider(ActionCenterView.viewType, this)
+            vscode.window.registerWebviewViewProvider(QuestionDescriptionView.viewType, this)
         );
 
         console.log('[INFO] ActionCenter initalized');
@@ -58,6 +58,9 @@ export class ActionCenterView implements vscode.WebviewViewProvider {
         // Use a nonce to only allow a specific script to be run.
         const nonce = getNonce();
 
+        
+
+
         return `<!DOCTYPE html>
 			<html lang="en">
 			<head>
@@ -86,11 +89,6 @@ export class ActionCenterView implements vscode.WebviewViewProvider {
             <p><code>3</code></p>
             <p>&nbsp;</p>
             <ul></ul>
-				<button class="add-color-button">Run Code</button>
-				<ul></ul>
-				<button class="add-color-button">Submit</button>
-				<ul></ul>
-				<button class="add-color-button">Reset Answer</button>
 
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>
