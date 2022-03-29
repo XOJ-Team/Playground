@@ -15,23 +15,18 @@
 		"Other"
 	],
 	"activationEvents": [
-		"*",
-		"onView:playground.actionCenter",
-		"onCommand:calicoColors.addColor",
-		"onCommand:calicoColors.clearColors"
+		"*"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"views": {
-			"package-explorer": [
+			"playground-actionCenter-container": [
 				{
 					"id": "nodeDependencies",
 					"name": "Node Dependencies",
 					"icon": "media/dep.svg",
 					"contextualTitle": "Package Explorer"
-				}
-			],
-			"explorer": [
+				},
 				{
 					"type": "webview",
 					"id": "playground.actionCenter",
@@ -42,9 +37,9 @@
 		"viewsContainers": {
 			"activitybar": [
 				{
-					"id": "xoj-action-center",
+					"id": "playground-actionCenter-container",
 					"title": "XOJ Action Center",
-					"icon": "assets/dep.svg"
+					"icon": "assets/logo24.svg"
 				}
 			]
 		},
@@ -52,17 +47,6 @@
 			{
 				"command": "xoj-playground.helloWorld",
 				"title": "Hello World"
-			},
-			{
-				"command": "calicoColors.addColor",
-				"category": "Calico Colors",
-				"title": "Add Color"
-			},
-			{
-				"command": "calicoColors.clearColors",
-				"category": "Calico Colors",
-				"title": "Clear Colors",
-				"icon": "$(clear-all)"
 			}
 		]
 	},
