@@ -31,7 +31,6 @@ export class StatusIndicator {
     private async checkServerStatus() {
         // TODO: check connection status to XOJ backend
         // TODO (skk): implment dedicated function to check connection status async.
-
     }
 
     private update(): void {

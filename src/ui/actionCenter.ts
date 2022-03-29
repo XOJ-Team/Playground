@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 
 export class ActionCenterView implements vscode.WebviewViewProvider {
 
-    public static readonly viewType = 'playground.actionCenter';
+    private static readonly viewType = 'playground.actionCenter';
 
     private _view?: vscode.WebviewView;
 
@@ -22,6 +22,8 @@ export class ActionCenterView implements vscode.WebviewViewProvider {
                 this.clearColors();
             })
         );
+
+        console.log('[INFO] ActionCenter initalized');
     }
 
     public resolveWebviewView(
