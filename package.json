@@ -31,6 +31,15 @@
 				}
 			]
 		},
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "xoj-action-center",
+					"title": "XOJ Action Center",
+					"icon": "notebook-execute-all"
+				}
+			]
+		},
 		"commands": [
 			{
 				"command": "xoj-playground.helloWorld",
