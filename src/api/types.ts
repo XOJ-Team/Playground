@@ -3,7 +3,10 @@ export type ApiConfig = {
     secret?: string;
 };
 
-export const baseUrl = 'http://172.28.210.121:8080/';
+export type ApiConnection = {
+    status: boolean;
+    time: Date;
+};
 
 export type SubmissionObject = {
     questionId: string;

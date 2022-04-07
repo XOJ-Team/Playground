@@ -24,12 +24,12 @@
 				{
 					"type": "webview",
 					"id": "playground.actionCenter.questionDescription",
-					"name": "Question Description"
+					"name": "Description"
 				},
 				{
 					"type": "webview",
 					"id": "playground.actionCenter.actionPanel",
-					"name": "Action Panel"
+					"name": "Actions"
 				}
 			]
 		},
@@ -47,7 +47,17 @@
 				"command": "xoj-playground.helloWorld",
 				"title": "Hello World"
 			}
-		]
+		],
+		"configuration": {
+			"title": "Default Server",
+			"properties": {
+				"xoj-playground.targetServer": {
+				  "type": "string",
+				  "default": "http://oj.k-nn.tech:8081",
+				  "description": "Target server to connect to."
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run package",

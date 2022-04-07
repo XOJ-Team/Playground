@@ -1,7 +1,6 @@
 import { ApiConfig } from "./types";
 import { SubmissionObject } from "./types";
 import { QuestionObject } from "./types";
-import { baseUrl } from "./types";
 import fetch from 'node-fetch';
 
 const endpoint = '/submit_records/';
