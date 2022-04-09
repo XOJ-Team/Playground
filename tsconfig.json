@@ -5,7 +5,7 @@
 		"lib": [
 			"ES2020"
 		],
-		"strictPropertyInitialization": false,
+		// "strictPropertyInitialization": false,
 		"sourceMap": true,
 		"rootDir": "src",
 		"strict": true   /* enable all strict type-checking options */

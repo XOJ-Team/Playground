@@ -1,12 +1,8 @@
-export type ApiConfig = {
-    baseURL: string;
-    secret?: string;
-};
-
-export type ApiConnection = {
+export type ConnectionStatus = {
     status: boolean;
-    time: Date;
-};
+    comment: string;
+    obj: Date;
+}
 
 export type SubmissionObject = {
     questionId: string;
