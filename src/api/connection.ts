@@ -1,17 +1,15 @@
-import fetch from 'node-fetch';
 import * as vscode from 'vscode';
 import * as rm from 'typed-rest-client/RestClient';
 
-import { ConnectionStatus } from './types';
+import { ConnectionStatus } from './Types';
 
+const server: string | undefined = vscode.workspace.getConfiguration('xoj-playground').get('targetServer');
 const endpoint = '/connect';
-const server = vscode.workspace.getConfiguration('xoj-playground').get('targetServer');
-
 
 export class ConnectionChecker {
     private _status: boolean;
     private _time: Date;
-    private _client: rm.RestClient = new rm.RestClient('xoj-playground', 'http://oj.k-nn.tech:8081');
+    private _client: rm.RestClient = new rm.RestClient('xoj-playground', server);
 
     constructor () {
         this._status = false;

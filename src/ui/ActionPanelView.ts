@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
-import {Marked} from '@ts-stack/markdown';
-export class QuestionDescriptionView implements vscode.WebviewViewProvider {
 
-    private static readonly viewType = 'playground.actionCenter.questionDescription';
+export class ActionPanelView implements vscode.WebviewViewProvider {
+
+    private static readonly viewType = 'playground.actionCenter.actionPanel';
 
     private _view?: vscode.WebviewView;
 
@@ -10,10 +10,10 @@ export class QuestionDescriptionView implements vscode.WebviewViewProvider {
         private readonly _extensionContext: vscode.ExtensionContext
     ) {
         _extensionContext.subscriptions.push(
-            vscode.window.registerWebviewViewProvider(QuestionDescriptionView.viewType, this)
+            vscode.window.registerWebviewViewProvider(ActionPanelView.viewType, this)
         );
 
-        console.log('[INFO] ActionCenter initalized');
+        console.log('[INFO] ActionCenter View initialized');
     }
 
     public resolveWebviewView(
@@ -81,14 +81,13 @@ export class QuestionDescriptionView implements vscode.WebviewViewProvider {
 				<title>XOJ Action Center</title>
 			</head>
 			<body>
-            <h3 id='id-0001-a--b-problem'><strong>No. 0001</strong> A + B Problem</h3>
-            <p><strong>Description</strong>: Given two integers A, B, return the sum of them.</p>
-            <p><strong>Sample Input</strong>:</p>
-            <p><code>1 2</code></p>
-            <p><strong>Sample Output</strong>:</p>
-            <p><code>3</code></p>
-            <p>&nbsp;</p>
+
             <ul></ul>
+				<button class="add-color-button">Run Code</button>
+				<ul></ul>
+				<button class="add-color-button">Submit</button>
+				<ul></ul>
+				<button class="add-color-button">Reset Answer</button>
 
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>

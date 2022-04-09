@@ -1,34 +1,31 @@
-import { ApiConfig } from "./types";
-import { QuestionObject } from "./types";
-import { baseUrl } from "./types";
-import fetch from 'node-fetch';
+import * as vscode from 'vscode';
+import * as rm from 'typed-rest-client/RestClient';
 
+import { QuestionObject } from "./Types";
+
+const server: string | undefined = vscode.workspace.getConfiguration('xoj-playground').get('targetServer');
 const endpoint = '/question/';
 
-// export async function getQuestion(id: string): Promise<QuestionObject> {
-//     const fullUrl = baseUrl + endpoint + id;
-//     const o: QuestionObject;
-//     const res = await fetch(fullUrl, {
-//         method: 'GET',
-//         headers: {
-//             'Host': baseUrl,
-//             'User-Agent': 'XOJ-Playground-Client/0.1'
-//         },
-//     }).then(res => res.json());
+export class Question {
+    private _id: string;
+    private _title: string;
+    private _level: number;
+    private _desc: string;
+    private _client: rm.RestClient = new rm.RestClient('xoj-playground', server);
 
-//     return new QuestionObject{};
-// }
+    constructor(id: string) {
+        this._id = id;
+        this._title = 'null';
+        this._level = 0;
+        this._desc = 'null';
+    }
 
-// TODO: add async impl
-export async function getQuestion(id: string) {
-    const fullUrl = baseUrl + endpoint + id;
-    let o: QuestionObject;
-    const response = await fetch(fullUrl, {
-        method: 'GET',
-        headers: {
-            'Host': baseUrl,
-            'User-Agent': 'XOJ-Playground-Client/0.1'
+    public async get() {
+        try {
+            let res: rm.IRestResponse<QuestionObject> = await this._client.get<QuestionObject>(endpoint);
+            
+        } catch(err) {
+            
         }
-    });
-    return response.json();
+    }
 }

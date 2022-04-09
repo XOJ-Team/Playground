@@ -1,6 +1,7 @@
 # Git ignore placeholder
 node_modules
-dist/
+dist
+*.vsix
 
 
 ## macOS ignore staff start

@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { ConnectionChecker } from '../api/connection';
+import { ConnectionChecker } from '../api/Connection';
 export class StatusIndicator {
     private commandName = 'xoj-playground.showConnectionStatus';
     private item: vscode.StatusBarItem;

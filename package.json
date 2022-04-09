@@ -15,7 +15,9 @@
 		"Other"
 	],
 	"activationEvents": [
-		"*"
+		"*",
+		"onUri",
+		"onCommand:xoj-playground.start"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -44,8 +46,20 @@
 		},
 		"commands": [
 			{
-				"command": "xoj-playground.helloWorld",
-				"title": "Hello World"
+				"command": "xoj-playground.refresh",
+				"title": "Refresh"
+			},
+			{
+				"command": "xoj-playground.connect",
+				"title": "Connect / Re-connect"
+			},
+			{
+				"command": "xoj-playground.start",
+				"title": "Start XOJ from Web"
+			},
+			{
+				"command": "xoj-playground.showConnectionStatus",
+				"title": "Show Connection Status"
 			}
 		],
 		"configuration": {

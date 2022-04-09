@@ -2,7 +2,7 @@ export type ConnectionStatus = {
     status: boolean;
     comment: string;
     obj: Date;
-}
+};
 
 export type SubmissionObject = {
     questionId: string;
