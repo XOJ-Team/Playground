@@ -1,107 +1,128 @@
 {
-	"name": "xoj-playground",
-	"displayName": "XOJ Playground",
-	"description": "A playground extension for XOJ Web IDE and desktop VSC",
-	"version": "0.0.1",
-	"publisher": "XOJ-Team",
-	"engines": {
-		"vscode": "^1.65.0"
-	},
-	"extensionKind": [
-		"ui",
-		"workspace"
-	],
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"*",
-		"onUri",
-		"onCommand:xoj-playground.start"
-	],
-	"main": "./dist/extension.js",
-	"contributes": {
-		"views": {
-			"playground-actionCenter-container": [
-				{
-					"type": "webview",
-					"id": "playground.actionCenter.questionDescription",
-					"name": "Description"
-				},
-				{
-					"type": "webview",
-					"id": "playground.actionCenter.actionPanel",
-					"name": "Actions"
-				}
-			]
-		},
-		"viewsContainers": {
-			"activitybar": [
-				{
-					"id": "playground-actionCenter-container",
-					"title": "XOJ Action Center",
-					"icon": "assets/logo24.svg"
-				}
-			]
-		},
-		"commands": [
-			{
-				"command": "xoj-playground.refresh",
-				"title": "Refresh"
-			},
-			{
-				"command": "xoj-playground.connect",
-				"title": "Connect / Re-connect"
-			},
-			{
-				"command": "xoj-playground.start",
-				"title": "Start XOJ from Web"
-			},
-			{
-				"command": "xoj-playground.showConnectionStatus",
-				"title": "Show Connection Status"
-			}
-		],
-		"configuration": {
-			"title": "Default Server",
-			"properties": {
-				"xoj-playground.targetServer": {
-					"type": "string",
-					"default": "http://oj.k-nn.tech:8081",
-					"description": "Target server to connect to."
-				}
-			}
-		}
-	},
-	"scripts": {
-		"vscode:prepublish": "yarn run package",
-		"compile": "webpack",
-		"watch": "webpack --watch",
-		"package": "webpack --mode production --devtool hidden-source-map",
-		"compile-tests": "tsc -p . --outDir out",
-		"watch-tests": "tsc -p . -w --outDir out",
-		"pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
-		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/glob": "^7.2.0",
-		"@types/mocha": "^9.1.0",
-		"@types/node": "14.x",
-		"@types/vscode": "^1.65.0",
-		"@typescript-eslint/eslint-plugin": "^5.12.1",
-		"@typescript-eslint/parser": "^5.12.1",
-		"@vscode/test-electron": "^2.1.2",
-		"eslint": "^8.9.0",
-		"glob": "^7.2.0",
-		"mocha": "^9.2.1",
-		"ts-loader": "^9.2.6",
-		"typed-rest-client": "^1.8.6",
-		"typescript": "^4.5.5",
-		"webpack": "^5.69.1",
-		"webpack-cli": "^4.9.2"
-	},
-	"dependencies": {
-		"@ts-stack/markdown": "^1.4.0"
-	}
+  "name": "xoj-playground",
+  "displayName": "XOJ Playground",
+  "description": "A playground extension for XOJ Web IDE and desktop VSC",
+  "repository": "https://dev.azure.com/XOJ-Team/CPT202%20Team%20B-3/_git/XOJ_Playground",
+  "version": "0.0.1",
+  "publisher": "XOJ-Team",
+  "engines": {
+    "vscode": "^1.65.0"
+  },
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onUri",
+    "onCommand:xoj-playground.showConnectionStatus",
+    "onCommand:xoj-playground.startFromWeb",
+    "onView:xoj-playground-container"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "views": {
+      "xoj-playground-container": [
+        {
+          "type": "webview",
+          "id": "playground.container.descriptionView",
+          "name": "Description"
+        },
+        {
+          "type": "webview",
+          "id": "playground.container.sampleView",
+          "name": "Sample I/O"
+        },
+        {
+          "type": "webview",
+          "id": "playground.container.actionView",
+          "name": "Actions"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "xoj-playground-container",
+          "title": "XOJ Action Center",
+          "icon": "assets/logo_50px.svg"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "xoj-playground.refresh",
+        "title": "Playground: Refresh"
+      },
+      {
+        "command": "xoj-playground.connect",
+        "title": "Playground: Connect / Re-connect"
+      },
+      {
+        "command": "xoj-playground.startFromWeb",
+        "title": "Playground: Start XOJ from Web"
+      },
+      {
+        "command": "xoj-playground.showConnectionStatus",
+        "title": "Playground: Show Connection Status"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "xoj-playground.startFromWeb",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Default Server",
+      "properties": {
+        "xoj-playground.targetServer": {
+          "type": "string",
+          "default": "http://oj.k-nn.tech:8081",
+          "description": "Backend server to connect to."
+        },
+        "xoj-playground.judgeServer": {
+          "type": "string",
+          "default": "http://oj.k-nn.tech:8081",
+          "description": "Judge server to connect to."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/marked": "^4.0.3",
+    "@types/mocha": "^9.1.0",
+    "@types/node": "14.x",
+    "@types/vscode": "^1.65.0",
+    "@typescript-eslint/eslint-plugin": "^5.12.1",
+    "@typescript-eslint/parser": "^5.12.1",
+    "@vscode/test-electron": "^2.1.2",
+    "eslint": "^8.9.0",
+    "glob": "^7.2.0",
+    "mocha": "^9.2.1",
+    "ts-loader": "^9.2.6",
+    "typed-rest-client": "^1.8.6",
+    "typescript": "^4.5.5",
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "marked": "^4.0.13"
+  }
 }

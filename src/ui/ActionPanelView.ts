@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 
 export class ActionPanelView implements vscode.WebviewViewProvider {
 
-    private static readonly viewType = 'playground.actionCenter.actionPanel';
+    private static readonly viewType = 'playground.container.actionView';
 
     private _view?: vscode.WebviewView;
 
@@ -58,9 +58,6 @@ export class ActionPanelView implements vscode.WebviewViewProvider {
         // Use a nonce to only allow a specific script to be run.
         const nonce = getNonce();
 
-        
-
-
         return `<!DOCTYPE html>
 			<html lang="en">
 			<head>
@@ -88,6 +85,8 @@ export class ActionPanelView implements vscode.WebviewViewProvider {
 				<button class="add-color-button">Submit</button>
 				<ul></ul>
 				<button class="add-color-button">Reset Answer</button>
+                <ul></ul>
+				<button class="add-color-button">Refresh</button>
 
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>
