@@ -12,7 +12,7 @@
 
     updateColorList(colors);
 
-    document.querySelector('.add-color-button').addEventListener('click', () => {
+    document.querySelector('.action-button').addEventListener('click', () => {
         addColor();
     });
 

@@ -12,6 +12,8 @@ export function activate(context: vscode.ExtensionContext) {
 	const statusIndicator = new StatusIndicator(context);
 	const descriptionView = new DescriptionView(context);
 	const actionPanelView = new ActionPanelView(context);
+
+	console.log(context.workspaceState);
 	
 }
 

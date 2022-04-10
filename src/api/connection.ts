@@ -3,13 +3,14 @@ import * as rm from 'typed-rest-client/RestClient';
 
 import { ConnectionStatus } from './Types';
 
-const server: string | undefined = vscode.workspace.getConfiguration('xoj-playground').get('targetServer');
+const backend: string | undefined = vscode.workspace.getConfiguration('xoj-playground').get('targetServer');
+const judge: string | undefined = vscode.workspace.getConfiguration('xoj-playground').get('judgeServer');
 const endpoint = '/connect';
 
 export class ConnectionChecker {
     private _status: boolean;
     private _time: Date;
-    private _client: rm.RestClient = new rm.RestClient('xoj-playground', server);
+    private _client: rm.RestClient = new rm.RestClient('xoj-playground', backend);
 
     constructor () {
         this._status = false;
