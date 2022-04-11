@@ -40,7 +40,7 @@ export class StatusIndicator {
         if (this.checker.status) {
             vscode.window.showInformationMessage('Currently connected to XOJ Server. Server Time: ', this.checker.time.toString());
         } else {
-            vscode.window.showInformationMessage(`Currently disconnected to XOJ Server.`);
+            vscode.window.showWarningMessage(`Currently disconnected to XOJ Server.`);
         }
     }
 }

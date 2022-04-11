@@ -4,6 +4,7 @@ import { StatusIndicator } from './ui/StatusIndicator';
 import { DescriptionView } from './ui/DescriptionView';
 import { ActionPanelView } from './ui/ActionPanelView';
 import { WebUriHandler } from './ui/UriHandler';
+import { ResultDocumentProvider } from './ui/Result';
 
 export function activate(context: vscode.ExtensionContext) {
 	console.log('[INFO] XOJ Playground is now active!');
@@ -12,9 +13,8 @@ export function activate(context: vscode.ExtensionContext) {
 	const statusIndicator = new StatusIndicator(context);
 	const descriptionView = new DescriptionView(context);
 	const actionPanelView = new ActionPanelView(context);
+	const resultDocumentProvider = new ResultDocumentProvider(vscode.window.activeTextEditor); 
 
-	console.log(context.workspaceState);
-	
 }
 
 export function deactivate() {
