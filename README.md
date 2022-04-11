@@ -35,3 +35,4 @@ vsce package
 ## Extension Settings
 
 * `xoj-playground.targetServer`: set the target server for backend connection.
+* `xoj-playground.judgeServer`: set the target server for judger.
