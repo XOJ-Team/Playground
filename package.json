@@ -68,6 +68,22 @@
       {
         "command": "xoj-playground.showConnectionStatus",
         "title": "Playground: Show Connection Status"
+      },
+      {
+        "command": "xoj-playground.run",
+        "title": "Playground: Run on XOJ"
+      },
+      {
+        "command": "xoj-playground.submit",
+        "title": "Playground: Submit"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "xoj-playground.run",
+        "key": "ctrl+k",
+        "mac": "cmd+k",
+        "when": "editorTextFocus"
       }
     ],
     "menus": {
@@ -113,6 +129,7 @@
     "@types/vscode": "^1.63.0",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
+    "@vscode/codicons": "^0.0.29",
     "@vscode/test-electron": "^2.1.2",
     "eslint": "^8.9.0",
     "glob": "^7.2.0",
