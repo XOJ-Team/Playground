@@ -20,6 +20,9 @@ export function activate(context: vscode.ExtensionContext) {
 	// vscode.debug.onDidStartDebugSession(() => {
 	// 	console.log('[DEBUG] Debug session started');
 	// });
+	if (vscode.window.activeTextEditor?.document !== undefined) {
+		vscode.languages.setTextDocumentLanguage(vscode.window.activeTextEditor.document, "json");
+	}
 }
 
 export function deactivate() {

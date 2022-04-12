@@ -97,21 +97,31 @@ export class ActionPanelView implements vscode.WebviewViewProvider {
       <link href="${styleMainUri}" rel="stylesheet">
       <link href="${styleVSCodeIconUri}" rel="stylesheet">
       <ul></ul>
+
       <button class="action-button">
-        <i class="codicon codicon-play"></i> Run Code (F5)
+        <i class="codicon codicon-menu"></i> Select Language 
       </button>
       <ul></ul>
+
       <button class="action-button">
-        <i class="codicon codicon-cloud-upload"></i> Submit (Ctrl + Shift + Enter)
+        <i class="codicon codicon-play"></i> Run Code 
       </button>
       <ul></ul>
+
       <button class="action-button">
-        <i class="codicon codicon-trash"></i> Reset Answer
+        <i class="codicon codicon-cloud-upload"></i> Submit 
       </button>
       <ul></ul>
+
       <button class="action-button">
-        <i class="codicon codicon-refresh"></i> Refresh
+        <i class="codicon codicon-trash"></i> Reset Answer 
       </button>
+      <ul></ul>
+
+      <button class="action-button">
+        <i class="codicon codicon-refresh"></i> Refresh 
+      </button>
+
       <script nonce="${nonce}" src="${scriptUri}"></script>`;
   }
 }

@@ -18,9 +18,9 @@ export class WebUriHandler {
     constructor(
         private readonly _extensionContext: vscode.ExtensionContext
     ) {
-        this._command = vscode.commands.registerCommand(this._commandName, () => {
+        this._command = vscode.commands.registerCommand(this._commandName, async () => {
             _extensionContext.subscriptions.push(vscode.window.registerUriHandler(this._handler));
-            const uri = vscode.env.asExternalUri(vscode.Uri.parse(`${vscode.env.uriScheme}://xoj-playground.start`));
+            const uri = await vscode.env.asExternalUri(vscode.Uri.parse(`${vscode.env.uriScheme}://xoj-playground.start`));
             console.log(`Starting to handle Uris. Open ${uri} in your browser to test.`);
         });
         _extensionContext.subscriptions.push(this._command);

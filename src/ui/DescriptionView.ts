@@ -45,6 +45,8 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     // TODO(skk): replace with API calls
     this._description = '### 001: A + B Problem \n **Description:** given two numbers A and B, find the sum of A and B. \n ';
     webviewView.webview.html = marked.parse(this._description);
+    // TODO(skk): append AC rate and other info to this html
+    console.log(webviewView.webview.html);
 
     webviewView.webview.onDidReceiveMessage((data) => {
       switch (data.type) {
