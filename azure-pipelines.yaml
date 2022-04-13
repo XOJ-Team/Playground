@@ -23,5 +23,5 @@ steps:
 
 - task: PublishPipelineArtifact@0
   inputs:
-    targetPath: $(System.DefaultWorkingDirectory)/*.vsix
-    artifactName: build
+    targetPath: $(System.DefaultWorkingDirectory)/
+    artifactName: '*.vsix'
