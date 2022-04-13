@@ -18,7 +18,6 @@ steps:
 - script: |
     yarn config set network-timeout 300000
     yarn install
-    npm install vsce
     vsce package
   displayName: 'Run yarn install and package'
 

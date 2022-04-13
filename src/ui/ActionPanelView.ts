@@ -24,7 +24,6 @@ export class ActionPanel {
 
   private selectLanguageQuickPick() {
     console.log('[INFO] selectLanguageQuickPick');
-    vscode.languages.
   }
 
   private runCode() {
