@@ -18,7 +18,7 @@ steps:
 - script: |
     yarn config set network-timeout 300000
     yarn install
-    vsce package
+    node_modules/.bin/vsce package --yarn --allow-star-activation
   displayName: 'Run yarn install and package'
 
 - task: PublishPipelineArtifact@0
