@@ -21,7 +21,10 @@ steps:
     node_modules/.bin/vsce package --yarn --allow-star-activation
   displayName: 'Run yarn install and package'
 
-- task: PublishPipelineArtifact@0
+- task: PublishBuildArtifacts@1
   inputs:
-    targetPath: $(System.DefaultWorkingDirectory)/
-    artifactName: '*.vsix'
+    # targetPath: $(System.DefaultWorkingDirectory)/
+    pathToPublish: '$(System.DefaultWorkingDirectory)' 
+    artifactName: 'VSIX'
+    publishLocation: 'FilePath'
+    targetPath: '*.vsix'
