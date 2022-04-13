@@ -7,15 +7,29 @@ This is the repo of XOJ's online editor, which consists an extension for VSC and
 * VS code extension
   * [x] Connection status checker
   * [x] Connect to OJ backend and retrieve problem (description, sample input/output, etc)
-  * [ ] Connect to middleware for code submission and execution
-  * [ ] Problem information display (AC rate, total submission, etc.)
+  * [ ] Actions
+    * [ ] Language chooser
+    * [x] Run code (check) on XOJ
+    * [x] Code submission
+  * [ ] Problem display
+    * [x] Description
+    * [x] AC rate
+    * [ ] Total submission count
+    * [ ] Time limit
+    * [ ] Memory limit
   * [x] Desktop VS code activation
+  * [x] Preferences
+    * [x] Setting XOJ backend API URL
+    * [x] Setting Judge API URL
 * Modified version of VS code web
   * [ ] User authentication
   * [ ] User preference storage
 
-## Getting Started
+# Getting Started
+## Installation
+To install the extension, you can download the prebuilt extension package (VSIX) from [here](https://dev.azure.com/XOJ-Team/CPT202%20Team%20B-3/_build?definitionId=8).  
 
+## Development
 To start the development, open this project in VScode and then run
 
 ```bash
@@ -32,7 +46,7 @@ npm install -g vsce
 vsce package
 ```
 
-## Extension Settings
+# Extension Configuration
 
 * `xoj-playground.targetServer`: set the target server for backend connection.
 * `xoj-playground.judgeServer`: set the target server for judger.

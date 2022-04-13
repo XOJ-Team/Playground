@@ -3,9 +3,10 @@ import * as os from 'os';
 
 import { StatusIndicator } from './ui/StatusIndicator';
 import { DescriptionView } from './ui/DescriptionView';
-import { ActionPanel } from './ui/ActionPanelView';
+import { SampleView } from './ui/SampleView';
+import { ActionPanel } from './ui/ActionPanel';
 import { WebUriHandler } from './ui/UriHandler';
-import { ResultDocumentProvider } from './ui/Result';
+import { ResultDocumentProvider } from './ui/ResultView';
 import { DebugConfiguration } from './ui/DebugConfigurationProvider';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -14,6 +15,7 @@ export function activate(context: vscode.ExtensionContext) {
 	const webUriHandler = new WebUriHandler(context);
 	const statusIndicator = new StatusIndicator(context);
 	const descriptionView = new DescriptionView(context);
+	const sampleView = new SampleView(context);
 	const actionPanel = new ActionPanel(context);
 	// const resultDocumentProvider = new ResultDocumentProvider(vscode.window.activeTextEditor);
 	// vscode.debug.registerDebugConfigurationProvider('xoj', new DebugConfiguration());

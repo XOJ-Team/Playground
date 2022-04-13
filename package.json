@@ -57,7 +57,7 @@
     "viewsWelcome": [
       {
         "view": "playground.container.actionView",
-        "contents": "To get started, please \n[Select a Language](command:xoj-playground.selectLanguage) \n Other Actions: \n [Run Code on XOJ](command:xoj-playground.run) \n [Submit](command:xoj-playground.submit) \n [Refresh](command:xoj-playground.refresh) \n Visit our [homepage](https://oj.k-nn.tech)"
+        "contents": "To get started, please \n[Select a Language](command:xoj-playground.selectLanguage) \n Other Actions: \n [Run Code on XOJ](command:xoj-playground.run) \n [Submit](command:xoj-playground.submit) \n [Refresh](command:xoj-playground.refresh) \n For more help, visit our [website](https://oj.k-nn.tech)."
       }
     ],
     "commands": [
