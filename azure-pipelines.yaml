@@ -1,0 +1,28 @@
+# TypeScript
+# Step 1: Pull the code
+# Step 2: Install the dependencies & package
+# Step 3: Collect artifacts
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '16.14.2'
+  displayName: 'Install Node.js'
+
+- script: |
+    yarn config set network-timeout 300000
+    yarn install
+    npm install vsce
+    vsce package
+  displayName: 'Run yarn install and package'
+
+- task: PublishPipelineArtifact@0
+  inputs:
+    targetPath: $(System.DefaultWorkingDirectory)/*.vsix
+    artifactName: build

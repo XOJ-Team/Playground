@@ -37,7 +37,7 @@
           "name": "Sample I/O"
         },
         {
-          "type": "webview",
+          "type": "tree",
           "id": "playground.container.actionView",
           "name": "Actions"
         }
@@ -52,6 +52,12 @@
         }
       ]
     },
+    "viewsWelcome": [
+      {
+        "view": "playground.container.actionView",
+        "contents": "To get started, please \n[Select a Language](command:xoj-playground.selectLanguage) \n Other Actions: \n [Run Code on XOJ](command:xoj-playground.run) \n [Submit](command:xoj-playground.submit) \n [Refresh](command:xoj-playground.refresh) \n Visit our [homepage](https://oj.k-nn.tech)"
+      }
+    ],
     "commands": [
       {
         "command": "xoj-playground.refresh",
@@ -76,6 +82,10 @@
       {
         "command": "xoj-playground.submit",
         "title": "Playground: Submit"
+      },
+      {
+        "command": "xoj-playground.selectLanguage",
+        "title": "Playground: Select Language"
       }
     ],
     "keybindings": [
