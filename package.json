@@ -18,11 +18,10 @@
     "Other"
   ],
   "activationEvents": [
-    "*",
-    "onUri",
     "onCommand:xoj-playground.showConnectionStatus",
     "onCommand:xoj-playground.startFromWeb",
-    "onView:xoj-playground-container"
+    "workspaceContains:**/.xojworkspace",
+    "onStartupFinished"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -31,17 +30,23 @@
         {
           "type": "webview",
           "id": "playground.container.descriptionView",
-          "name": "Description"
+          "name": "Description",
+          "visibility": "visible",
+          "when": "!xoj-playground:disabled"
         },
         {
           "type": "webview",
           "id": "playground.container.sampleView",
-          "name": "Sample I/O"
+          "name": "Sample I/O",
+          "visibility": "visible",
+          "when": "!xoj-playground:disabled"
         },
         {
           "type": "tree",
           "id": "playground.container.actionView",
-          "name": "Actions"
+          "name": "Actions",
+          "visibility": "visible",
+          "when": "!xoj-playground:disabled"
         }
       ]
     },
