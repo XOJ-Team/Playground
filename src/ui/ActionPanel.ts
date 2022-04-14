@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 
 export class ActionPanel {
   private _commandList = [
-    'xoj-playground.selectLanguage', 
+    // 'xoj-playground.selectLanguage', 
     'xoj-playground.run', 
     'xoj-playground.submit', 
     'xoj-playground.refresh'
@@ -12,13 +12,13 @@ export class ActionPanel {
   constructor(
     private readonly _extensionContext: vscode.ExtensionContext,
   ) {
-      this._command = vscode.commands.registerCommand(this._commandList[0], this.selectLanguageQuickPick, this);
+      // this._command = vscode.commands.registerCommand(this._commandList[0], this.selectLanguageQuickPick, this);
+      // _extensionContext.subscriptions.push(this._command);
+      this._command = vscode.commands.registerCommand(this._commandList[0], this.runCode, this);
       _extensionContext.subscriptions.push(this._command);
-      this._command = vscode.commands.registerCommand(this._commandList[1], this.runCode, this);
+      this._command = vscode.commands.registerCommand(this._commandList[1], this.submitCode, this);
       _extensionContext.subscriptions.push(this._command);
-      this._command = vscode.commands.registerCommand(this._commandList[2], this.submitCode, this);
-      _extensionContext.subscriptions.push(this._command);
-      this._command = vscode.commands.registerCommand(this._commandList[3], this.refresh, this);
+      this._command = vscode.commands.registerCommand(this._commandList[2], this.refresh, this);
       _extensionContext.subscriptions.push(this._command);
   }
 
