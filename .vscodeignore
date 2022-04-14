@@ -1,3 +1,4 @@
+.github/**
 .vscode/**
 .vscode-test/**
 out/**
@@ -5,9 +6,11 @@ node_modules/**
 src/**
 .gitignore
 .yarnrc
+.yarn/**
+yarn.lock
 webpack.config.js
-vsc-extension-quickstart.md
 **/tsconfig.json
 **/.eslintrc.json
 **/*.map
 **/*.ts
+azure-pipelines.yaml
