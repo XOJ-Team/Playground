@@ -20,7 +20,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
   private _view?: vscode.WebviewView;
   private _description: string = '';
   // TODO(skk): replace with QuestionId from web activation.
-  private _question: Question = new Question('');
+  private _question: Question = new Question('8');
 
   constructor(private readonly _extensionContext: vscode.ExtensionContext) {
     _extensionContext.subscriptions.push(
@@ -30,7 +30,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     console.log("[INFO] Question Description View initialized");
   }
 
-  public resolveWebviewView(
+  public async resolveWebviewView(
     webviewView: vscode.WebviewView,
     context: vscode.WebviewViewResolveContext,
     _token: vscode.CancellationToken
@@ -43,10 +43,14 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     };
 
     // TODO(skk): replace with API calls
-    this._description = '### 001: A + B Problem \n **Description:** given two numbers A and B, find the sum of A and B. \n ';
-    webviewView.webview.html = marked.parse(this._description);
     // TODO(skk): append AC rate and other info to this html
-    console.log(webviewView.webview.html);
+    try {
+      await this._question.get();
+    } catch (err) {
+      webviewView.webview.html = marked.parse('### Error occurred ' + err);
+    }
+    
+    webviewView.webview.html = marked.parse(this.getMarkdownString());
 
     webviewView.webview.onDidReceiveMessage((data) => {
       switch (data.type) {
@@ -59,4 +63,20 @@ export class DescriptionView implements vscode.WebviewViewProvider {
       }
     });
   }
+
+  public getMarkdownString() {
+    return '### '
+      + this._question.title
+      + '\n'
+      + this._question.desc
+      + '\n\n'
+      + '*Time Limit: '
+      + this._question.timeLimit
+      + 's*'
+      + '\t | \t'
+      + '*Memory Limit: '
+      + this._question.memLimit
+      + 'MB*';
+  }
+  
 }

@@ -13,9 +13,34 @@ export type SubmissionObject = {
 };
 
 export type QuestionObject = {
-    questionId: string;
-    name: string;
-    questionLevel: string;
-    levelDescription: string;
-    content: string;
+    status: string;
+    comment: string;
+    obj: {
+        // Metadata
+        id: string;
+        name: string;
+        content: string;
+        memoryLimit: number;
+        timeLimit: number;
+        questionLevel: number;
+        levelDescription: string;
+        rate: number;
+        accept: number;
+        total: number;
+
+        // Other Props
+        createTime: Date;
+        creator: string;
+        creatorName: string;
+
+        modifier?: string;
+        modifierName?: string;
+        modifyTime?: Date;
+
+        isDelete: boolean;
+        deleteTime: Date;
+        isHide: boolean;
+
+        tags: string;
+    }
 };

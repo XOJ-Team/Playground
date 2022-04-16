@@ -8,9 +8,7 @@ export class ActionPanel {
   ];
   private _command: vscode.Disposable;
 
-  constructor(
-    private readonly _extensionContext: vscode.ExtensionContext,
-  ) {
+  constructor(private readonly _extensionContext: vscode.ExtensionContext) {
       this._command = vscode.commands.registerCommand(this._commandList[0], this.runCode, this);
       _extensionContext.subscriptions.push(this._command);
       this._command = vscode.commands.registerCommand(this._commandList[1], this.submitCode, this);

@@ -116,12 +116,12 @@
       "properties": {
         "xoj-playground.targetServer": {
           "type": "string",
-          "default": "http://oj.k-nn.tech:8081",
+          "default": "https://api.xoj.codes/",
           "description": "Backend server to connect to."
         },
         "xoj-playground.judgeServer": {
           "type": "string",
-          "default": "http://oj.k-nn.tech:8081",
+          "default": "https://api.xoj.codes/",
           "description": "Judge server to connect to."
         }
       }

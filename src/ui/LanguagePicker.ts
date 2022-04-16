@@ -6,9 +6,7 @@ export class LanguagePicker {
     private _command: vscode.Disposable;
     private _commandName: string = 'xoj-playground.selectLanguage';
 
-    constructor(
-        private readonly _extensionContext: vscode.ExtensionContext
-    ) {
+    constructor(private readonly _extensionContext: vscode.ExtensionContext) {
         // TODO(skk): figure out that this does...
         // this._command = vscode.commands.registerCommand(this._commandName, async () => {
         //     const options: { [key: string]: (context: vscode.ExtensionContext) => Promise<void> } = {

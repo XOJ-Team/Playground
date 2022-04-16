@@ -1,5 +1,7 @@
 # Introduction
 
+[![Build Status](https://dev.azure.com/XOJ-Team/CPT202%20Team%20B-3/_apis/build/status/XOJ_Playground?branchName=master)](https://dev.azure.com/XOJ-Team/CPT202%20Team%20B-3/_build/latest?definitionId=8&branchName=master)  
+
 This is the repo of XOJ's online editor, which consists an extension for VSC and a modified VSC for web.
 
 ## Features & To-dos

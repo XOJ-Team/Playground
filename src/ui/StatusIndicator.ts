@@ -7,9 +7,7 @@ export class StatusIndicator {
     private command: vscode.Disposable;
     private checker: ConnectionChecker = new ConnectionChecker();
 
-    constructor(
-        private readonly _extensionContext: vscode.ExtensionContext,
-    ) {
+    constructor(private readonly _extensionContext: vscode.ExtensionContext) {
         this.command = vscode.commands.registerCommand(this.commandName, this.onClick, this);
         this.item = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
         this.item.command = this.commandName;

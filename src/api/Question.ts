@@ -8,9 +8,11 @@ const endpoint = '/question/';
 
 export class Question {
     private _id: string;
-    private _title: string;
-    private _level: number;
-    private _desc: string;
+    private _title?: string;
+    private _level?: number;
+    private _desc?: string;
+    private _memLimit?: number;
+    private _timeLimit?: number;
     private _client: rm.RestClient = new rm.RestClient('xoj-playground', server);
 
     constructor(id: string) {
@@ -22,10 +24,30 @@ export class Question {
 
     public async get() {
         try {
-            let res: rm.IRestResponse<QuestionObject> = await this._client.get<QuestionObject>(endpoint);
-            
+            let res: rm.IRestResponse<QuestionObject> = await this._client.get<QuestionObject>(endpoint + this._id);
+            this._title = res.result?.obj.name;
+            this._desc = res.result?.obj.content;
+            this._memLimit = res.result?.obj.memoryLimit;
+            this._timeLimit = res.result?.obj.timeLimit;    
         } catch(err) {
-            
+            console.log(err);
         }
     }
+
+    public get title(): string | undefined {
+        return this._title;
+    }
+
+    public get desc(): string | undefined {
+        return this._desc;
+    }
+    
+    public get memLimit(): number | undefined {
+        return this._memLimit;
+    }
+
+    public get timeLimit(): number | undefined {
+        return this._timeLimit;
+    }
+
 }
