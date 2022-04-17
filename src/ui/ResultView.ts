@@ -11,7 +11,7 @@ export class ResultViewProvider implements vscode.CustomTextEditorProvider {
         // });
     }
 
-    private async resolveCustomTextEditor(
+    public async resolveCustomTextEditor(
         document: vscode.TextDocument,
         webviewPanel: vscode.WebviewPanel,
         _token: vscode.CancellationToken
