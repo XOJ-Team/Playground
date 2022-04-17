@@ -4,7 +4,10 @@
 # Step 3: Collect artifacts
 
 trigger:
-  - master
+  branches:
+    include:
+      - refs/tags/v*
+      - master
 
 pool:
   vmImage: ubuntu-latest
