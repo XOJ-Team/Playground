@@ -1,11 +1,14 @@
+import { stat } from 'fs';
 import { compileFunction } from 'vm';
 import * as vscode from 'vscode';
 
 import { JudgeServer } from '../api/Judge';
+import { state } from '../api/Types';
 
 export class LanguagePicker {
     private _disposable: vscode.Disposable;
     private _command: string = 'xoj-playground.selectLanguage';
+    private _lang: string = 'c';
 
     private _items: vscode.QuickPickItem[] = [
         { label: 'C', description: '-std=c11', picked: true },
@@ -35,6 +38,8 @@ export class LanguagePicker {
 
         this._disposable = vscode.commands.registerCommand(this._command, this.show, this);
         _extensionContext.subscriptions.push(this._disposable);
+        state.lang = this._extensionContext.workspaceState.get('language') || 'c';
+        vscode.window.showInformationMessage(`Language is set to: ${state.lang}`);
     }
 
     private async show() {
@@ -43,32 +48,30 @@ export class LanguagePicker {
             placeHolder: 'Select a language',
             onDidSelectItem: item => {
                 if (typeof item === 'string') {
-                    this.setActiveDocumentLanguage(item);
+                    vscode.window.showErrorMessage(`${item} is not supported yet.`);
                 } else {
                     if (item.label === 'C') {
-                        this._extensionContext.workspaceState.update('language', 'c');
-                        this.setActiveDocumentLanguage('c');
+                        this._lang = 'c';
                     } else if (item.label === 'C++') {
-                        this._extensionContext.workspaceState.update('language', 'cpp');
-                        this.setActiveDocumentLanguage('cpp');
+                        this._lang = 'cpp';
                     } else if (item.label === 'Python') {
-                        this._extensionContext.workspaceState.update('language', 'python');
-                        this.setActiveDocumentLanguage('python');
+                        this._lang = 'python';
                     } else if (item.label === 'Java') {
-                        this._extensionContext.workspaceState.update('language', 'java');
-                        this.setActiveDocumentLanguage('java');
+                        this._lang = 'java';
                     } else if (item.label === 'Golang') {
-                        this._extensionContext.workspaceState.update('language', 'go');
-                        this.setActiveDocumentLanguage('go');
+                        this._lang = 'go';
                     }
                 }
             }
         });
-    }
-
-    private setActiveDocumentLanguage(lang: string) {
-        if (vscode.window.activeTextEditor?.document !== undefined) {
-            vscode.languages.setTextDocumentLanguage(vscode.window.activeTextEditor.document, lang);
+        
+        if (result) {
+            this._extensionContext.workspaceState.update('language', this._lang);
+            if (vscode.window.activeTextEditor?.document !== undefined) {
+                vscode.languages.setTextDocumentLanguage(vscode.window.activeTextEditor.document, this._lang);
+            }
+            state.lang = this._lang;
+            state.isLanguageSet = true;
         }
     }
 }

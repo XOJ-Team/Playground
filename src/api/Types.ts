@@ -10,6 +10,24 @@ export type WebSession = {
     sessionId: string;
 };
 
+export type StateDict = {
+    sessionId: string | null;
+    questionId: string | null;
+    lang: string;
+    code: string;
+
+    // Workspace States
+    isLanguageSet: boolean;
+};
+
+export let state: StateDict = {
+	sessionId: '',
+	questionId: '',
+	lang: 'c',
+	code: '',
+    isLanguageSet: false
+};
+
 export type SubmissionObject = {
     questionId: string;
     questionName: string;

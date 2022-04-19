@@ -1,14 +1,14 @@
 import * as vscode from 'vscode';
 
 import { WebSession } from '../api/Types';
+import { state } from '../api/Types';
 
 class FrontendUriHandler implements vscode.UriHandler {
     handleUri(uri: vscode.Uri): vscode.ProviderResult<void> {
         if (uri.query) {
-            const query = new URL(uri.toString(true));
-            console.log(uri.toString());
-            console.log(query.searchParams.get('sessionId'));
-            console.log(query.searchParams.get('questionId'));
+            const url = new URL(uri.toString(true));
+            state.sessionId = url.searchParams.get('sessionId');
+            state.questionId = url.searchParams.get('questionId');
         }
     }
 }

@@ -1,5 +1,7 @@
 import * as vscode from "vscode";
 
+import { state } from "../api/Types";
+
 export class ActionPanel {
   private _commandList = [
     'xoj-playground.run', 
@@ -20,6 +22,7 @@ export class ActionPanel {
   private runCode() {
     // Run code only (without submitting result to XOJ backend)
     console.log('[INFO] runCode');
+    console.log(state);
   }
 
   private submitCode() {
