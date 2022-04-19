@@ -23,7 +23,7 @@ steps:
     echo "##vso[task.setvariable variable=packageVersion;]$buildVersionString"
     yarn config set network-timeout 300000
     yarn install
-    node_modules/.bin/vsce package --yarn --allow-star-activation
+    node_modules/.bin/vsce package --yarn
   displayName: 'Run yarn install and package'
 
 - script: |

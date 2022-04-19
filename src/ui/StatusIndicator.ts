@@ -2,17 +2,17 @@ import * as vscode from 'vscode';
 
 import { ConnectionChecker } from '../api/Connection';
 export class StatusIndicator {
-    private commandName = 'xoj-playground.showConnectionStatus';
-    private item: vscode.StatusBarItem;
-    private command: vscode.Disposable;
-    private checker: ConnectionChecker = new ConnectionChecker();
+    private _command = 'xoj-playground.showConnectionStatus';
+    private _item: vscode.StatusBarItem;
+    private _disposable: vscode.Disposable;
+    private _checker: ConnectionChecker = new ConnectionChecker();
 
     constructor(private readonly _extensionContext: vscode.ExtensionContext) {
-        this.command = vscode.commands.registerCommand(this.commandName, this.onClick, this);
-        this.item = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-        this.item.command = this.commandName;
-        _extensionContext.subscriptions.push(this.item);
-        _extensionContext.subscriptions.push(this.command);
+        this._disposable = vscode.commands.registerCommand(this._command, this.onClick, this);
+        this._item = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+        this._item.command = this._command;
+        _extensionContext.subscriptions.push(this._item);
+        _extensionContext.subscriptions.push(this._disposable);
 
         // Hook text update events
         _extensionContext.subscriptions.push(vscode.window.onDidChangeActiveTextEditor(this.update, this));
@@ -25,18 +25,18 @@ export class StatusIndicator {
     }
 
     private async update(): Promise<void> {
-        await this.checker.check();
-        if (this.checker.status) {
-            this.item.text = `$(megaphone) Connected to XOJ Server`;
+        await this._checker.check();
+        if (this._checker.status) {
+            this._item.text = `$(megaphone) Connected to XOJ Server`;
         } else {
-            this.item.text = `$(megaphone) Connecting...`;
+            this._item.text = `$(megaphone) Connecting...`;
         }
-        this.item.show();
+        this._item.show();
     }
 
     private async onClick(): Promise<void> {
-        if (this.checker.status) {
-            vscode.window.showInformationMessage('Currently connected to XOJ Server. Server Time: ', this.checker.time.toString());
+        if (this._checker.status) {
+            vscode.window.showInformationMessage('Currently connected to XOJ Server. Server Time: ', this._checker.time.toString());
         } else {
             vscode.window.showWarningMessage(`Currently disconnected to XOJ Server.`);
         }

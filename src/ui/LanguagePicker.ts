@@ -4,31 +4,15 @@ import * as vscode from 'vscode';
 import { JudgeServer } from '../api/Judge';
 
 export class LanguagePicker {
-    private _command: vscode.Disposable;
-    private _commandName: string = 'xoj-playground.selectLanguage';
+    private _disposable: vscode.Disposable;
+    private _command: string = 'xoj-playground.selectLanguage';
 
     private _items: vscode.QuickPickItem[] = [
-        {
-            label: 'C',
-            description: '-std=c11',
-            picked: true
-        },
-        {
-            label: 'C++',
-            description: '-std=c++14',
-        },
-        {
-            label: 'Java',
-            description: 'OpenJDK 11',
-        },
-        {
-            label: 'Python',
-            description: '3.8',
-        },
-        {
-            label: 'Golang',
-            description: '1.17',
-        }
+        { label: 'C', description: '-std=c11', picked: true },
+        { label: 'C++', description: '-std=c++14' },
+        { label: 'Java', description: 'OpenJDK 11' },
+        { label: 'Python', description: '3.8' },
+        { label: 'Golang', description: '1.17' }
     ];
 
     constructor(private readonly _extensionContext: vscode.ExtensionContext) {
@@ -49,8 +33,8 @@ export class LanguagePicker {
         //     quickPick.show();
         // }, this);
 
-        this._command = vscode.commands.registerCommand(this._commandName, this.show, this);
-        _extensionContext.subscriptions.push(this._command);
+        this._disposable = vscode.commands.registerCommand(this._command, this.show, this);
+        _extensionContext.subscriptions.push(this._disposable);
     }
 
     private async show() {

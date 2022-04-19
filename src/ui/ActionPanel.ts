@@ -17,15 +17,13 @@ export class ActionPanel {
       _extensionContext.subscriptions.push(this._command);
   }
 
-  private selectLanguageQuickPick() {
-    console.log('[INFO] selectLanguageQuickPick');
-  }
-
   private runCode() {
+    // Run code only (without submitting result to XOJ backend)
     console.log('[INFO] runCode');
   }
 
   private submitCode() {
+    // Run code and submit result to XOJ backend
     console.log('[INFO] submitCode');
   }
 

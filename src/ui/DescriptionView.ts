@@ -26,7 +26,6 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     _extensionContext.subscriptions.push(
       vscode.window.registerWebviewViewProvider(DescriptionView._viewType, this)
     );
-
     console.log("[INFO] Question Description View initialized");
   }
 
@@ -51,17 +50,18 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     }
     
     webviewView.webview.html = marked.parse(this.getMarkdownString());
+    vscode.window.showInformationMessage('Question loaded: ' + this._question.title);
 
-    webviewView.webview.onDidReceiveMessage((data) => {
-      switch (data.type) {
-        case "colorSelected": {
-          vscode.window.activeTextEditor?.insertSnippet(
-            new vscode.SnippetString(`#${data.value}`)
-          );
-          break;
-        }
-      }
-    });
+    // webviewView.webview.onDidReceiveMessage((data) => {
+    //   switch (data.type) {
+    //     case "colorSelected": {
+    //       vscode.window.activeTextEditor?.insertSnippet(
+    //         new vscode.SnippetString(`#${data.value}`)
+    //       );
+    //       break;
+    //     }
+    //   }
+    // });
   }
 
   public getMarkdownString() {

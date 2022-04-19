@@ -23,12 +23,6 @@ export class WebUriHandler {
         register(_extensionContext);
         _extensionContext.subscriptions.push(this._disposable);
     }
-
-    // private async register(_context: vscode.ExtensionContext) {
-    //     _context.subscriptions.push(vscode.window.registerUriHandler(this._handler));
-    //     const uri = await vscode.env.asExternalUri(vscode.Uri.parse(`${vscode.env.uriScheme}://XOJ-Team.xoj-playground`));
-    //     console.log(`${uri} registered.`);
-    // }
 }
 
 // TODO(skk): figure out why so why so
@@ -36,5 +30,5 @@ async function register(_context: vscode.ExtensionContext) {
     const uriHandler = new FrontendUriHandler();
     _context.subscriptions.push(vscode.window.registerUriHandler(uriHandler));
     const uri = await vscode.env.asExternalUri(vscode.Uri.parse(`${vscode.env.uriScheme}://xoj-team.xoj-playground`));
-    console.log(`${uri} registered.`);
+    console.log(`[INFO] URI: ${uri} registered.`);
 }
