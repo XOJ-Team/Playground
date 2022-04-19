@@ -54,27 +54,32 @@ export class LanguagePicker {
     }
 
     private async show() {
-        // const result = await vscode.window.showQuickPick(this._items, {
-        //     placeHolder: 'Select a language',
-        //     onDidSelectItem: item => {
-        //         if (item.label === 'C') {
-        //             this._extensionContext.workspaceState.update('language', 'c');
-        //             this.setActiveDocumentLanguage('c');
-        //         } else if (item.label === 'C++') {
-        //             this._extensionContext.workspaceState.update('language', 'cpp');
-        //             this.setActiveDocumentLanguage('cpp');
-        //         } else if (item.label === 'Python') {
-        //             this._extensionContext.workspaceState.update('language', 'python');
-        //             this.setActiveDocumentLanguage('python');
-        //         } else if (item.label === 'Java') {
-        //             this._extensionContext.workspaceState.update('language', 'java');
-        //             this.setActiveDocumentLanguage('java');
-        //         } else if (item.label === 'Golang') {
-        //             this._extensionContext.workspaceState.update('language', 'go');
-        //             this.setActiveDocumentLanguage('go');
-        //         }
-        //     }
-        // });
+        const result = await vscode.window.showQuickPick(this._items, {
+            canPickMany: false,
+            placeHolder: 'Select a language',
+            onDidSelectItem: item => {
+                if (typeof item === 'string') {
+                    this.setActiveDocumentLanguage(item);
+                } else {
+                    if (item.label === 'C') {
+                        this._extensionContext.workspaceState.update('language', 'c');
+                        this.setActiveDocumentLanguage('c');
+                    } else if (item.label === 'C++') {
+                        this._extensionContext.workspaceState.update('language', 'cpp');
+                        this.setActiveDocumentLanguage('cpp');
+                    } else if (item.label === 'Python') {
+                        this._extensionContext.workspaceState.update('language', 'python');
+                        this.setActiveDocumentLanguage('python');
+                    } else if (item.label === 'Java') {
+                        this._extensionContext.workspaceState.update('language', 'java');
+                        this.setActiveDocumentLanguage('java');
+                    } else if (item.label === 'Golang') {
+                        this._extensionContext.workspaceState.update('language', 'go');
+                        this.setActiveDocumentLanguage('go');
+                    }
+                }
+            }
+        });
     }
 
     private setActiveDocumentLanguage(lang: string) {

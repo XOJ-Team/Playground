@@ -31,6 +31,7 @@ export class WebUriHandler {
     // }
 }
 
+// TODO(skk): figure out why so why so
 async function register(_context: vscode.ExtensionContext) {
     const uriHandler = new FrontendUriHandler();
     _context.subscriptions.push(vscode.window.registerUriHandler(uriHandler));
