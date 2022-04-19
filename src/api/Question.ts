@@ -15,8 +15,8 @@ export class Question {
     private _timeLimit?: number;
     private _client: rm.RestClient = new rm.RestClient('xoj-playground', server);
 
-    constructor(id: string) {
-        this._id = id;
+    constructor(id?: string) {
+        this._id = id || '';
         this._title = 'null';
         this._level = 0;
         this._desc = 'null';

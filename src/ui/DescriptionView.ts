@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { marked, Renderer } from "marked";
 
 import { Question } from "../api/Question";
+import { state } from "../api/Types";
 
 marked.setOptions({
   renderer: new Renderer,
@@ -48,7 +49,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     } catch (err) {
       webviewView.webview.html = marked.parse('### Error occurred ' + err);
     }
-    
+
     webviewView.webview.html = marked.parse(this.getMarkdownString());
     vscode.window.showInformationMessage('Question loaded: ' + this._question.title);
 
@@ -78,5 +79,5 @@ export class DescriptionView implements vscode.WebviewViewProvider {
       + this._question.memLimit
       + 'MB*';
   }
-  
+
 }

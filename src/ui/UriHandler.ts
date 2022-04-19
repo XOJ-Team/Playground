@@ -2,12 +2,16 @@ import * as vscode from 'vscode';
 
 import { WebSession } from '../api/Types';
 import { state } from '../api/Types';
+import { DescriptionView } from './DescriptionView';
 
 class FrontendUriHandler implements vscode.UriHandler {
     handleUri(uri: vscode.Uri): vscode.ProviderResult<void> {
         if (uri.query) {
             const url = new URL(uri.toString(true));
-            state.sessionId = url.searchParams.get('sessionId');
+            const sessionIdRaw = url.searchParams.get('sessionId');
+            if (sessionIdRaw !== null) {
+                state.sessionId = Buffer.from(sessionIdRaw, 'base64').toString('binary');
+            }
             state.questionId = url.searchParams.get('questionId');
         }
     }

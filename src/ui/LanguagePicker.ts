@@ -64,6 +64,7 @@ export class LanguagePicker {
                 }
             }
         });
+        // TODO(skk): try then clause
         
         if (result) {
             this._extensionContext.workspaceState.update('language', this._lang);
