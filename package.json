@@ -4,7 +4,7 @@
   "description": "A playground extension for XOJ Web IDE and desktop VSC",
   "repository": "https://dev.azure.com/XOJ-Team/CPT202%20Team%20B-3/_git/XOJ_Playground",
   "icon": "assets/logo_128px.png",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "publisher": "XOJ-Team",
   "license": "AGPL-3.0",
   "engines": {
@@ -137,7 +137,7 @@
     "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "deploy": "vsce publish --yarn"
+    "deploy": "vsce publish --yarn --pre-release"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
