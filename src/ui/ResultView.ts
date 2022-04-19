@@ -9,6 +9,13 @@ export class ResultViewProvider implements vscode.CustomTextEditorProvider {
         // vscode.window.showTextDocument(editor.document, {
         //     viewColumn: vscode.ViewColumn.Beside
         // });
+
+
+        // const resultDocumentProvider = new ResultDocumentProvider(vscode.window.activeTextEditor);
+        // vscode.debug.registerDebugConfigurationProvider('xoj', new DebugConfiguration());
+        // vscode.debug.onDidStartDebugSession(() => {
+        // 	console.log('[DEBUG] Debug session started');
+        // });
     }
 
     public async resolveCustomTextEditor(
@@ -16,7 +23,7 @@ export class ResultViewProvider implements vscode.CustomTextEditorProvider {
         webviewPanel: vscode.WebviewPanel,
         _token: vscode.CancellationToken
     ): Promise<void> {
-        
+
     }
 
 }

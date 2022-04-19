@@ -32,7 +32,6 @@ export class SampleView implements vscode.WebviewViewProvider {
       this._description = '#### Input 1: \n `1 2` \n #### Output 1: \n `3` \n #### Input 2: \n `1 2 3` \n #### Output 2: \n `6`';
       webviewView.webview.html = marked.parse(this._description);
       // TODO(skk): append AC rate and other info to this html
-      console.log(webviewView.webview.html);
   
       webviewView.webview.onDidReceiveMessage((data) => {
         switch (data.type) {

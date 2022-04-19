@@ -4,6 +4,12 @@ export type ConnectionStatus = {
     obj: Date;
 };
 
+export type WebSession = {
+    userId: string;
+    questionId: string;
+    sessionId: string;
+};
+
 export type SubmissionObject = {
     questionId: string;
     questionName: string;

@@ -18,8 +18,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:xoj-playground.showConnectionStatus",
-    "onCommand:xoj-playground.startFromWeb",
+    "onUri",
+    "onCommand:xoj-playground.start",
     "workspaceContains:**/.xojworkspace",
     "onStartupFinished"
   ],
@@ -62,7 +62,7 @@
     "viewsWelcome": [
       {
         "view": "playground.container.actionView",
-        "contents": "To get started, please \n[Select a Language](command:xoj-playground.selectLanguage) \n Other Actions: \n [Run Code on XOJ](command:xoj-playground.run) \n [Submit](command:xoj-playground.submit) \n [Refresh](command:xoj-playground.refresh) \n For more help, visit our [website](https://xoj.codes)."
+        "contents": "To get started, please \n[$(library) Select a Language](command:xoj-playground.selectLanguage) \n Other Actions: \n [$(play) Run Code on XOJ](command:xoj-playground.run) \n [$(cloud-upload) Submit](command:xoj-playground.submit) \n [$(refresh) Refresh](command:xoj-playground.refresh) \n For more help, visit our [website](https://xoj.codes)."
       }
     ],
     "commands": [
@@ -75,7 +75,7 @@
         "title": "Playground: Connect / Re-connect"
       },
       {
-        "command": "xoj-playground.startFromWeb",
+        "command": "xoj-playground.start",
         "title": "Playground: Start XOJ from Web"
       },
       {
@@ -104,12 +104,7 @@
       }
     ],
     "menus": {
-      "commandPalette": [
-        {
-          "command": "xoj-playground.startFromWeb",
-          "when": "false"
-        }
-      ]
+
     },
     "configuration": {
       "title": "Default Server",
