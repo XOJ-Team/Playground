@@ -137,7 +137,8 @@
     "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "deploy": "vsce publish --yarn"
+    "deploy-ms": "vsce publish --yarn",
+    "deploy-vsx": "ovsx publish --yarn"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
@@ -153,6 +154,7 @@
     "glob": "^7.2.0",
     "marked": "^4.0.14",
     "mocha": "^9.2.1",
+    "ovsx": "^0.3.0",
     "ts-loader": "^9.2.6",
     "typed-rest-client": "^1.8.6",
     "typescript": "^4.5.5",

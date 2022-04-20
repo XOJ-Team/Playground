@@ -27,11 +27,13 @@ steps:
   displayName: 'Run yarn install and package'
 
 - script: |
-    yarn deploy
-  displayName: 'Publish to Marketplace'
+    yarn deploy-ms
+    yarn deploy-vsx
+  displayName: 'Publish to Marketplace (MS & VSX)'
   condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
   env:
     VSCE_PAT: $(VSCE_PAT)
+    OVSX_PAT: $(OVSX_PAT)
 
 - task: PublishBuildArtifacts@1
   inputs:
