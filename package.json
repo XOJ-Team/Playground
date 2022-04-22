@@ -2,7 +2,7 @@
   "name": "xoj-playground",
   "displayName": "XOJ Playground",
   "description": "A playground extension for XOJ Web IDE and desktop VSC",
-  "repository": "https://dev.azure.com/XOJ-Team/CPT202%20Team%20B-3/_git/XOJ_Playground",
+  "repository": "https://dev.azure.com/XOJ-Team/XOJ/_git/XOJ_Playground",
   "icon": "assets/logo_128px.png",
   "version": "0.0.7",
   "publisher": "XOJ-Team",
