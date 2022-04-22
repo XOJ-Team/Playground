@@ -1,4 +1,4 @@
-# Introduction
+# XOJ Playground
 
 [![Build Status](https://dev.azure.com/XOJ-Team/CPT202%20Team%20B-3/_apis/build/status/XOJ_Playground?branchName=master)](https://dev.azure.com/XOJ-Team/CPT202%20Team%20B-3/_build/latest?definitionId=8&branchName=master)  
 
