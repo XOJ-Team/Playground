@@ -1,4 +1,4 @@
-# Introduction
+# XOJ Playground
 
 [![Build Status](https://dev.azure.com/XOJ-Team/CPT202%20Team%20B-3/_apis/build/status/XOJ_Playground?branchName=master)](https://dev.azure.com/XOJ-Team/CPT202%20Team%20B-3/_build/latest?definitionId=8&branchName=master)  
 
@@ -29,7 +29,7 @@ This is the repo of XOJ's online editor, which consists an extension for VSC (de
 
 # Getting Started
 ## Installation
-To install the extension, you can download the prebuilt extension package (VSIX) from [Azure Pipelines](https://dev.azure.com/XOJ-Team/CPT202%20Team%20B-3/_build?definitionId=8), or download directly from [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=XOJ-Team.xoj-playground).
+To install the extension, you can download the prebuilt extension package (VSIX) from [Azure Pipelines](https://dev.azure.com/XOJ-Team/CPT202%20Team%20B-3/_build?definitionId=8), or download directly from [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=XOJ-Team.xoj-playground) or [Open VSX Registry](https://open-vsx.org/extension/XOJ-Team/xoj-playground).
 
 ## Development
 To start the development, open this project in VScode and then run
