@@ -4,7 +4,7 @@
   "description": "A playground extension for XOJ Web IDE and desktop VSC",
   "repository": "https://dev.azure.com/XOJ-Team/CPT202%20Team%20B-3/_git/XOJ_Playground",
   "icon": "assets/logo_128px.png",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "publisher": "XOJ-Team",
   "license": "AGPL-3.0",
   "engines": {
@@ -31,13 +31,6 @@
           "type": "webview",
           "id": "playground.container.descriptionView",
           "name": "Description",
-          "visibility": "visible",
-          "when": "!xoj-playground:disabled"
-        },
-        {
-          "type": "webview",
-          "id": "playground.container.sampleView",
-          "name": "Sample I/O",
           "visibility": "visible",
           "when": "!xoj-playground:disabled"
         },

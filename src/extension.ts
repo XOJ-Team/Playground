@@ -14,7 +14,8 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const webUriHandler = new WebUriHandler(context);
 	const statusIndicator = new StatusIndicator(context);
-	const sampleView = new SampleView(context);
+	const descriptionView = new DescriptionView(context);
+	// const sampleView = new SampleView(context);
 	const actionPanel = new ActionPanel(context);
 	const languagePicker = new LanguagePicker(context);
 }
