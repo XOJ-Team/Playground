@@ -5,6 +5,7 @@ import { globalState } from "../api/Common";
 import { JudgeServer } from "../api/Judge";
 
 const judgeServer = new JudgeServer();
+
 export class ActionPanel {
   private _commandList = [
     'xoj-playground.run', 

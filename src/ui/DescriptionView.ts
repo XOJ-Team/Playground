@@ -21,7 +21,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
   private _view?: vscode.WebviewView;
   private _description: string = '';
   // TODO(skk): replace with QuestionId from web activation.
-  private _question: Question = new Question('11');
+  private _question: Question = new Question('8');
 
   constructor(private readonly _extensionContext: vscode.ExtensionContext) {
     _extensionContext.subscriptions.push(
@@ -56,7 +56,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     // Built-in render (markdown-language-features)
     webviewView.webview.html = await vscode.commands.executeCommand('markdown.api.render', this._question.getConcatenated());
     // Uncomment this to use marked renderer
-    // webviewView.webview.html = marked.parse(this.getMarkdownString());
+    // webviewView.webview.html = marked.parse(this._question.getConcatenated());
     vscode.window.showInformationMessage('Loaded: ' + this._question.title);
 
     // webviewView.webview.onDidReceiveMessage((data) => {

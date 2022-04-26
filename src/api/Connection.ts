@@ -16,6 +16,14 @@ export class ConnectionChecker {
     constructor () {
         this._status = false;
         this._time = new Date();
+        this.timeout();
+    }
+
+    private timeout() {
+        setTimeout(() => {
+            this.check();
+            this.timeout();
+        }, 3000);
     }
 
     public async check() {

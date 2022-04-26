@@ -26,11 +26,11 @@ export type StateDict = {
 };
 
 export let globalState: StateDict = {
-	sessionId: '',
-	questionId: '',
-	lang: 'cpp',
+    sessionId: '',
+    questionId: '',
+    lang: 'cpp',
     langId: 52,
-	code: '',
+    code: '',
     isLanguageSet: false
 };
 

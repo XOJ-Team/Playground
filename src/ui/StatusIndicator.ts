@@ -14,9 +14,9 @@ export class StatusIndicator {
         _extensionContext.subscriptions.push(this._item);
         _extensionContext.subscriptions.push(this._disposable);
 
-        // Hook text update events
-        _extensionContext.subscriptions.push(vscode.window.onDidChangeActiveTextEditor(this.update, this));
-        _extensionContext.subscriptions.push(vscode.window.onDidChangeTextEditorSelection(this.update, this));
+        // Hook text update events (lousy btw, so disabled for now)
+        // _extensionContext.subscriptions.push(vscode.window.onDidChangeActiveTextEditor(this.update, this));
+        // _extensionContext.subscriptions.push(vscode.window.onDidChangeTextEditorSelection(this.update, this));
 
         // Update status bar item once at start
         this.update();
