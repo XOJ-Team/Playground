@@ -1,89 +1,65 @@
+
 import * as vscode from 'vscode';
 
 import { SubmissionObject } from '../api/Common';
-
+import { Judge0LookupResponse } from '../api/Common';
+import {JudgeServer} from '../api/Judge';
 export class ResultView {
 
     private static readonly _viewType = 'playground.panel.resultView';
-
+	//TODO: Replace with event/command
+	private _lookupResponse: Judge0LookupResponse = { "source_code": "I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbih2b2lkKSB7CiAgY2hhciBu\nYW1lWzEwXTsKICBzY2FuZigiJXMiLCBuYW1lKTsKICBwcmludGYoImhlbGxv\nLCAlc1xuIiwgbmFtZSk7CiAgcmV0dXJuIDA7Cn0=\n", "language_id": 52, "stdin": "SnVkZ2Uw\n", "expected_output": null, "stdout": "aGVsbG8sIEp1ZGdlMAo=\n", "status_id": 3, "created_at": "2022-04-26T06:21:10.628Z", "finished_at": "2022-04-26T06:21:11.129Z", "time": "0.002", "memory": 784, "stderr": null, "token": "d5a8085e-34ce-4230-af5b-c22fee673b22", "number_of_runs": 1, "cpu_time_limit": "5.0", "cpu_extra_time": "1.0", "wall_time_limit": "10.0", "memory_limit": 128000, "stack_limit": 64000, "max_processes_and_or_threads": 60, "enable_per_process_and_thread_time_limit": false, "enable_per_process_and_thread_memory_limit": false, "max_file_size": 1024, "compile_output": null, "exit_code": 0, "exit_signal": null, "message": null, "wall_time": "0.033", "compiler_options": null, "command_line_arguments": null, "redirect_stderr_to_stdout": false, "callback_url": null, "additional_files": null, "enable_network": false, "status": { "id": 3, "description": "Accepted" }, "language": { "id": 52, "name": "C++ (GCC 7.4.0)" } } as unknown as Judge0LookupResponse;
     constructor(private readonly _extensionContext: vscode.ExtensionContext) {
-		const view = vscode.window.createTreeView(ResultView._viewType, { treeDataProvider: aNodeWithIdTreeDataProvider(), showCollapseAll: true });
+		const view = vscode.window.createTreeView(ResultView._viewType, { treeDataProvider: new ResultDataProvider(this._lookupResponse), showCollapseAll: true });
 		_extensionContext.subscriptions.push(view);
     }
 
 }
 
-
-const tree = {
-	'a': {
-		'aa': {
-			'aaa': {
-				'aaaa': {
-					'aaaaa': {
-						'aaaaaa': {
-
-						}
-					}
-				}
-			}
-		},
-		'ab': {}
-	},
-	'b': {
-		'ba': {},
-		'bb': {}
-	}
-};
+export class SubmissionResultModel{
+    // public readonly result: Judge0LookupResponse;
+	public readonly resultType: string;
+	public readonly resultValue?: any;
+	public readonly resultIcon: string = '$(check)';
+    constructor(resultType: string, resultValue?: any, resultIcon?: string){
+        this.resultType = resultType;
+		this.resultValue = resultValue;
+		this.resultIcon = resultIcon || '$(check)';
+    }
+}
 
 
-function aNodeWithIdTreeDataProvider(): vscode.TreeDataProvider<{ key: string }> {
-	return {
-		getChildren: (element: { key: string }): { key: string }[] => {
-			return getChildren(element ? element.key : "Not ").map(key => getNode(key));
-		},
-		getTreeItem: (element: { key: string }): vscode.TreeItem => {
-			const treeItem = getTreeItem(element.key);
-			treeItem.id = element.key;
-			return treeItem;
-		},
-		getParent: ({ key }: { key: string }): { key: string } => {
-			const parentKey = key.substring(0, key.length - 1);
-			return  new Key(parentKey);
+ export class ResultDataProvider implements vscode.TreeDataProvider<SubmissionResultModel> {
+
+    private _onDidChangeTreeData: vscode.EventEmitter<any> = new vscode.EventEmitter<any>();
+    readonly onDidChangeTreeData: vscode.Event<any> = this._onDidChangeTreeData.event;
+    private _submissonResultModelList: SubmissionResultModel[] = [];
+	private _initSubmissionResultModelList(lookupResponse: Judge0LookupResponse) {
+		let k : keyof Judge0LookupResponse;
+		for (k in lookupResponse) {
+			this._submissonResultModelList.push(new SubmissionResultModel(k, lookupResponse[k]));
 		}
-	};
-}
-
-function getChildren(key: string): string[] {
-	if (!key) {
-		return Object.keys(tree);
 	}
-	const treeElement = getTreeElement(key);
-	if (treeElement) {
-		return Object.keys(treeElement);
+
+
+    constructor(private readonly _lookupResponse: Judge0LookupResponse) {
+		this._initSubmissionResultModelList(_lookupResponse);
 	}
-	return [];
-}
 
-function getTreeItem(key: string): vscode.TreeItem {
-	const treeElement = getTreeElement(key);
-	// An example of how to use codicons in a MarkdownString in a tree item tooltip.
-	const tooltip = new vscode.MarkdownString(`$(zap) Tooltip for ${key}`, true);
-	return {
-		label: /**vscode.TreeItemLabel**/<any>{ label: key, highlights: key.length > 1 ? [[key.length - 2, key.length - 1]] : void 0 },
-		tooltip,
-		collapsibleState: treeElement && Object.keys(treeElement).length ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None
-	};
-}
+    public refresh(): any {
+        this._onDidChangeTreeData.fire(void 0);
+    }
 
-function getTreeElement(element: string): any {
-	let parent = tree;
-	return "Tree element";
-}
-
-function getNode(key: string): { key: string } {
-	return new Key(key);
-}
-
-class Key {
-	constructor(readonly key: string) { }
+    public getTreeItem(element: SubmissionResultModel): vscode.TreeItem {
+		return {
+			label: element.resultType+': '+element.resultValue,
+			iconPath: element.resultIcon
+		};
+    }
+    public getChildren(element?: SubmissionResultModel) {
+		if (element) {
+			return null;
+		}
+		return this._submissonResultModelList;
+    }
 }

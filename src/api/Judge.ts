@@ -49,7 +49,7 @@ export class JudgeServer {
             let res: rm.IRestResponse<Judge0LookupResponse> = await this._client.get<Judge0LookupResponse>(endpoint + this._token + rapidApiOptions);
             if (res.statusCode === 200) {
                 console.log(res.result);
-                break;
+                return res.result;
             }
         }
     }
