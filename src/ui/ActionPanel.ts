@@ -30,8 +30,11 @@ export class ActionPanel {
     console.log('[INFO] submitCode');
   }
 
-  private refresh() {
+  private async refresh() {
     console.log('[INFO] refresh');
+    const fileUri = vscode.Uri.from;
+    // await vscode.commands.executeCommand("markdown.showLockedPreviewToSide", fileUri);
+    await vscode.commands.executeCommand("markdown.api.render", "# TEST");
   }
 
 }

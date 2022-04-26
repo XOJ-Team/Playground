@@ -47,11 +47,17 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     try {
       await this._question.get();
     } catch (err) {
-      webviewView.webview.html = marked.parse('### Error occurred ' + err);
+      // Built-in render (markdown-language-features)
+      webviewView.webview.html = await vscode.commands.executeCommand('markdown.api.render', '### Error occurred ' + err);
+      // Uncomment this to use marked renderer
+      // webviewView.webview.html = marked.parse('### Error occurred ' + err);
     }
 
-    webviewView.webview.html = marked.parse(this.getMarkdownString());
-    vscode.window.showInformationMessage('Question loaded: ' + this._question.title);
+    // Built-in render (markdown-language-features)
+    webviewView.webview.html = await vscode.commands.executeCommand('markdown.api.render', this._question.getConcatenated());
+    // Uncomment this to use marked renderer
+    // webviewView.webview.html = marked.parse(this.getMarkdownString());
+    vscode.window.showInformationMessage('Loaded: ' + this._question.title);
 
     // webviewView.webview.onDidReceiveMessage((data) => {
     //   switch (data.type) {
@@ -64,20 +70,4 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     //   }
     // });
   }
-
-  public getMarkdownString() {
-    return '### '
-      + this._question.title
-      + '\n'
-      + this._question.desc
-      + '\n\n'
-      + '*Time Limit: '
-      + this._question.timeLimit
-      + 's*'
-      + '\t | \t'
-      + '*Memory Limit: '
-      + this._question.memLimit
-      + 'MB*';
-  }
-
 }

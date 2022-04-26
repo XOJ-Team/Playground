@@ -2,11 +2,10 @@ import * as vscode from 'vscode';
 
 import { StatusIndicator } from './ui/StatusIndicator';
 import { DescriptionView } from './ui/DescriptionView';
-import { SampleView } from './ui/SampleView';
 import { ActionPanel } from './ui/ActionPanel';
 import { WebUriHandler } from './ui/UriHandler';
 import { LanguagePicker } from './ui/LanguagePicker';
-import { ResultViewProvider } from './ui/ResultView';
+import { ResultView } from './ui/ResultView';
 import { DebugConfiguration } from './ui/DebugConfigurationProvider';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -15,9 +14,10 @@ export function activate(context: vscode.ExtensionContext) {
 	const webUriHandler = new WebUriHandler(context);
 	const statusIndicator = new StatusIndicator(context);
 	const descriptionView = new DescriptionView(context);
-	// const sampleView = new SampleView(context);
 	const actionPanel = new ActionPanel(context);
+	const resultView = new ResultView(context);
 	const languagePicker = new LanguagePicker(context);
+	
 }
 
 export function deactivate() {

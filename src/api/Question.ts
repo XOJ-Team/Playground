@@ -15,6 +15,8 @@ export class Question {
     private _timeLimit?: number;
     private _client: rm.RestClient = new rm.RestClient('xoj-playground', server);
 
+    private _concatenated?: string;
+
     constructor(id?: string) {
         this._id = id || '';
         this._title = 'null';
@@ -34,6 +36,10 @@ export class Question {
         }
     }
 
+    public set id(s: string) {
+        this._id = s;
+    }
+
     public get title(): string | undefined {
         return this._title;
     }
@@ -50,4 +56,17 @@ export class Question {
         return this._timeLimit;
     }
 
+    public getConcatenated(): string {
+        if (this._id !== '') {
+            return '### ' + this._title
+            + '\n'
+            + this._desc
+            + '\n\n'
+            + '*Time Limit: ' + this._timeLimit + 's*'
+            + '\t | \t'
+            + '*Memory Limit: ' + this._memLimit + 'MB*';
+        } else {
+            return "Loading...";
+        }
+    }
 }
