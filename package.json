@@ -41,7 +41,16 @@
           "visibility": "visible",
           "when": "!xoj-playground:disabled"
         }
-      ]
+      ],
+			"xoj-playground-panel-container": [
+				{
+          "type": "tree",
+					"id": "playground.panel.resultView",
+					"name": "Result",
+          "visibility": "visible",
+          "when": "!xoj-playground:disabled"
+				}
+			]
     },
     "viewsContainers": {
       "activitybar": [
@@ -50,7 +59,14 @@
           "title": "XOJ Action Center",
           "icon": "assets/logo_50px.svg"
         }
-      ]
+      ],
+      "panel": [
+				{
+					"id": "xoj-playground-panel-container",
+					"title": "XOJ",
+          "icon": "assets/logo_50px.svg"
+				}
+			]
     },
     "viewsWelcome": [
       {
