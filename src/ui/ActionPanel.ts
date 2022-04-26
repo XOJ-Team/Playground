@@ -1,7 +1,9 @@
 import * as vscode from "vscode";
 
 import { state } from "../api/Types";
+import { JudgeServer } from "../api/Judge";
 
+const judgeServer = new JudgeServer();
 export class ActionPanel {
   private _commandList = [
     'xoj-playground.run', 
@@ -19,15 +21,17 @@ export class ActionPanel {
       _extensionContext.subscriptions.push(this._command);
   }
 
-  private runCode() {
+  private async runCode() {
     // Run code only (without submitting result to XOJ backend)
     console.log('[INFO] runCode');
     console.log(state);
+    await judgeServer.submit();
   }
 
   private submitCode() {
     // Run code and submit result to XOJ backend
     console.log('[INFO] submitCode');
+    judgeServer.getResult();
   }
 
   private async refresh() {

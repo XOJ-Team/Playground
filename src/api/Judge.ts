@@ -1,17 +1,47 @@
 import * as vscode from 'vscode';
 import * as rm from 'typed-rest-client';
+import { IHeaders } from 'typed-rest-client/Interfaces';
 
-const server: string | undefined = vscode.workspace.getConfiguration('xoj-playground').get('targetServer');
-const endpoint = '/judge';
+import { extUserAgent } from './Types';
+import { Judge0SubmissionRequest } from './Types';
+import { Judge0SubmissionResponse } from './Types';
+import { Judge0LookupResponse } from './Types';
+
+const server: string | undefined = vscode.workspace.getConfiguration('xoj-playground').get('judgeServer');
+
+const rapidApiOptions: string = '?base64_encoded=true';
+const rapidApiHeaders: IHeaders = {
+    'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
+    'X-RapidAPI-Key': '70bf6240d4msh1b624cfac8134adp1c9a15jsn24e93331d79e'
+};
+
+const endpoint = '/submissions/';
+
+const testBody: Judge0SubmissionRequest = {
+    source_code: "I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbih2b2lkKSB7CiAgY2hhciBuYW1lWzEwXTsKICBzY2FuZigiJXMiLCBuYW1lKTsKICBwcmludGYoImhlbGxvLCAlc1xuIiwgbmFtZSk7CiAgcmV0dXJuIDA7Cn0=",
+    language_id: 52,
+    stdin: "d29ybGQK",
+    expected_output: "aGVsbG8sIHdvcmxkCg=="
+};
 
 export class JudgeServer {
-    // TODO(skk): replace with actual results from server, this is debug only.
     private _languageCapability: string[] = ['c', 'cpp', 'java', 'python', 'javascript'];
-    // private _languageCapability: string[] = [''];
-    private _client: rm.RestClient = new rm.RestClient('xoj-playground', server);
+    private _client: rm.RestClient = new rm.RestClient(extUserAgent, server + endpoint + rapidApiOptions, [], { headers: rapidApiHeaders });
+    private _token?: string = '';
 
     constructor() {
-        this.updateLanguageCapability();
+        console.log('API URL: ' + extUserAgent, server + endpoint + rapidApiOptions);
+    }
+
+    public async submit() {
+        let res: rm.IRestResponse<Judge0SubmissionResponse> = await this._client.create<Judge0SubmissionResponse>(endpoint + rapidApiOptions, testBody);
+        this._token = res.result?.token;
+        console.log(res.result);
+    }
+
+    public async getResult() {
+        let res: rm.IRestResponse<Judge0LookupResponse> = await this._client.get<Judge0LookupResponse>(endpoint + this._token + rapidApiOptions);
+        console.log(res.result);
     }
 
     private async updateLanguageCapability() {

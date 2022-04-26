@@ -109,12 +109,12 @@
       "properties": {
         "xoj-playground.targetServer": {
           "type": "string",
-          "default": "https://api.xoj.codes/",
+          "default": "https://api.xoj.codes",
           "description": "Backend server to connect to."
         },
         "xoj-playground.judgeServer": {
           "type": "string",
-          "default": "https://api.xoj.codes/",
+          "default": "https://judge0-ce.p.rapidapi.com",
           "description": "Judge server to connect to."
         }
       }

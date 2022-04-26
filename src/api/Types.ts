@@ -1,3 +1,7 @@
+import { StatusBarAlignment } from "vscode";
+
+export const extUserAgent = 'xoj-playground';
+
 export type ConnectionStatus = {
     status: boolean;
     comment: string;
@@ -67,4 +71,30 @@ export type QuestionObject = {
 
         tags: string;
     }
+};
+
+export type Judge0SubmissionRequest = {
+    source_code: string;
+    language_id: number;
+    stdin?: string;
+    expected_output?: string;
+};
+
+export type Judge0SubmissionResponse = {
+    token: string;
+};
+
+export type Judge0LookupResponse = {
+    // Maybe not?
+    status_id?: string;
+
+    status: {
+        id: string;
+        description: string;
+    };
+    
+    time?: string;
+    memory?: string;
+    compile_output?: string;
+
 };

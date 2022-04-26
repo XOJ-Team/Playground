@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as rm from 'typed-rest-client/RestClient';
 
 import { QuestionObject } from "./Types";
+import { extUserAgent } from './Types';
 
 const server: string | undefined = vscode.workspace.getConfiguration('xoj-playground').get('targetServer');
 const endpoint = '/question/';
@@ -13,7 +14,7 @@ export class Question {
     private _desc?: string;
     private _memLimit?: number;
     private _timeLimit?: number;
-    private _client: rm.RestClient = new rm.RestClient('xoj-playground', server);
+    private _client: rm.RestClient = new rm.RestClient(extUserAgent, server);
 
     private _concatenated?: string;
 
