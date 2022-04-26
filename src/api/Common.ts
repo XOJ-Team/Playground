@@ -87,17 +87,15 @@ export type Judge0SubmissionResponse = {
 };
 
 export type Judge0LookupResponse = {
-    // Maybe not?
-    status_id?: string;
+    status_id: number | null;
 
     status: {
-        id: string;
+        id: number;
         description: string;
     };
     
-    time?: string;
-    memory?: string;
-    compile_output?: string;
-
+    time: string | null;
+    memory: number | null;
+    compile_output: string | null;
 };
 
