@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
-import { WebSession } from '../api/Types';
-import { state } from '../api/Types';
+import { WebSession } from '../api/Common';
+import { globalState } from '../api/Common';
 import { DescriptionView } from './DescriptionView';
 
 class FrontendUriHandler implements vscode.UriHandler {
@@ -10,9 +10,9 @@ class FrontendUriHandler implements vscode.UriHandler {
             const url = new URL(uri.toString(true));
             const sessionIdRaw = url.searchParams.get('sessionId');
             if (sessionIdRaw !== null) {
-                state.sessionId = Buffer.from(sessionIdRaw, 'base64').toString('binary');
+                globalState.sessionId = Buffer.from(sessionIdRaw, 'base64').toString('binary');
             }
-            state.questionId = url.searchParams.get('questionId');
+            globalState.questionId = url.searchParams.get('questionId');
         }
     }
 }

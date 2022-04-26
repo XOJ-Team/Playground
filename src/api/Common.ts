@@ -1,4 +1,4 @@
-import { StatusBarAlignment } from "vscode";
+/* eslint-disable @typescript-eslint/naming-convention */
 
 export const extUserAgent = 'xoj-playground';
 
@@ -18,16 +18,18 @@ export type StateDict = {
     sessionId: string | null;
     questionId: string | null;
     lang: string;
+    langId: number;
     code: string;
 
     // Workspace States
     isLanguageSet: boolean;
 };
 
-export let state: StateDict = {
+export let globalState: StateDict = {
 	sessionId: '',
 	questionId: '',
-	lang: 'c',
+	lang: 'cpp',
+    langId: 52,
 	code: '',
     isLanguageSet: false
 };
@@ -98,3 +100,4 @@ export type Judge0LookupResponse = {
     compile_output?: string;
 
 };
+

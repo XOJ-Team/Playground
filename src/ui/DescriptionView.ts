@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import { marked, Renderer } from "marked";
 
 import { Question } from "../api/Question";
-import { state } from "../api/Types";
+import { globalState } from "../api/Common";
 
 marked.setOptions({
   renderer: new Renderer,

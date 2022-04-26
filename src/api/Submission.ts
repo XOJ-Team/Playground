@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as rm from 'typed-rest-client/RestClient';
 
-import { SubmissionObject } from "./Types";
+import { SubmissionObject } from "./Common";
 
 const endpoint = '/submit_records/';
 

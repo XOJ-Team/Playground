@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
+import * as path from 'path';
 
-import { state } from "../api/Types";
+import { globalState } from "../api/Common";
 import { JudgeServer } from "../api/Judge";
 
 const judgeServer = new JudgeServer();
@@ -24,21 +25,28 @@ export class ActionPanel {
   private async runCode() {
     // Run code only (without submitting result to XOJ backend)
     console.log('[INFO] runCode');
-    console.log(state);
-    await judgeServer.submit();
+    console.log(globalState);
   }
 
-  private submitCode() {
+  private async submitCode() {
     // Run code and submit result to XOJ backend
-    console.log('[INFO] submitCode');
+    if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.getText() !== '') {
+      globalState.code = vscode.window.activeTextEditor.document.getText();
+      vscode.window.showInformationMessage('Your code is being submitted...');
+    } else {
+      vscode.window.showErrorMessage("There's no code to submit, please review your active document.");
+      return;
+    }
+    judgeServer.submit();
     judgeServer.getResult();
   }
 
   private async refresh() {
+    // TEST CODE, DO NOT USE
     console.log('[INFO] refresh');
-    const fileUri = vscode.Uri.from;
-    // await vscode.commands.executeCommand("markdown.showLockedPreviewToSide", fileUri);
-    await vscode.commands.executeCommand("markdown.api.render", "# TEST");
-  }
-
+    vscode.workspace.openTextDocument({
+        language: 'markdown',
+        content: '# TEST'
+      }).then(document => vscode.commands.executeCommand('markdown.showPreviewToSide', document));
+    }
 }

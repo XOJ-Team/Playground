@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
 import * as rm from 'typed-rest-client/RestClient';
 
-import { ConnectionStatus } from './Types';
-import { extUserAgent } from './Types';
+import { ConnectionStatus } from './Common';
+import { extUserAgent } from './Common';
 
 const backend: string | undefined = vscode.workspace.getConfiguration('xoj-playground').get('targetServer');
 const judge: string | undefined = vscode.workspace.getConfiguration('xoj-playground').get('judgeServer');

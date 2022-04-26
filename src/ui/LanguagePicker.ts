@@ -3,7 +3,7 @@ import { compileFunction } from 'vm';
 import * as vscode from 'vscode';
 
 import { JudgeServer } from '../api/Judge';
-import { state } from '../api/Types';
+import { globalState } from '../api/Common';
 
 export class LanguagePicker {
     private _disposable: vscode.Disposable;
@@ -38,8 +38,8 @@ export class LanguagePicker {
 
         this._disposable = vscode.commands.registerCommand(this._command, this.show, this);
         _extensionContext.subscriptions.push(this._disposable);
-        state.lang = this._extensionContext.workspaceState.get('language') || 'c';
-        vscode.window.showInformationMessage(`Language is set to: ${state.lang}`);
+        globalState.lang = this._extensionContext.workspaceState.get('language') || 'c';
+        vscode.window.showInformationMessage(`Language is set to: ${globalState.lang}`);
     }
 
     private async show() {
@@ -71,8 +71,8 @@ export class LanguagePicker {
             if (vscode.window.activeTextEditor?.document !== undefined) {
                 vscode.languages.setTextDocumentLanguage(vscode.window.activeTextEditor.document, this._lang);
             }
-            state.lang = this._lang;
-            state.isLanguageSet = true;
+            globalState.lang = this._lang;
+            globalState.isLanguageSet = true;
         }
     }
 }

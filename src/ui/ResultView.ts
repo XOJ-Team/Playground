@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { SubmissionObject } from '../api/Types';
+import { SubmissionObject } from '../api/Common';
 
 export class ResultView {
 
