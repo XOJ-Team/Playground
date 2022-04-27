@@ -74,7 +74,7 @@
     "viewsWelcome": [
       {
         "view": "playground.container.actionView",
-        "contents": "To get started, please \n[$(library) Select a Language](command:xoj-playground.selectLanguage) \n Other Actions: \n [$(cloud-upload) Submit and Run](command:xoj-playground.submit) \n [$(refresh) Refresh](command:xoj-playground.refresh) \n For more help, visit our [website](https://xoj.codes)."
+        "contents": "To get started, please \n[$(library) Select a Language](command:xoj-playground.selectLanguage) \n Other Actions: \n [$(play) Run on XOJ](command:xoj-playground.run) \n [$(cloud-upload) Submit](command:xoj-playground.submit) \n [$(refresh) Refresh / Re-connect](command:xoj-playground.refresh) \n For more help, visit our [website](https://xoj.codes)."
       }
     ],
     "commands": [

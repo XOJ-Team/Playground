@@ -59,15 +59,14 @@ export class Question {
 
     public getConcatenated(): string {
         if (this._id !== '') {
-            return '### ' + this._title
-            + '\n'
-            + this._desc
-            + '\n\n'
+            return '### ' + this._title + '\n'
+            + this._desc + '\n\n'
             + '*Time Limit: ' + this._timeLimit + 's*'
             + '\t | \t'
             + '*Memory Limit: ' + this._memLimit + 'MB*';
         } else {
-            return "Loading...";
+            return "### No Question Loaded" + '\n'
+            + "Please select a question from [XOJ Website](https://xoj.codes/questions/).";
         }
     }
 }

@@ -33,11 +33,11 @@ export class SubmissionResultModel{
 
     private _onDidChangeTreeData: vscode.EventEmitter<any> = new vscode.EventEmitter<any>();
     readonly onDidChangeTreeData: vscode.Event<any> = this._onDidChangeTreeData.event;
-    private _submissonResultModelList: SubmissionResultModel[] = [];
+    private _submissionResultModelList: SubmissionResultModel[] = [];
 	private _initSubmissionResultModelList(lookupResponse: Judge0LookupResponse) {
 		let k : keyof Judge0LookupResponse;
 		for (k in lookupResponse) {
-			this._submissonResultModelList.push(new SubmissionResultModel(k, lookupResponse[k]));
+			this._submissionResultModelList.push(new SubmissionResultModel(k, lookupResponse[k]));
 		}
 	}
 
@@ -60,6 +60,6 @@ export class SubmissionResultModel{
 		if (element) {
 			return null;
 		}
-		return this._submissonResultModelList;
+		return this._submissionResultModelList;
     }
 }

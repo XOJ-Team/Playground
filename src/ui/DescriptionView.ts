@@ -17,16 +17,20 @@ marked.setOptions({
 
 export class DescriptionView implements vscode.WebviewViewProvider {
   private static readonly _viewType = "playground.container.descriptionView";
+  private _commandId = "xoj-playground.refresh";
+  private _disposable: vscode.Disposable;
 
   private _view?: vscode.WebviewView;
   private _description: string = '';
   // TODO(skk): replace with QuestionId from web activation.
-  private _question: Question = new Question('8');
+  private _question: Question = new Question('');
 
   constructor(private readonly _extensionContext: vscode.ExtensionContext) {
     _extensionContext.subscriptions.push(
       vscode.window.registerWebviewViewProvider(DescriptionView._viewType, this)
     );
+    this._disposable = vscode.commands.registerCommand(this._commandId, this.refresh, this);
+    _extensionContext.subscriptions.push(this._disposable);
     console.log("[INFO] Question Description View initialized");
   }
 
@@ -69,5 +73,13 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     //     }
     //   }
     // });
+  }
+
+  public async refresh() {
+    if (this._view) {
+      this._question.id = globalState.questionId;
+      await this._question.get();
+      this._view.webview.html = marked.parse(this._question.getConcatenated());
+    }
   }
 }

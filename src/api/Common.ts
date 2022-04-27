@@ -16,7 +16,7 @@ export type WebSession = {
 
 export type StateDict = {
     sessionId: string | null;
-    questionId: string | null;
+    questionId: string;
     lang: string;
     langId: number;
     code: string;
