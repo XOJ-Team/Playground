@@ -35,6 +35,7 @@ export class ActionPanel {
       vscode.window.showErrorMessage("There's no code to submit, please review your active document.");
       return;
     }
+    
     judgeServer.submit();
     judgeServer.getResult().then(result => { vscode.commands.executeCommand('xoj-playground.showResult', result); });
   }

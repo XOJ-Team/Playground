@@ -19,8 +19,17 @@ export class ConnectionChecker {
     }
 
     public async check() {
-        try {
-            let res: rm.IRestResponse<ConnectionStatus> = await this._client.get<ConnectionStatus>(endpoint);
+        // try {
+        // let res: rm.IRestResponse<ConnectionStatus> = await this._client.get<ConnectionStatus>(endpoint);
+        // if (res.result !== null && res.result.status) {
+        //     this._status = true;
+        //     this._time = res.result.obj;
+        // } else {
+        //     this._status = false;
+        //     this._time = new Date();
+        // }
+
+        await this._client.get<ConnectionStatus>(endpoint).then(res => {
             if (res.result !== null && res.result.status) {
                 this._status = true;
                 this._time = res.result.obj;
@@ -28,12 +37,17 @@ export class ConnectionChecker {
                 this._status = false;
                 this._time = new Date();
             }
-        } catch(err) {
+        }).catch(err => {
             this._status = false;
             this._time = new Date();
             console.log(err);
-            return;
-        }
+        });
+        // } catch(err) {
+        //     this._status = false;
+        //     this._time = new Date();
+        //     console.log(err);
+        //     return;
+        // }
     }
 
     public get status(): boolean {
