@@ -1,4 +1,5 @@
 
+import { runInThisContext } from 'vm';
 import * as vscode from 'vscode';
 
 import { SubmissionObject } from '../api/Common';
@@ -17,9 +18,9 @@ export class ResultView {
 	private _lookupResponse: Judge0LookupResponse = {} as Judge0LookupResponse;
 
 	constructor(private readonly _extensionContext: vscode.ExtensionContext) {
-
 		this._disposable = vscode.commands.registerCommand(ResultView._showResultCommand, this.onResultFetched, this);
 		_extensionContext.subscriptions.push(this._disposable);
+
 		this._disposable = vscode.commands.registerCommand(ResultView._refreshResultCommand, this._resultDataProvider.refresh, this);
 		_extensionContext.subscriptions.push(this._disposable);
 
@@ -29,6 +30,7 @@ export class ResultView {
 
 	private onResultFetched(res: Judge0LookupResponse) {
 		this._lookupResponse = res;
+		this._submissionResultModelList = [];
 		this._initSubmissionResultModelList(this._lookupResponse);
 		console.log('[INFO] onResultFetched');
 		console.log(this._lookupResponse);
@@ -98,6 +100,7 @@ export class ResultDataProvider implements vscode.TreeDataProvider<SubmissionRes
 		return {
 			label: element.resultType + ': ' + element.resultValue,
 			iconPath: element.resultIcon,
+			collapsibleState: vscode.TreeItemCollapsibleState.None
 		};
 	}
 	public getChildren(element?: SubmissionResultModel) {
