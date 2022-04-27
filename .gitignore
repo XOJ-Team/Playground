@@ -3,6 +3,9 @@ node_modules
 dist
 *.vsix
 
+# Deprecated stuff
+.deprecated
+
 
 ## macOS ignore staff start
 
