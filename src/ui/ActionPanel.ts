@@ -9,8 +9,7 @@ const judgeServer = new JudgeServer();
 export class ActionPanel {
   private _commandList = [
     'xoj-playground.run', 
-    'xoj-playground.submit', 
-    // 'xoj-playground.refresh'
+    'xoj-playground.submit'
   ];
   private _disposable: vscode.Disposable;
 

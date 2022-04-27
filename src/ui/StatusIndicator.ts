@@ -14,14 +14,18 @@ export class StatusIndicator {
         _extensionContext.subscriptions.push(this._item);
         _extensionContext.subscriptions.push(this._disposable);
 
-        // Hook text update events (lousy btw, so disabled for now)
-        // _extensionContext.subscriptions.push(vscode.window.onDidChangeActiveTextEditor(this.update, this));
-        // _extensionContext.subscriptions.push(vscode.window.onDidChangeTextEditorSelection(this.update, this));
-
         // Update status bar item once at start
         this.update();
+        this.timeout();
 
         console.log('[INFO] StatusIndicator initialized');
+    }
+
+    private timeout() {
+        setTimeout(() => {
+            this.update();
+            this.timeout();
+        }, 3000);
     }
 
     private async update(): Promise<void> {
@@ -38,7 +42,7 @@ export class StatusIndicator {
         if (this._checker.status) {
             vscode.window.showInformationMessage('Currently connected to XOJ Server. Server Time: ', this._checker.time.toString());
         } else {
-            vscode.window.showWarningMessage(`Currently disconnected to XOJ Server.`);
+            vscode.window.showWarningMessage(`Currently disconnected to XOJ Server. Local Time: `, this._checker.time.toString());
         }
     }
 }

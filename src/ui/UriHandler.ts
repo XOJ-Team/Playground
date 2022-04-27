@@ -12,7 +12,7 @@ class FrontendUriHandler implements vscode.UriHandler {
             if (sessionIdRaw !== null) {
                 globalState.sessionId = Buffer.from(sessionIdRaw, 'base64').toString('binary');
             }
-            globalState.questionId = url.searchParams.get('questionId');
+            globalState.questionId = url.searchParams.get('questionId') || '';
         }
     }
 }

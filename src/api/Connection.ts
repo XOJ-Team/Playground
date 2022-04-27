@@ -16,26 +16,22 @@ export class ConnectionChecker {
     constructor () {
         this._status = false;
         this._time = new Date();
-        this.timeout();
-    }
-
-    private timeout() {
-        setTimeout(() => {
-            this.check();
-            this.timeout();
-        }, 3000);
     }
 
     public async check() {
         try {
             let res: rm.IRestResponse<ConnectionStatus> = await this._client.get<ConnectionStatus>(endpoint);
-            if (res.result?.status) {
+            if (res.result !== null && res.result.status) {
                 this._status = true;
                 this._time = res.result.obj;
+            } else {
+                this._status = false;
+                this._time = new Date();
             }
         } catch(err) {
             this._status = false;
             this._time = new Date();
+            console.log(err);
             return;
         }
     }
