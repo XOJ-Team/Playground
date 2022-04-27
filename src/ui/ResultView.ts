@@ -39,7 +39,7 @@ export class ResultView {
 	private _initSubmissionResultModelList(lookupResponse: Judge0LookupResponse) {
 		let k: keyof Judge0LookupResponse;
 		for (k in lookupResponse) {
-			if (lookupResponse[k] === null) {
+			if (lookupResponse[k] === null || k === 'token') {
 				continue;
 			}
 			if (k === 'status') {
@@ -55,7 +55,7 @@ export class ResultView {
 				this._submissionResultModelList.push(new SubmissionResultModel('Compile Output',Buffer.from(lookupResponse[k], 'base64').toString('binary'), 'output'));
 			}
 			// else if (k === 'token') {
-			// 	this._submissionResultModelList.push(new SubmissionResultModel('Submission Token',lookupResponse[k], 'key'));
+			// this._submissionResultModelList.push(new SubmissionResultModel('Submission Token',lookupResponse[k], 'key'));
 			// }
 			else {
 				this._submissionResultModelList.push(new SubmissionResultModel(k, lookupResponse[k]));
