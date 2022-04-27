@@ -38,10 +38,10 @@ export class ResultDataProvider implements vscode.TreeDataProvider<SubmissionRes
 		let k: keyof Judge0LookupResponse;
 		for (k in lookupResponse) {
 			if (k === 'status') {
-				this._submissonResultModelList.push(new SubmissionResultModel('Status', lookupResponse.status.description, 'check'));
+				this._submissionResultModelList.push(new SubmissionResultModel('Status', lookupResponse.status.description, 'check'));
 			}
 			else{
-				this._submissonResultModelList.push(new SubmissionResultModel(k, lookupResponse[k]));
+				this._submissionResultModelList.push(new SubmissionResultModel(k, lookupResponse[k]));
 			}
 		}
 	}
