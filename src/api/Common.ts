@@ -96,6 +96,6 @@ export type Judge0LookupResponse = {
     
     time: string | null;
     memory: number | null;
-    compile_output: string | null;
+    compile_output: string;
 };
 

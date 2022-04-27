@@ -26,7 +26,7 @@ export class ResultView {
 		this._disposable = vscode.window.createTreeView(ResultView._viewType, { treeDataProvider: this._resultDataProvider, showCollapseAll: true });
 		_extensionContext.subscriptions.push(this._disposable);
 	}
-	
+
 	private onResultFetched(res: Judge0LookupResponse) {
 		this._lookupResponse = res;
 		this._initSubmissionResultModelList(this._lookupResponse);
@@ -39,9 +39,24 @@ export class ResultView {
 	private _initSubmissionResultModelList(lookupResponse: Judge0LookupResponse) {
 		let k: keyof Judge0LookupResponse;
 		for (k in lookupResponse) {
-			if (k === 'status') {
-				this._submissionResultModelList.push(new SubmissionResultModel('Status', lookupResponse.status.description, 'check'));
+			if (lookupResponse[k] === null) {
+				continue;
 			}
+			if (k === 'status') {
+				this._submissionResultModelList.push(new SubmissionResultModel('Status', lookupResponse.status.description, lookupResponse.status.description.includes('Accepted') ? 'pass' : 'close'));
+			}
+			else if (k === 'memory') {
+				this._submissionResultModelList.push(new SubmissionResultModel('Memory Used', lookupResponse[k] + ' KB', 'circuit-board'));
+			}
+			else if (k === 'time') {
+				this._submissionResultModelList.push(new SubmissionResultModel('Time Used', lookupResponse[k] + ' ms', 'watch'));
+			}
+			else if (k === 'compile_output') {
+				this._submissionResultModelList.push(new SubmissionResultModel('Compile Output',Buffer.from(lookupResponse[k], 'base64').toString('binary'), 'output'));
+			}
+			// else if (k === 'token') {
+			// 	this._submissionResultModelList.push(new SubmissionResultModel('Submission Token',lookupResponse[k], 'key'));
+			// }
 			else {
 				this._submissionResultModelList.push(new SubmissionResultModel(k, lookupResponse[k]));
 			}
