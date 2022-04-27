@@ -2,6 +2,9 @@ import * as vscode from 'vscode';
 
 import { ConnectionChecker } from '../api/Connection';
 export class StatusIndicator {
+
+    // TODO(skk): add running indicator
+
     private _command = 'xoj-playground.showConnectionStatus';
     private _item: vscode.StatusBarItem;
     private _disposable: vscode.Disposable;
