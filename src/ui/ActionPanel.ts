@@ -36,7 +36,7 @@ export class ActionPanel {
       return;
     }
     judgeServer.submit();
-    judgeServer.getResult();
+    judgeServer.getResult().then(result => {vscode.commands.executeCommand('xoj-playground.showResult', result);});
   }
 
   private async refresh() {
