@@ -14,15 +14,14 @@ const server: string | undefined = vscode.workspace.getConfiguration('xoj-playgr
 
 const rapidApiOptions: string = '?base64_encoded=true';
 const rapidApiHeaders: IHeaders = {
-    'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
-    'X-RapidAPI-Key': '70bf6240d4msh1b624cfac8134adp1c9a15jsn24e93331d79e'
+    'Cookie': 'SESSION='+globalState.sessionId
 };
 
-const endpoint = '/submissions/';
-
+const endpointSubmit = '/submit/';
+const endpointRun = '/run/';
 export class JudgeServer {
     private _languageCapability: string[] = ['c', 'cpp', 'java', 'python', 'javascript'];
-    private _client: rm.RestClient = new rm.RestClient(extUserAgent, server + endpoint + rapidApiOptions, [], { headers: rapidApiHeaders });
+    private _client: rm.RestClient = new rm.RestClient(extUserAgent, server + endpointSubmit + rapidApiOptions, [], { headers: rapidApiHeaders });
     private _token?: string = '';
     private _body: Judge0SubmissionRequest = {
         source_code: '',
@@ -32,21 +31,29 @@ export class JudgeServer {
     };
 
     constructor() {
-        console.log('API URL: ' + extUserAgent, server + endpoint + rapidApiOptions);
+        console.log('API URL: ' + extUserAgent, server + endpointSubmit + rapidApiOptions);
     }
 
     public async submit(): Promise<number> {
         this._body.source_code = Buffer.from(globalState.code, 'binary').toString('base64');
         this._body.language_id = globalState.langId;
-        let submission: rm.IRestResponse<Judge0SubmissionResponse> = await this._client.create<Judge0SubmissionResponse>(endpoint + rapidApiOptions, this._body);
+        let submission: rm.IRestResponse<Judge0SubmissionResponse> = await this._client.create<Judge0SubmissionResponse>(endpointSubmit + rapidApiOptions, this._body);
         this._token = submission.result?.token;
 
         return submission.statusCode;
     }
 
+    public async runRemote(): Promise<number> {
+        this._body.source_code = Buffer.from(globalState.code, 'binary').toString('base64');
+        this._body.language_id = globalState.langId;
+        let submission: rm.IRestResponse<Judge0SubmissionResponse> = await this._client.create<Judge0SubmissionResponse>(endpointSubmit + rapidApiOptions, this._body);
+        this._token = submission.result?.token;
+        return submission.statusCode;
+    }
+
     public async getResult() {
         while (true) {
-            let res: rm.IRestResponse<Judge0LookupResponse> = await this._client.get<Judge0LookupResponse>(endpoint + this._token + rapidApiOptions);
+            let res: rm.IRestResponse<Judge0LookupResponse> = await this._client.get<Judge0LookupResponse>(endpointSubmit + this._token + rapidApiOptions);
             if (res.statusCode === 200) {
                 console.log(res.result);
                 return res.result;

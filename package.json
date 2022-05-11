@@ -133,7 +133,7 @@
         },
         "xoj-playground.judgeServer": {
           "type": "string",
-          "default": "https://judge0-ce.p.rapidapi.com",
+          "default": "https://api.xoj.codes/judge",
           "description": "Judge server to connect to."
         }
       }
