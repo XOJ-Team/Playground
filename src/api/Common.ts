@@ -28,7 +28,7 @@ export type StateDict = {
 export let globalState: StateDict = {
     sessionId: '',
     questionId: '',
-    lang: 'cpp',
+    lang: 'c',
     langId: 52,
     code: '',
     isLanguageSet: false
@@ -100,3 +100,11 @@ export type Judge0LookupResponse = {
     token: string;
 };
 
+export const Judge0LanguageId = {
+    'c': 50,
+    'cpp': 54,
+    'java': 62,
+    'python2': 70,
+    'python3': 71,
+    'go': 60
+};

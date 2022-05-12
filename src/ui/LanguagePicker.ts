@@ -14,7 +14,8 @@ export class LanguagePicker {
         { label: 'C', description: '-std=c11', picked: true },
         { label: 'C++', description: '-std=c++14' },
         { label: 'Java', description: 'OpenJDK 11' },
-        { label: 'Python', description: '3.8' },
+        { label: 'Python2', description: '2.7.17' },
+        { label: 'Python3', description: '3.8.1' },
         { label: 'Golang', description: '1.17' }
     ];
 
@@ -38,7 +39,7 @@ export class LanguagePicker {
 
         this._disposable = vscode.commands.registerCommand(this._command, this.show, this);
         _extensionContext.subscriptions.push(this._disposable);
-        globalState.lang = this._extensionContext.workspaceState.get('language') || 'c';
+        globalState.lang = this._extensionContext.workspaceState.get('language') || this._lang;
         vscode.window.showInformationMessage(`Language is set to: ${globalState.lang}`);
     }
 
@@ -54,8 +55,10 @@ export class LanguagePicker {
                         this._lang = 'c';
                     } else if (item.label === 'C++') {
                         this._lang = 'cpp';
-                    } else if (item.label === 'Python') {
-                        this._lang = 'python';
+                    } else if (item.label === 'Python2') {
+                        this._lang = 'python2';
+                    } else if (item.label === 'Python3') {
+                        this._lang = 'python3';
                     } else if (item.label === 'Java') {
                         this._lang = 'java';
                     } else if (item.label === 'Golang') {
@@ -69,7 +72,12 @@ export class LanguagePicker {
         if (result) {
             this._extensionContext.workspaceState.update('language', this._lang);
             if (vscode.window.activeTextEditor?.document !== undefined) {
-                vscode.languages.setTextDocumentLanguage(vscode.window.activeTextEditor.document, this._lang);
+                if (this._lang.includes('python')) {
+                    vscode.languages.setTextDocumentLanguage(vscode.window.activeTextEditor.document, "python");
+                }
+                else{
+                    vscode.languages.setTextDocumentLanguage(vscode.window.activeTextEditor.document, this._lang);
+                }
             }
             globalState.lang = this._lang;
             globalState.isLanguageSet = true;

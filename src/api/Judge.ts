@@ -19,6 +19,7 @@ const rapidApiHeaders: IHeaders = {
 
 const endpointSubmit = '/submit/';
 const endpointRun = '/run/';
+
 export class JudgeServer {
     private _languageCapability: string[] = ['c', 'cpp', 'java', 'python', 'javascript'];
     private _client: rm.RestClient = new rm.RestClient(extUserAgent, server + endpointSubmit + rapidApiOptions, [], { headers: rapidApiHeaders });
