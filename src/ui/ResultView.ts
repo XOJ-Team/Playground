@@ -54,7 +54,7 @@ export class ResultView {
 					lookupResponse.status.description.includes('Accepted') ? new vscode.ThemeColor("terminal.ansiGreen") : new vscode.ThemeColor("notificationsErrorIcon.foreground")));
 			}
 			else if (k === 'memory') {
-				this._submissionResultModelList.push(new SubmissionResultModel('Memory Used', lookupResponse[k] + ' KB', 'circuit-board'));
+				this._submissionResultModelList.push(new SubmissionResultModel('Memory', lookupResponse[k] + ' KB', 'circuit-board'));
 			}
 			else if (k === 'time') {
 				this._submissionResultModelList.push(new SubmissionResultModel('Time Used', lookupResponse[k] + ' ms', 'watch'));
@@ -63,7 +63,7 @@ export class ResultView {
 				this._submissionResultModelList.push(new SubmissionResultModel('Compile Output', Buffer.from(lookupResponse[k]!, 'base64').toString('binary'), 'clear-all'));
 			}
 			else if (k === 'stdout') {
-				this._submissionResultModelList.push(new SubmissionResultModel('Standout Output', Buffer.from(lookupResponse[k]!, 'base64').toString('binary'), 'output'));
+				this._submissionResultModelList.push(new SubmissionResultModel('Standard Output', Buffer.from(lookupResponse[k]!, 'base64').toString('binary'), 'output'));
 			}
 			else {
 				this._submissionResultModelList.push(new SubmissionResultModel(k, lookupResponse[k]));
