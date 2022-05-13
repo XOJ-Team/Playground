@@ -2,10 +2,9 @@ import * as vscode from "vscode";
 import * as path from 'path';
 
 import { globalState } from "../api/Common";
-import { JudgeServer } from "../api/Judge";
+import { judgeServerInstance } from "../api/GlobalInstance";
 
-const judgeServer = new JudgeServer();
-
+const judgeServer = judgeServerInstance;
 export class ActionPanel {
   private _commandList = [
     'xoj-playground.run',
@@ -22,10 +21,17 @@ export class ActionPanel {
 
   private async runCode() {
     // Run code only (without submitting result to XOJ backend)
-    const stdInput = await this.showInputBox();
+
+    if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.getText() !== '') {
+      globalState.stdin = await this.showInputBox() || '';
+      globalState.code = vscode.window.activeTextEditor.document.getText();
+      vscode.window.showInformationMessage('Your code is pending to run...');
+    } else {
+      vscode.window.showErrorMessage("There's no code to run remotely, please review your active document.");
+      return;
+    }
     console.log('[INFO] runCode');
     console.log(globalState);
-    console.log(stdInput);
   }
 
   private async submitCode() {
@@ -37,16 +43,19 @@ export class ActionPanel {
       vscode.window.showErrorMessage("There's no code to submit, please review your active document.");
       return;
     }
+    judgeServer.submit().then(res => 
+      {
+        console.log(res);
+      });
 
-    judgeServer.submit();
-    judgeServer.getResult().then(result => { vscode.commands.executeCommand('xoj-playground.showResult', result); });
+    // judgeServer.getResult().then(result => { vscode.commands.executeCommand('xoj-playground.showResult', result); });
   }
 
   private async showInputBox() {
     const result = await vscode.window.showInputBox({
       ignoreFocusOut: true,
       valueSelection: [2, 4],
-      placeHolder: 'Enter your test input here..',
+      placeHolder: 'Enter your test input here...',
       prompt: 'Enter your test input above, and XOJ will judge remotely for you.',
     });
     return result;

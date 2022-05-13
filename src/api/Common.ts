@@ -14,13 +14,15 @@ export type WebSession = {
     sessionId: string;
 };
 
+// TODO: QuestionID should be number
 export type StateDict = {
     sessionId: string | null;
     questionId: string;
     lang: string;
     langId: number;
     code: string;
-
+    stdin: string;
+    
     // Workspace States
     isLanguageSet: boolean;
 };
@@ -31,6 +33,7 @@ export let globalState: StateDict = {
     lang: 'c',
     langId: 52,
     code: '',
+    stdin: '',
     isLanguageSet: false
 };
 
@@ -80,6 +83,7 @@ export type Judge0SubmissionRequest = {
     language_id: number;
     stdin?: string;
     expected_output?: string;
+    question_id: number;
 };
 
 export type Judge0SubmissionResponse = {
@@ -93,18 +97,18 @@ export type Judge0LookupResponse = {
         id: number;
         description: string;
     };
-    
+
     time: string | null;
     memory: number | null;
     compile_output: string;
     token: string;
 };
 
-export const Judge0LanguageId = {
-    'c': 50,
-    'cpp': 54,
-    'java': 62,
-    'python2': 70,
-    'python3': 71,
-    'go': 60
-};
+export const Judge0LanguageId = new Map<string, number>([
+    ['c', 50],
+    ['cpp', 54],
+    ['java', 62],
+    ['python2', 70],
+    ['python3', 71],
+    ['go', 60]
+]);
