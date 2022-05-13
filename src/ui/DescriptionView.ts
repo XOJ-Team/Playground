@@ -61,7 +61,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     webviewView.webview.html = await vscode.commands.executeCommand('markdown.api.render', this._question.getConcatenated());
     // Uncomment this to use marked renderer
     // webviewView.webview.html = marked.parse(this._question.getConcatenated());
-    vscode.window.showInformationMessage('Loaded: ' + this._question.title);
+    // vscode.window.showInformationMessage('Loaded: ' + this._question.title);
 
     // webviewView.webview.onDidReceiveMessage((data) => {
     //   switch (data.type) {
@@ -80,6 +80,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
       this._question.id = globalState.questionId;
       await this._question.get();
       this._view.webview.html = marked.parse(this._question.getConcatenated());
+      vscode.window.showInformationMessage('Loaded Question: ' + this._question.title);
     }
   }
 }

@@ -30,25 +30,24 @@ export class JudgeServer {
         language_id: 0,
         question_id: 0,
         source_code: '',
-        stdin: 'd29ybGQK',
+        stdin: '',
     };
 
     constructor() {
         console.log('API URL: ' + extUserAgent, server + endpointSubmit + rapidApiOptions);
     }
 
-    public async submit(): Promise<rm.IRestResponse<Judge0SubmissionResponse>> {
+    public async submitCode(): Promise<rm.IRestResponse<Judge0SubmissionResponse>> {
         this._body.source_code = Buffer.from(globalState.code, 'binary').toString('base64');
-        this._body.language_id = globalState.langId;
+        // this._body.language_id = globalState.langId;
+        this._body.language_id = 52;
         this._body.question_id = Number(globalState.questionId);
         let submission: rm.IRestResponse<Judge0SubmissionResponse> = await this._client.create<Judge0SubmissionResponse>(endpointSubmit + rapidApiOptions, this._body);
-        console.log("BODY"+this._body);
-        
         this._token = submission.result?.token;
         return submission;
     }
 
-    public async runRemote(): Promise<number> {
+    public async runCode(): Promise<number> {
         this._body.source_code = Buffer.from(globalState.code, 'binary').toString('base64');
         this._body.stdin = Buffer.from(globalState.stdin, 'binary').toString('base64');
         this._body.language_id = globalState.langId;
@@ -65,16 +64,16 @@ export class JudgeServer {
         };
         this._client = new rm.RestClient(extUserAgent, server, [], { headers: this.rapidApiHeaders });
         console.log('[INFO] Judge client refreshed. New Cookie: '+this.rapidApiHeaders.Cookie);
-        
     }
 
-    public async getResult() {
-        while (true) {
-            let res: rm.IRestResponse<Judge0LookupResponse> = await this._client.get<Judge0LookupResponse>(endpointSubmit + this._token + rapidApiOptions);
-            if (res.statusCode === 200) {
-                console.log(res.result);
-                return res.result;
-            }
-        }
-    }
+    // Deprecated, why so why so?
+    // public async getResult() {
+    //     while (true) {
+    //         let res: rm.IRestResponse<Judge0LookupResponse> = await this._client.get<Judge0LookupResponse>(endpointSubmit + this._token + rapidApiOptions);
+    //         if (res.statusCode === 200) {
+    //             console.log(res.result);
+    //             return res.result;
+    //         }
+    //     }
+    // }
 }

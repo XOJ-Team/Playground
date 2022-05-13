@@ -22,10 +22,18 @@ export class ActionPanel {
   private async runCode() {
     // Run code only (without submitting result to XOJ backend)
 
+    if (globalState.sessionId === '') {
+      vscode.window.showErrorMessage("To run code, please first login through XOJ Website.");
+      return;
+    }
     if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.getText() !== '') {
       globalState.stdin = await this.showInputBox() || '';
       globalState.code = vscode.window.activeTextEditor.document.getText();
       vscode.window.showInformationMessage('Your code is pending to run...');
+      judgeServer.runCode().then(res => 
+        {
+          console.log(res);
+        });
     } else {
       vscode.window.showErrorMessage("There's no code to run remotely, please review your active document.");
       return;
@@ -36,6 +44,10 @@ export class ActionPanel {
 
   private async submitCode() {
     // Run code and submit result to XOJ backend
+    if (globalState.sessionId === '') {
+      vscode.window.showErrorMessage("To submit code, please first login through XOJ Website.");
+      return;
+    }
     if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.getText() !== '') {
       globalState.code = vscode.window.activeTextEditor.document.getText();
       vscode.window.showInformationMessage('Your code is being submitted...');
@@ -43,7 +55,7 @@ export class ActionPanel {
       vscode.window.showErrorMessage("There's no code to submit, please review your active document.");
       return;
     }
-    judgeServer.submit().then(res => 
+    judgeServer.submitCode().then(res => 
       {
         console.log(res);
       });
