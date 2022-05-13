@@ -45,7 +45,10 @@ export class ResultView {
 			if (lookupResponse[k] === null) {
 				continue;
 			}
-			if (k === 'status') {
+			if (k === 'question_id') {
+				this._submissionResultModelList.push(new SubmissionResultModel('Question ID', lookupResponse[k], 'list-ordered'));
+			}
+			else if (k === 'status') {
 				this._submissionResultModelList.push(new SubmissionResultModel('Status', lookupResponse.status.description, lookupResponse.status.description.includes('Accepted') ? 'pass' : 'close'));
 			}
 			else if (k === 'memory') {
@@ -55,11 +58,11 @@ export class ResultView {
 				this._submissionResultModelList.push(new SubmissionResultModel('Time Used', lookupResponse[k] + ' ms', 'watch'));
 			}
 			else if (k === 'compile_output') {
-				this._submissionResultModelList.push(new SubmissionResultModel('Compile Output',Buffer.from(lookupResponse[k]!, 'base64').toString('binary'), 'output'));
+				this._submissionResultModelList.push(new SubmissionResultModel('Compile Output', Buffer.from(lookupResponse[k]!, 'base64').toString('binary'), 'clear-all'));
 			}
-			// else if (k === 'token') {
-			// this._submissionResultModelList.push(new SubmissionResultModel('Submission Token',lookupResponse[k], 'key'));
-			// }
+			else if (k === 'stdout') {
+				this._submissionResultModelList.push(new SubmissionResultModel('Standout Output', Buffer.from(lookupResponse[k]!, 'base64').toString('binary'), 'output'));
+			}
 			else {
 				this._submissionResultModelList.push(new SubmissionResultModel(k, lookupResponse[k]));
 			}

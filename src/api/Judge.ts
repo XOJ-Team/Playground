@@ -21,7 +21,6 @@ export class JudgeServer {
     private rapidApiHeaders: IHeaders = {
         'Cookie': 'SESSION=' + globalState.sessionId
     };
-    private _languageCapability: string[] = ['c', 'cpp', 'java', 'python', 'javascript'];
     private _client: rm.RestClient = new rm.RestClient(extUserAgent, server, [], { headers: this.rapidApiHeaders });
     private _token?: string = '';
     private _body: Judge0SubmissionRequest = {

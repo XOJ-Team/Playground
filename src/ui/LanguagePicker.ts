@@ -59,7 +59,6 @@ export class LanguagePicker {
         // if (vscode.window.activeTextEditor?.document !== undefined) {
         //     vscode.languages.setTextDocumentLanguage(vscode.window.activeTextEditor.document, globalState.lang);
         // }
-        console.log("WHYSOWHYSO"+this._extensionContext.workspaceState.get('language'));
         globalState.lang = this._extensionContext.workspaceState.get('language') || this._lang;
         vscode.window.showInformationMessage(`Language is set to: ${globalState.lang}`);
     }

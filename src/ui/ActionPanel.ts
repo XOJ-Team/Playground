@@ -40,7 +40,8 @@ export class ActionPanel {
 
     judgeServer.runCode().then(res => {
       console.log(res);
-      if (res.statusCode === 200 && res.result !== null && res.result?.obj !== null) {
+      if (res.statusCode === 200 && res.result !== null && (res.result?.obj !== undefined || null)) {
+        console.log("[INFO] runCode success");
         vscode.window.showInformationMessage('Your code is submitted successfully.');
         vscode.commands.executeCommand('xoj-playground.showResult', res.result.obj);
       } else {
@@ -63,6 +64,7 @@ export class ActionPanel {
     }
     judgeServer.submitCode().then(res => {
       if (res.statusCode === 200 && res.result !== null && (res.result?.obj !== undefined || null)) {
+        console.log("[INFO] submitCode success"+res.result.obj);
         vscode.window.showInformationMessage('Your code is submitted successfully.');
         vscode.commands.executeCommand('xoj-playground.showResult', res.result.obj);
       } else {
