@@ -6,8 +6,8 @@ import { IHeaders } from 'typed-rest-client/Interfaces';
 
 import { extUserAgent } from './Common';
 import { Judge0SubmissionRequest } from './Common';
-import { Judge0SubmissionResponse } from './Common';
-import { Judge0LookupResponse } from './Common';
+import { JudgeServerWrapper } from '../api/Common';
+import { Judge0Response } from '../api/Common';
 import { globalState } from './Common';
 
 const server: string | undefined = vscode.workspace.getConfiguration('xoj-playground').get('targetServer');
@@ -26,7 +26,6 @@ export class JudgeServer {
     private _client: rm.RestClient = new rm.RestClient(extUserAgent, server, [], { headers: this.rapidApiHeaders });
     private _token?: string = '';
     private _body: Judge0SubmissionRequest = {
-        expected_output: '',
         language_id: 0,
         question_id: 0,
         source_code: '',
@@ -37,25 +36,22 @@ export class JudgeServer {
         console.log('API URL: ' + extUserAgent, server + endpointSubmit + rapidApiOptions);
     }
 
-    public async submitCode(): Promise<rm.IRestResponse<Judge0SubmissionResponse>> {
+    public async submitCode(): Promise<rm.IRestResponse<JudgeServerWrapper>> {
         this._body.source_code = Buffer.from(globalState.code, 'binary').toString('base64');
         // this._body.language_id = globalState.langId;
         this._body.language_id = 52;
         this._body.question_id = Number(globalState.questionId);
-        let submission: rm.IRestResponse<Judge0SubmissionResponse> = await this._client.create<Judge0SubmissionResponse>(endpointSubmit + rapidApiOptions, this._body);
-        this._token = submission.result?.token;
+        let submission: rm.IRestResponse<JudgeServerWrapper> = await this._client.create<JudgeServerWrapper>(endpointSubmit + rapidApiOptions, this._body);
         return submission;
     }
 
-    public async runCode(): Promise<number> {
+    public async runCode(): Promise<rm.IRestResponse<JudgeServerWrapper>> {
         this._body.source_code = Buffer.from(globalState.code, 'binary').toString('base64');
         this._body.stdin = Buffer.from(globalState.stdin, 'binary').toString('base64');
         this._body.language_id = globalState.langId;
         this._body.question_id = Number(globalState.questionId);
-
-        let submission: rm.IRestResponse<Judge0SubmissionResponse> = await this._client.create<Judge0SubmissionResponse>(endpointRun + rapidApiOptions, this._body);
-        console.log(submission.result);
-        return submission.statusCode;
+        let submission: rm.IRestResponse<JudgeServerWrapper> = await this._client.create<JudgeServerWrapper>(endpointRun + rapidApiOptions, this._body);
+        return submission;
     }
 
     public refreshJudgeClient(){

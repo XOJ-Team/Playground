@@ -86,22 +86,38 @@ export type Judge0SubmissionRequest = {
     question_id: number;
 };
 
-export type Judge0SubmissionResponse = {
-    token: string;
-};
+// export type Judge0SubmissionResponse = {
+//     token: string;
+// };
 
-export type Judge0LookupResponse = {
-    status_id: number | null;
+// export type Judge0LookupResponse = {
+//     status_id: number | null;
 
+//     status: {
+//         id: number;
+//         description: string;
+//     };
+//     time: string | null;
+//     memory: number | null;
+//     compile_output: string;
+//     token: string;
+// };
+
+export type Judge0Response = {
     status: {
         id: number;
         description: string;
     };
-
+    question_id: number;
     time: string | null;
     memory: number | null;
-    compile_output: string;
-    token: string;
+    stdout: string | null;
+    compile_output: string | null;
+};
+
+export type JudgeServerWrapper = {
+    code: number;
+    obj: Judge0Response | undefined;
 };
 
 export const Judge0LanguageId = new Map<string, number>([

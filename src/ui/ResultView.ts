@@ -3,7 +3,8 @@ import { runInThisContext } from 'vm';
 import * as vscode from 'vscode';
 
 import { SubmissionObject } from '../api/Common';
-import { Judge0LookupResponse } from '../api/Common';
+import { JudgeServerWrapper } from '../api/Common';
+import { Judge0Response } from '../api/Common';
 import { JudgeServer } from '../api/Judge';
 
 
@@ -15,7 +16,7 @@ export class ResultView {
 	private _submissionResultModelList: SubmissionResultModel[] = [];
 	private _resultDataProvider = new ResultDataProvider(this._submissionResultModelList);
 
-	private _lookupResponse: Judge0LookupResponse = {} as Judge0LookupResponse;
+	private _lookupResponse: Judge0Response = {} as Judge0Response;
 
 	constructor(private readonly _extensionContext: vscode.ExtensionContext) {
 		this._disposable = vscode.commands.registerCommand(ResultView._showResultCommand, this.onResultFetched, this);
@@ -28,7 +29,7 @@ export class ResultView {
 		_extensionContext.subscriptions.push(this._disposable);
 	}
 
-	private onResultFetched(res: Judge0LookupResponse) {
+	private onResultFetched(res: Judge0Response) {
 		this._lookupResponse = res;
 		this._submissionResultModelList = [];
 		this._initSubmissionResultModelList(this._lookupResponse);
@@ -38,10 +39,10 @@ export class ResultView {
 		// vscode.commands.executeCommand(ResultView._refreshResultCommand, this._submissionResultModelList);
 	}
 
-	private _initSubmissionResultModelList(lookupResponse: Judge0LookupResponse) {
-		let k: keyof Judge0LookupResponse;
+	private _initSubmissionResultModelList(lookupResponse: Judge0Response) {
+		let k: keyof Judge0Response;
 		for (k in lookupResponse) {
-			if (lookupResponse[k] === null || k === 'token') {
+			if (lookupResponse[k] === null) {
 				continue;
 			}
 			if (k === 'status') {
@@ -54,7 +55,7 @@ export class ResultView {
 				this._submissionResultModelList.push(new SubmissionResultModel('Time Used', lookupResponse[k] + ' ms', 'watch'));
 			}
 			else if (k === 'compile_output') {
-				this._submissionResultModelList.push(new SubmissionResultModel('Compile Output',Buffer.from(lookupResponse[k], 'base64').toString('binary'), 'output'));
+				this._submissionResultModelList.push(new SubmissionResultModel('Compile Output',Buffer.from(lookupResponse[k]!, 'base64').toString('binary'), 'output'));
 			}
 			// else if (k === 'token') {
 			// this._submissionResultModelList.push(new SubmissionResultModel('Submission Token',lookupResponse[k], 'key'));

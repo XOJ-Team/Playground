@@ -30,18 +30,24 @@ export class ActionPanel {
       globalState.stdin = await this.showInputBox() || '';
       globalState.code = vscode.window.activeTextEditor.document.getText();
       vscode.window.showInformationMessage('Your code is pending to run...');
-      judgeServer.runCode().then(res => 
-        {
-          console.log(res);
-        });
     } else {
       vscode.window.showErrorMessage("There's no code to run remotely, please review your active document.");
       return;
     }
-    console.log('[INFO] runCode');
-    console.log(globalState);
-  }
 
+    console.log('[INFO] runCode start');
+    console.log(globalState);
+
+    judgeServer.runCode().then(res => {
+      console.log(res);
+      if (res.statusCode === 200 && res.result !== null && res.result?.obj !== null) {
+        vscode.window.showInformationMessage('Your code is submitted successfully.');
+        vscode.commands.executeCommand('xoj-playground.showResult', res.result.obj);
+      } else {
+        vscode.window.showErrorMessage('Oops, code submission failed.');
+      }
+    });
+  }
   private async submitCode() {
     // Run code and submit result to XOJ backend
     if (globalState.sessionId === '') {
@@ -55,12 +61,14 @@ export class ActionPanel {
       vscode.window.showErrorMessage("There's no code to submit, please review your active document.");
       return;
     }
-    judgeServer.submitCode().then(res => 
-      {
-        console.log(res);
-      });
-
-    // judgeServer.getResult().then(result => { vscode.commands.executeCommand('xoj-playground.showResult', result); });
+    judgeServer.submitCode().then(res => {
+      if (res.statusCode === 200 && res.result !== null && (res.result?.obj !== undefined || null)) {
+        vscode.window.showInformationMessage('Your code is submitted successfully.');
+        vscode.commands.executeCommand('xoj-playground.showResult', res.result.obj);
+      } else {
+        vscode.window.showErrorMessage('Oops, code submission failed.');
+      }
+    });
   }
 
   private async showInputBox() {
@@ -68,10 +76,10 @@ export class ActionPanel {
       ignoreFocusOut: true,
       valueSelection: [2, 4],
       placeHolder: 'Enter your test input here...',
-      prompt: 'Enter your test input above, and XOJ will judge remotely for you.',
+      prompt: 'Enter your test input above, and XOJ will run remotely for you.',
     });
     return result;
-      // vscode.window.showInformationMessage(`Got: ${result}`);
+    // vscode.window.showInformationMessage(`Got: ${result}`);
   }
   private async refresh() {
     // TEST CODE, DO NOT USE
