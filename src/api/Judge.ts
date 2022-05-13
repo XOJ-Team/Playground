@@ -12,7 +12,6 @@ import { globalState } from './Common';
 
 const server: string | undefined = vscode.workspace.getConfiguration('xoj-playground').get('targetServer');
 
-// TODO: Remove RapidAPIRef
 // const rapidApiOptions: string = '?base64_encoded=true';
 const rapidApiOptions: string = '';
 const endpointSubmit = '/judge/submit/';
@@ -38,8 +37,7 @@ export class JudgeServer {
 
     public async submitCode(): Promise<rm.IRestResponse<JudgeServerWrapper>> {
         this._body.source_code = Buffer.from(globalState.code, 'binary').toString('base64');
-        // this._body.language_id = globalState.langId;
-        this._body.language_id = 52;
+        this._body.language_id = globalState.langId;
         this._body.question_id = Number(globalState.questionId);
         let submission: rm.IRestResponse<JudgeServerWrapper> = await this._client.create<JudgeServerWrapper>(endpointSubmit + rapidApiOptions, this._body);
         return submission;
