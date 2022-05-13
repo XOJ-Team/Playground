@@ -11,7 +11,7 @@ import { JudgeServer } from '../api/Judge';
 export class ResultView {
 	private _disposable: vscode.Disposable;
 	private static readonly _showResultCommand = 'xoj-playground.showResult';
-	private static readonly _refreshResultCommand = 'xoj-playground.refreshResult';
+	// private static readonly _refreshResultCommand = 'xoj-playground.refreshResult';
 	private static readonly _viewType = 'playground.panel.resultView';
 	private _submissionResultModelList: SubmissionResultModel[] = [];
 	private _resultDataProvider = new ResultDataProvider(this._submissionResultModelList);
@@ -22,8 +22,8 @@ export class ResultView {
 		this._disposable = vscode.commands.registerCommand(ResultView._showResultCommand, this.onResultFetched, this);
 		_extensionContext.subscriptions.push(this._disposable);
 
-		this._disposable = vscode.commands.registerCommand(ResultView._refreshResultCommand, this._resultDataProvider.refresh, this);
-		_extensionContext.subscriptions.push(this._disposable);
+		// this._disposable = vscode.commands.registerCommand(ResultView._refreshResultCommand, this._resultDataProvider.refresh, this);
+		// _extensionContext.subscriptions.push(this._disposable);
 
 		this._disposable = vscode.window.createTreeView(ResultView._viewType, { treeDataProvider: this._resultDataProvider, showCollapseAll: true });
 		_extensionContext.subscriptions.push(this._disposable);
@@ -49,7 +49,9 @@ export class ResultView {
 				this._submissionResultModelList.push(new SubmissionResultModel('Question ID', lookupResponse[k], 'list-ordered'));
 			}
 			else if (k === 'status') {
-				this._submissionResultModelList.push(new SubmissionResultModel('Status', lookupResponse.status.description, lookupResponse.status.description.includes('Accepted') ? 'pass' : 'close'));
+				this._submissionResultModelList.push(new SubmissionResultModel('Status', lookupResponse.status.description,
+					lookupResponse.status.description.includes('Accepted') ? 'pass' : 'error',
+					lookupResponse.status.description.includes('Accepted') ? new vscode.ThemeColor("terminal.ansiGreen") : new vscode.ThemeColor("notificationsErrorIcon.foreground")));
 			}
 			else if (k === 'memory') {
 				this._submissionResultModelList.push(new SubmissionResultModel('Memory Used', lookupResponse[k] + ' KB', 'circuit-board'));
@@ -75,10 +77,10 @@ export class SubmissionResultModel {
 	public readonly resultType: string;
 	public readonly resultValue?: any;
 	public readonly resultIcon: vscode.ThemeIcon;
-	constructor(resultType: string, resultValue?: any, resultIcon?: string) {
+	constructor(resultType: string, resultValue?: any, resultIcon?: string, color?: vscode.ThemeColor) {
 		this.resultType = resultType;
 		this.resultValue = resultValue;
-		this.resultIcon = resultIcon ? new vscode.ThemeIcon(resultIcon) : new vscode.ThemeIcon("info");
+		this.resultIcon = resultIcon ? new vscode.ThemeIcon(resultIcon, color) : new vscode.ThemeIcon("info");
 	}
 }
 
