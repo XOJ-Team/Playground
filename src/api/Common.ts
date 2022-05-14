@@ -113,6 +113,7 @@ export type Judge0Response = {
     memory: number | null;
     stdout: string | null;
     compile_output: string | null;
+    finished_at: string;
 };
 
 export type JudgeServerWrapper = {
