@@ -14,15 +14,15 @@ This is the repo of XOJ's online editor, which consists an extension for VSC (de
     * [x] Run code (check) on XOJ
     * [x] Code submission
     * [x] Refresh
-  * [ ] Problem display
+  * [x] Problem display
     * [x] Description
     * [x] AC rate
     * [ ] Total submission count
     * [x] Time limit
     * [x] Memory limit
-  * [ ] Result Viewing
-    * [ ] Submission Status
-    * [ ] Submission Details
+  * [x] Result Viewing
+    * [x] Submission Status
+    * [x] Submission Details
   * [x] Desktop URI activation
   * [x] Preferences
     * [x] Setting XOJ backend API URL
