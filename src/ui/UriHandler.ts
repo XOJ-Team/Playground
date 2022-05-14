@@ -1,18 +1,21 @@
 import * as vscode from 'vscode';
 
-import { WebSession } from '../api/Types';
-import { state } from '../api/Types';
+import { WebSession } from '../api/Common';
+import { globalState } from '../api/Common';
 import { DescriptionView } from './DescriptionView';
-
+import { judgeServerInstance } from '../api/GlobalInstance';
 class FrontendUriHandler implements vscode.UriHandler {
     handleUri(uri: vscode.Uri): vscode.ProviderResult<void> {
         if (uri.query) {
             const url = new URL(uri.toString(true));
             const sessionIdRaw = url.searchParams.get('sessionId');
             if (sessionIdRaw !== null) {
-                state.sessionId = Buffer.from(sessionIdRaw, 'base64').toString('binary');
+                // globalState.sessionId = Buffer.from(sessionIdRaw, 'base64').toString('binary');
+                globalState.sessionId = sessionIdRaw;
             }
-            state.questionId = url.searchParams.get('questionId');
+            globalState.questionId = url.searchParams.get('questionId') || '';
+            judgeServerInstance.refreshJudgeClient();
+            vscode.commands.executeCommand('xoj-playground.refresh');
         }
     }
 }

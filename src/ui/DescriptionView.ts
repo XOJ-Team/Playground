@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import { marked, Renderer } from "marked";
 
 import { Question } from "../api/Question";
-import { state } from "../api/Types";
+import { globalState } from "../api/Common";
 
 marked.setOptions({
   renderer: new Renderer,
@@ -17,16 +17,20 @@ marked.setOptions({
 
 export class DescriptionView implements vscode.WebviewViewProvider {
   private static readonly _viewType = "playground.container.descriptionView";
+  private _commandId = "xoj-playground.refresh";
+  private _disposable: vscode.Disposable;
 
   private _view?: vscode.WebviewView;
   private _description: string = '';
   // TODO(skk): replace with QuestionId from web activation.
-  private _question: Question = new Question('11');
+  private _question: Question = new Question('');
 
   constructor(private readonly _extensionContext: vscode.ExtensionContext) {
     _extensionContext.subscriptions.push(
       vscode.window.registerWebviewViewProvider(DescriptionView._viewType, this)
     );
+    this._disposable = vscode.commands.registerCommand(this._commandId, this.refresh, this);
+    _extensionContext.subscriptions.push(this._disposable);
     console.log("[INFO] Question Description View initialized");
   }
 
@@ -47,11 +51,17 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     try {
       await this._question.get();
     } catch (err) {
-      webviewView.webview.html = marked.parse('### Error occurred ' + err);
+      // Built-in render (markdown-language-features)
+      webviewView.webview.html = await vscode.commands.executeCommand('markdown.api.render', '### Error occurred ' + err);
+      // Uncomment this to use marked renderer
+      // webviewView.webview.html = marked.parse('### Error occurred ' + err);
     }
 
-    webviewView.webview.html = marked.parse(this.getMarkdownString());
-    vscode.window.showInformationMessage('Question loaded: ' + this._question.title);
+    // Built-in render (markdown-language-features)
+    webviewView.webview.html = await vscode.commands.executeCommand('markdown.api.render', this._question.getConcatenated());
+    // Uncomment this to use marked renderer
+    // webviewView.webview.html = marked.parse(this._question.getConcatenated());
+    // vscode.window.showInformationMessage('Loaded: ' + this._question.title);
 
     // webviewView.webview.onDidReceiveMessage((data) => {
     //   switch (data.type) {
@@ -65,19 +75,12 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     // });
   }
 
-  public getMarkdownString() {
-    return '### '
-      + this._question.title
-      + '\n'
-      + this._question.desc
-      + '\n\n'
-      + '*Time Limit: '
-      + this._question.timeLimit
-      + 's*'
-      + '\t | \t'
-      + '*Memory Limit: '
-      + this._question.memLimit
-      + 'MB*';
+  public async refresh() {
+    if (this._view) {
+      this._question.id = globalState.questionId;
+      await this._question.get();
+      this._view.webview.html = marked.parse(this._question.getConcatenated());
+      vscode.window.showInformationMessage('Loaded Question: ' + this._question.title);
+    }
   }
-
 }

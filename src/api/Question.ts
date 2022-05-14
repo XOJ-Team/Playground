@@ -1,7 +1,8 @@
 import * as vscode from 'vscode';
 import * as rm from 'typed-rest-client/RestClient';
 
-import { QuestionObject } from "./Types";
+import { QuestionObject } from "./Common";
+import { extUserAgent } from './Common';
 
 const server: string | undefined = vscode.workspace.getConfiguration('xoj-playground').get('targetServer');
 const endpoint = '/question/';
@@ -13,7 +14,9 @@ export class Question {
     private _desc?: string;
     private _memLimit?: number;
     private _timeLimit?: number;
-    private _client: rm.RestClient = new rm.RestClient('xoj-playground', server);
+    private _client: rm.RestClient = new rm.RestClient(extUserAgent, server);
+
+    private _concatenated?: string;
 
     constructor(id?: string) {
         this._id = id || '';
@@ -34,6 +37,10 @@ export class Question {
         }
     }
 
+    public set id(s: string) {
+        this._id = s;
+    }
+
     public get title(): string | undefined {
         return this._title;
     }
@@ -50,4 +57,16 @@ export class Question {
         return this._timeLimit;
     }
 
+    public getConcatenated(): string {
+        if (this._id !== '') {
+            return '### ' + this._title + '\n'
+            + this._desc + '\n\n'
+            + '*Time Limit: ' + this._timeLimit + 's*'
+            + '\t | \t'
+            + '*Memory Limit: ' + this._memLimit + 'MB*';
+        } else {
+            return "### No Question Loaded" + '\n'
+            + "Please select a question from [XOJ Website](https://xoj.codes/questions/).";
+        }
+    }
 }

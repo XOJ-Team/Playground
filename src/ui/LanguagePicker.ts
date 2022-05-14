@@ -3,7 +3,7 @@ import { compileFunction } from 'vm';
 import * as vscode from 'vscode';
 
 import { JudgeServer } from '../api/Judge';
-import { state } from '../api/Types';
+import { globalState, Judge0LanguageId } from '../api/Common';
 
 export class LanguagePicker {
     private _disposable: vscode.Disposable;
@@ -14,7 +14,8 @@ export class LanguagePicker {
         { label: 'C', description: '-std=c11', picked: true },
         { label: 'C++', description: '-std=c++14' },
         { label: 'Java', description: 'OpenJDK 11' },
-        { label: 'Python', description: '3.8' },
+        { label: 'Python 2', description: '2.7.17' },
+        { label: 'Python 3', description: '3.8.1' },
         { label: 'Golang', description: '1.17' }
     ];
 
@@ -38,8 +39,28 @@ export class LanguagePicker {
 
         this._disposable = vscode.commands.registerCommand(this._command, this.show, this);
         _extensionContext.subscriptions.push(this._disposable);
-        state.lang = this._extensionContext.workspaceState.get('language') || 'c';
-        vscode.window.showInformationMessage(`Language is set to: ${state.lang}`);
+        //TODO: Update language when opening a file
+        
+        // if (this._extensionContext.workspaceState.get('language') !== undefined) {
+        //     const currentLang: string = this._extensionContext.workspaceState?.get('language')!;
+        //     console.log("NOW INIT"+currentLang);
+        //     if (currentLang.includes('python')) {
+        //         this._lang = 'python3';
+        //     }
+        //     else {
+        //         this._lang = currentLang;
+        //         globalState.lang = currentLang;
+        //     }
+        // }
+        // else {
+        //     globalState.lang = this._lang;
+        // }
+        // globalState.langId = Judge0LanguageId.get(this._lang)!;
+        // if (vscode.window.activeTextEditor?.document !== undefined) {
+        //     vscode.languages.setTextDocumentLanguage(vscode.window.activeTextEditor.document, globalState.lang);
+        // }
+        globalState.lang = this._extensionContext.workspaceState.get('language') || this._lang;
+        vscode.window.showInformationMessage(`Language is set to: ${globalState.lang}`);
     }
 
     private async show() {
@@ -54,8 +75,10 @@ export class LanguagePicker {
                         this._lang = 'c';
                     } else if (item.label === 'C++') {
                         this._lang = 'cpp';
-                    } else if (item.label === 'Python') {
-                        this._lang = 'python';
+                    } else if (item.label === 'Python 2') {
+                        this._lang = 'python2';
+                    } else if (item.label === 'Python 3') {
+                        this._lang = 'python3';
                     } else if (item.label === 'Java') {
                         this._lang = 'java';
                     } else if (item.label === 'Golang') {
@@ -65,14 +88,21 @@ export class LanguagePicker {
             }
         });
         // TODO(skk): try then clause
-        
+
         if (result) {
             this._extensionContext.workspaceState.update('language', this._lang);
             if (vscode.window.activeTextEditor?.document !== undefined) {
-                vscode.languages.setTextDocumentLanguage(vscode.window.activeTextEditor.document, this._lang);
+                if (this._lang.includes('python')) {
+                    vscode.languages.setTextDocumentLanguage(vscode.window.activeTextEditor.document, "python");
+                }
+                else {
+                    vscode.languages.setTextDocumentLanguage(vscode.window.activeTextEditor.document, this._lang);
+                }
             }
-            state.lang = this._lang;
-            state.isLanguageSet = true;
+            globalState.lang = this._lang;
+            globalState.langId = Judge0LanguageId.get(this._lang)!;
+            globalState.isLanguageSet = true;
+            vscode.window.showInformationMessage(`Language is set to: ${globalState.lang}`);
         }
     }
 }

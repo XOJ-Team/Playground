@@ -2,8 +2,11 @@
   "name": "xoj-playground",
   "displayName": "XOJ Playground",
   "description": "A playground extension for XOJ Web IDE and desktop VSC",
-  "repository": "https://dev.azure.com/XOJ-Team/XOJ/_git/XOJ_Playground",
   "icon": "assets/logo_128px.png",
+  "repository": {
+    "type": "git",
+    "url": "https://dev.azure.com/XOJ-Team/XOJ/_git/XOJ_Playground"
+  },
   "version": "0.0.7",
   "publisher": "XOJ-Team",
   "license": "AGPL-3.0",
@@ -41,6 +44,15 @@
           "visibility": "visible",
           "when": "!xoj-playground:disabled"
         }
+      ],
+      "xoj-playground-panel-container": [
+        {
+          "type": "tree",
+          "id": "playground.panel.resultView",
+          "name": "Result",
+          "visibility": "visible",
+          "when": "!xoj-playground:disabled"
+        }
       ]
     },
     "viewsContainers": {
@@ -50,12 +62,19 @@
           "title": "XOJ Action Center",
           "icon": "assets/logo_50px.svg"
         }
+      ],
+      "panel": [
+        {
+          "id": "xoj-playground-panel-container",
+          "title": "XOJ",
+          "icon": "assets/logo_50px.svg"
+        }
       ]
     },
     "viewsWelcome": [
       {
         "view": "playground.container.actionView",
-        "contents": "To get started, please \n[$(library) Select a Language](command:xoj-playground.selectLanguage) \n Other Actions: \n [$(play) Run Code on XOJ](command:xoj-playground.run) \n [$(cloud-upload) Submit](command:xoj-playground.submit) \n [$(refresh) Refresh](command:xoj-playground.refresh) \n For more help, visit our [website](https://xoj.codes)."
+        "contents": "To get started, please \n[$(library) Select a Language](command:xoj-playground.selectLanguage) \n Other Actions: \n [$(play) Run on XOJ](command:xoj-playground.run) \n [$(cloud-upload) Submit](command:xoj-playground.submit) \n [$(refresh) Refresh / Re-connect](command:xoj-playground.refresh) \n For more help, visit our [website](https://xoj.codes)."
       }
     ],
     "commands": [
@@ -109,12 +128,12 @@
       "properties": {
         "xoj-playground.targetServer": {
           "type": "string",
-          "default": "https://api.xoj.codes/",
+          "default": "https://api.xoj.codes",
           "description": "Backend server to connect to."
         },
         "xoj-playground.judgeServer": {
           "type": "string",
-          "default": "https://api.xoj.codes/",
+          "default": "https://api.xoj.codes/judge",
           "description": "Judge server to connect to."
         }
       }
@@ -130,6 +149,7 @@
     "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
+    "pack-vsix": "vsce package --yarn",
     "deploy-ms": "vsce publish --yarn",
     "deploy-vsx": "ovsx publish --yarn"
   },
