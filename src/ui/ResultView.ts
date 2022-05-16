@@ -133,13 +133,13 @@ export class ResultDataProvider implements vscode.TreeDataProvider<SubmissionRes
 			iconPath: element.resultIcon,
 			collapsibleState: function () {
 				if (element.hasChildren) {
-					console.log(element.resultType + element.resultValue!+'hasChildren' + "isTOP?"+element.isTop);
+					console.log(element.resultType + element.resultValue!+'hasChildren' + "isTop?"+element.isTop);
 					if (element.isTop === true) {
-						console.log("Triggered Top for "+ element.resultType + element.resultValue!);
+						console.log("[INFO] Triggered Top for "+ element.resultType + element.resultValue!);
 						return vscode.TreeItemCollapsibleState.Expanded;
 					}
 					else{
-						console.log("Triggered NOT Top for "+ element.resultType + element.resultValue!);
+						console.log("[INFO] Triggered NOT Top for "+ element.resultType + element.resultValue!);
 						return vscode.TreeItemCollapsibleState.None;
 						//TODO: should be below
 						return vscode.TreeItemCollapsibleState.Collapsed;
