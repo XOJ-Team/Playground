@@ -9,6 +9,7 @@ import { ResultView } from './ui/ResultView';
 import { DebugConfiguration } from './ui/DebugConfigurationProvider';
 
 export function activate(context: vscode.ExtensionContext) {
+	
 	console.log('[INFO] XOJ Playground is now active!');
 
 	const webUriHandler = new WebUriHandler(context);

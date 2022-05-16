@@ -14,3 +14,4 @@ webpack.config.js
 **/*.map
 **/*.ts
 azure-pipelines.yaml
+.deprecated/**

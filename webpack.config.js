@@ -3,6 +3,7 @@
 'use strict';
 
 const path = require('path');
+const TerserPlugin = require("terser-webpack-plugin");
 
 //@ts-check
 /** @typedef {import('webpack').Configuration} WebpackConfig **/
@@ -44,5 +45,19 @@ const extensionConfig = {
   infrastructureLogging: {
     level: "log", // enables logging required for problem matchers
   },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: true,
+            drop_debugger: true,
+            dead_code: true
+          }
+        }
+      })
+    ],
+  }
 };
 module.exports = [ extensionConfig ];
