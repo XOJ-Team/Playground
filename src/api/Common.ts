@@ -30,8 +30,8 @@ export type StateDict = {
 export let globalState: StateDict = {
     sessionId: '',
     questionId: '',
-    lang: 'c',
-    langId: 52,
+    lang: '',
+    langId: -1,
     code: '',
     stdin: '',
     isLanguageSet: false
