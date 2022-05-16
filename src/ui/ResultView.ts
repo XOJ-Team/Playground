@@ -26,8 +26,8 @@ export class ResultView {
 		// this._disposable = vscode.commands.registerCommand(ResultView._refreshResultCommand, this._resultDataProvider.refresh, this);
 		// _extensionContext.subscriptions.push(this._disposable);
 
-		this._disposable = vscode.window.createTreeView(ResultView._viewType, { treeDataProvider: this._resultDataProvider, showCollapseAll: false });
-		_extensionContext.subscriptions.push(this._disposable);
+		this._disposable = vscode.window.createTreeView(ResultView._viewType, { treeDataProvider: this._resultDataProvider , showCollapseAll: true });
+		// _extensionContext.subscriptions.push(this._disposable);
 	}
 
 	private onResultFetched(res: Judge0Response) {
@@ -50,8 +50,7 @@ export class ResultView {
 		return new SubmissionResultModel((lookupResponse.status.description.includes('Accepted') ? 'Accepted' : 'Failed') + ' at Time',
 			new Date(lookupResponse.finished_at).toLocaleString(),
 			lookupResponse.status.description.includes('Accepted') ? 'pass' : 'error',
-			lookupResponse.status.description.includes('Accepted') ? new vscode.ThemeColor("terminal.ansiGreen") : new vscode.ThemeColor("notificationsErrorIcon.foreground"),
-			true);
+			lookupResponse.status.description.includes('Accepted') ? new vscode.ThemeColor("terminal.ansiGreen") : new vscode.ThemeColor("notificationsErrorIcon.foreground"), true);
 	}
 
 
@@ -131,27 +130,24 @@ export class ResultDataProvider implements vscode.TreeDataProvider<SubmissionRes
 		return {
 			label: element.resultType + ': ' + element.resultValue,
 			iconPath: element.resultIcon,
-			collapsibleState: function () {
-				if (element.hasChildren) {
-					console.log(element.resultType + element.resultValue!+'hasChildren' + "isTop?"+element.isTop);
-					if (element.isTop === true) {
-						console.log("[INFO] Triggered Top for "+ element.resultType + element.resultValue!);
-						return vscode.TreeItemCollapsibleState.Expanded;
-					}
-					else{
-						console.log("[INFO] Triggered NOT Top for "+ element.resultType + element.resultValue!);
-						return vscode.TreeItemCollapsibleState.None;
-						//TODO: should be below
-						return vscode.TreeItemCollapsibleState.Collapsed;
-					}
-				}
-				else {
-					return vscode.TreeItemCollapsibleState.None;
-				}
-			}.apply(this),
+			collapsibleState: element.hasChildren ? element.isTop ? vscode.TreeItemCollapsibleState.Expanded : vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None,
+			// collapsibleState: element.hasChildren ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None,
+			// collapsibleState: function update() {
+			// 	console.log("test");
+			// 	if (element.hasChildren) {
+			// 		if (element.isTop === true) {
+			// 			return vscode.TreeItemCollapsibleState.Expanded;
+			// 		} else {
+			// 			return vscode.TreeItemCollapsibleState.Collapsed;
+			// 		}
+			// 	} else {
+			// 		return vscode.TreeItemCollapsibleState.None;
+			// 	}
+			// }.apply(this),
 			// element.hasChildren ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None,
 		};
 	}
+
 	public getChildren(element?: SubmissionResultModel) {
 		if (element === null || element === undefined) {
 			return this._submissionResultModelList;
