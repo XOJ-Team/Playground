@@ -1,8 +1,5 @@
-
-import { runInThisContext } from 'vm';
 import * as vscode from 'vscode';
 
-import { SubmissionObject } from '../api/Common';
 import { JudgeServerWrapper } from '../api/Common';
 import { Judge0Response } from '../api/Common';
 import { JudgeServer } from '../api/Judge';

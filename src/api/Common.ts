@@ -37,14 +37,6 @@ export let globalState: StateDict = {
     isLanguageSet: false
 };
 
-export type SubmissionObject = {
-    questionId: string;
-    questionName: string;
-    userId: string;
-    lang: string;
-    code: string;
-};
-
 export type QuestionObject = {
     status: string;
     comment: string;
