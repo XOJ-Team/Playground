@@ -26,6 +26,10 @@ export class ActionPanel {
       vscode.window.showErrorMessage("To run code, please first login through XOJ Website.");
       return;
     }
+    if (!globalState.isLanguageSet || globalState.langId === -1 || globalState.lang === '') {
+      vscode.window.showErrorMessage("To run code, please first choose your language.");
+      return;
+    }
     if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.getText() !== '') {
       globalState.stdin = await this.getUserInput() || '';
       globalState.code = vscode.window.activeTextEditor.document.getText();
@@ -57,6 +61,11 @@ export class ActionPanel {
       vscode.window.showErrorMessage("To submit code, please first login through XOJ Website.");
       return;
     }
+    if (!globalState.isLanguageSet || globalState.langId === -1 || globalState.lang === '') {
+      vscode.window.showErrorMessage("To submit code, please first choose your language.");
+      return;
+    }
+
     if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.getText() !== '') {
       globalState.code = vscode.window.activeTextEditor.document.getText();
       vscode.window.showInformationMessage('Your code is being submitted...');
