@@ -80,7 +80,7 @@ export class ResultView {
 				submissionResultModelChildrenItem.push(new SubmissionResultModel('Standard Output', Buffer.from(lookupResponse[k]!, 'base64').toString('binary'), 'output'));
 			}
 			else if (k === 'finished_at') {
-				submissionResultModelChildrenItem.push(new SubmissionResultModel('Finished At', lookupResponse[k], 'history', undefined));
+				submissionResultModelChildrenItem.push(new SubmissionResultModel('Finished At', new Date(lookupResponse.finished_at).toLocaleString(), 'history', undefined));
 			}
 			else {
 				submissionResultModelChildrenItem.push(new SubmissionResultModel(k, lookupResponse[k]));
