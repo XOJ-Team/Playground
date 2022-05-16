@@ -45,19 +45,19 @@ const extensionConfig = {
   infrastructureLogging: {
     level: "log", // enables logging required for problem matchers
   },
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          compress: {
-            drop_console: true,
-            drop_debugger: true,
-            dead_code: true
-          }
-        }
-      })
-    ],
-  }
+  // optimization: {
+  //   minimize: true,
+  //   minimizer: [
+  //     new TerserPlugin({
+  //       terserOptions: {
+  //         compress: {
+  //           drop_console: true,
+  //           drop_debugger: true,
+  //           dead_code: true
+  //         }
+  //       }
+  //     })
+  //   ],
+  // }
 };
 module.exports = [ extensionConfig ];
