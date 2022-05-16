@@ -13,29 +13,35 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '16.14.2'
-  displayName: 'Install Node.js'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "16.14.2"
+    displayName: "Install Node.js"
 
-- script: |
-    buildVersionString=$(node -p "require('./package.json').version")
-    echo "##vso[task.setvariable variable=packageVersion;]$buildVersionString"
-    yarn config set network-timeout 300000
-    yarn install
-    node_modules/.bin/vsce package --yarn
-  displayName: 'Run yarn install and package'
+  - bash: |
+      git push --prune https://$(GITHUB_PAT)@github.com/$(REPO_PATH).git \
+          +refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/*
+    displayName: "Mirror to GitHub"
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
-- script: |
-    yarn deploy-ms
-    yarn deploy-vsx
-  displayName: 'Publish to Marketplace (MS & VSX)'
-  condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
-  env:
-    VSCE_PAT: $(VSCE_PAT)
-    OVSX_PAT: $(OVSX_PAT)
+  - script: |
+      buildVersionString=$(node -p "require('./package.json').version")
+      echo "##vso[task.setvariable variable=packageVersion;]$buildVersionString"
+      yarn config set network-timeout 300000
+      yarn install
+      node_modules/.bin/vsce package --yarn
+    displayName: "Run yarn install and package"
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(System.DefaultWorkingDirectory)/xoj-playground-$(packageVersion).vsix'
-    artifactName: 'VSIX'
+  - script: |
+      yarn deploy-ms
+      yarn deploy-vsx
+    displayName: "Publish to Marketplace (MS & VSX)"
+    condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+    env:
+      VSCE_PAT: $(VSCE_PAT)
+      OVSX_PAT: $(OVSX_PAT)
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: "$(System.DefaultWorkingDirectory)/xoj-playground-$(packageVersion).vsix"
+      artifactName: "VSIX"
