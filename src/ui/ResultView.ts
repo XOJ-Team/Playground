@@ -26,7 +26,7 @@ export class ResultView {
 		// this._disposable = vscode.commands.registerCommand(ResultView._refreshResultCommand, this._resultDataProvider.refresh, this);
 		// _extensionContext.subscriptions.push(this._disposable);
 
-		this._disposable = vscode.window.createTreeView(ResultView._viewType, { treeDataProvider: this._resultDataProvider, showCollapseAll: true });
+		this._disposable = vscode.window.createTreeView(ResultView._viewType, { treeDataProvider: this._resultDataProvider, showCollapseAll: false });
 		_extensionContext.subscriptions.push(this._disposable);
 	}
 
@@ -35,7 +35,9 @@ export class ResultView {
 		let submissionResultModelChildrenItem: SubmissionResultModel[] = [];;
 		this._initSubmissionResultModelList(this._lookupResponse, submissionResultModelChildrenItem);
 		let currentSubmissionParent: SubmissionResultModel = this._getSubmissionResultParent(this._lookupResponse);
-		this._submissionResultModelList.push(currentSubmissionParent);
+		if (this._submissionResultModelList.length !== 0) { this._submissionResultModelList[0].isTop = false; };
+		currentSubmissionParent.isTop = true;
+		this._submissionResultModelList.unshift(currentSubmissionParent);
 		this._submissionResultModelChildren.set(currentSubmissionParent, submissionResultModelChildrenItem);
 		console.log('[INFO] onResultFetched');
 		console.log(this._lookupResponse);
@@ -95,11 +97,13 @@ export class SubmissionResultModel {
 	public readonly resultValue?: any;
 	public readonly resultIcon: vscode.ThemeIcon;
 	public readonly hasChildren: boolean;
-	constructor(resultType: string, resultValue?: any, resultIcon?: string, color?: vscode.ThemeColor, hasChildren?: boolean) {
+	public isTop: boolean;
+	constructor(resultType: string, resultValue?: any, resultIcon?: string, color?: vscode.ThemeColor, hasChildren?: boolean, isTop?: boolean) {
 		this.resultType = resultType;
 		this.resultValue = resultValue;
 		this.resultIcon = resultIcon ? new vscode.ThemeIcon(resultIcon, color) : new vscode.ThemeIcon("info");
 		this.hasChildren = hasChildren ? hasChildren : false;
+		this.isTop = isTop ? isTop : false;
 	}
 }
 
@@ -127,7 +131,25 @@ export class ResultDataProvider implements vscode.TreeDataProvider<SubmissionRes
 		return {
 			label: element.resultType + ': ' + element.resultValue,
 			iconPath: element.resultIcon,
-			collapsibleState: element.hasChildren ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None,
+			collapsibleState: function () {
+				if (element.hasChildren) {
+					console.log(element.resultType + element.resultValue!+'hasChildren' + "isTOP?"+element.isTop);
+					if (element.isTop === true) {
+						console.log("Triggered Top for "+ element.resultType + element.resultValue!);
+						return vscode.TreeItemCollapsibleState.Expanded;
+					}
+					else{
+						console.log("Triggered NOT Top for "+ element.resultType + element.resultValue!);
+						return vscode.TreeItemCollapsibleState.None;
+						//TODO: should be below
+						return vscode.TreeItemCollapsibleState.Collapsed;
+					}
+				}
+				else {
+					return vscode.TreeItemCollapsibleState.None;
+				}
+			}.apply(this),
+			// element.hasChildren ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None,
 		};
 	}
 	public getChildren(element?: SubmissionResultModel) {
