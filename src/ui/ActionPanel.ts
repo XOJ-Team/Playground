@@ -38,18 +38,19 @@ export class ActionPanel {
     console.log('[INFO] runCode start');
     console.log(globalState);
 
-    judgeServer.runCode().then(res => {
+    judgeServer.run().then(res => {
       console.log(res);
       if (res.statusCode === 200 && res.result !== null && (res.result?.obj !== undefined || null)) {
         console.log("[INFO] runCode success");
         vscode.window.showInformationMessage('Your code is submitted successfully.');
         vscode.commands.executeCommand('xoj-playground.showResult', res.result.obj);
-        vscode.commands.executeCommand('workbench.action.focusPanel');
+        vscode.commands.executeCommand('playground.panel.resultView.focus');
       } else {
         vscode.window.showErrorMessage('Oops, code submission failed.');
       }
     });
   }
+  
   private async submitCode() {
     // Run code and submit result to XOJ backend
     if (globalState.sessionId === '') {
@@ -63,12 +64,12 @@ export class ActionPanel {
       vscode.window.showErrorMessage("There's no code to submit, please review your active document.");
       return;
     }
-    judgeServer.submitCode().then(res => {
+    judgeServer.submit().then(res => {
       if (res.statusCode === 200 && res.result !== null && (res.result?.obj !== undefined || null)) {
         console.log("[INFO] submitCode success"+res.result.obj);
         vscode.window.showInformationMessage('Your code is submitted successfully.');
         vscode.commands.executeCommand('xoj-playground.showResult', res.result.obj);
-        vscode.commands.executeCommand('workbench.action.focusPanel');
+        vscode.commands.executeCommand('playground.panel.resultView.focus');
       } else {
         vscode.window.showErrorMessage('Oops, code submission failed.');
       }

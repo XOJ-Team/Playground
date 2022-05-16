@@ -34,7 +34,7 @@ export class JudgeServer {
         console.log('API URL: ' + extUserAgent, server + endpointSubmit + rapidApiOptions);
     }
 
-    public async submitCode(): Promise<rm.IRestResponse<JudgeServerWrapper>> {
+    public async submit(): Promise<rm.IRestResponse<JudgeServerWrapper>> {
         this._body.source_code = Buffer.from(globalState.code, 'binary').toString('base64');
         this._body.language_id = globalState.langId;
         this._body.question_id = Number(globalState.questionId);
@@ -42,7 +42,7 @@ export class JudgeServer {
         return submission;
     }
 
-    public async runCode(): Promise<rm.IRestResponse<JudgeServerWrapper>> {
+    public async run(): Promise<rm.IRestResponse<JudgeServerWrapper>> {
         this._body.source_code = Buffer.from(globalState.code, 'binary').toString('base64');
         this._body.stdin = Buffer.from(globalState.stdin, 'binary').toString('base64');
         this._body.language_id = globalState.langId;
