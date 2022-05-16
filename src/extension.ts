@@ -6,12 +6,15 @@ import { ActionPanel } from './ui/ActionPanel';
 import { WebUriHandler } from './ui/UriHandler';
 import { LanguagePicker } from './ui/LanguagePicker';
 import { ResultView } from './ui/ResultView';
+import { LocalStorageService } from './api/LocalStorageService';
+import { Session } from './api/Session';
 import { DebugConfiguration } from './ui/DebugConfigurationProvider';
 
 export function activate(context: vscode.ExtensionContext) {
 	
 	console.log('[INFO] XOJ Playground is now active!');
 
+	const localStorageService = new LocalStorageService(context);
 	const webUriHandler = new WebUriHandler(context);
 	const statusIndicator = new StatusIndicator(context);
 	const descriptionView = new DescriptionView(context);
