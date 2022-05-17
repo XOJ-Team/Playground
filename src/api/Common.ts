@@ -27,16 +27,6 @@ export type StateDict = {
     isLanguageSet: boolean;
 };
 
-export let globalState: StateDict = {
-    sessionId: '',
-    questionId: '',
-    lang: '',
-    langId: -1,
-    code: '',
-    stdin: '',
-    isLanguageSet: false
-};
-
 export type QuestionObject = {
     status: string;
     comment: string;

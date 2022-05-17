@@ -1,9 +1,8 @@
 import * as vscode from 'vscode';
 
 import { WebSession } from '../api/Common';
-import { globalState } from '../api/Common';
 import { DescriptionView } from './DescriptionView';
-import { judgeServerInstance } from '../api/GlobalInstance';
+import { judgeServerInstance, globalState } from '../api/GlobalInstance';
 class FrontendUriHandler implements vscode.UriHandler {
     handleUri(uri: vscode.Uri): vscode.ProviderResult<void> {
         if (uri.query) {

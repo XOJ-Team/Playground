@@ -6,9 +6,9 @@ import { IHeaders } from 'typed-rest-client/Interfaces';
 
 import { extUserAgent } from './Common';
 import { Judge0SubmissionRequest } from './Common';
-import { JudgeServerWrapper } from '../api/Common';
-import { Judge0Response } from '../api/Common';
-import { globalState } from './Common';
+import { JudgeServerWrapper } from './Common';
+import { Judge0Response } from './Common';
+import { globalState } from './GlobalInstance';
 
 const server: string | undefined = vscode.workspace.getConfiguration('xoj-playground').get('targetServer');
 
