@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://dev.azure.com/XOJ-Team/XOJ/_git/XOJ_Playground"
   },
-  "version": "1.0.1",
+  "version": "1.1.0",
   "publisher": "XOJ-Team",
   "license": "AGPL-3.0",
   "engines": {
@@ -34,14 +34,14 @@
           "id": "playground.container.descriptionView",
           "name": "Description",
           "visibility": "visible",
-          "when": "!xoj-playground:disabled"
+          "when": "!xoj-playground:disabled && xoj-playground:fromWeb"
         },
         {
           "type": "tree",
           "id": "playground.container.actionView",
           "name": "Actions",
           "visibility": "visible",
-          "when": "!xoj-playground:disabled"
+          "when": "!xoj-playground:disabled && xoj-playground:fromWeb"
         }
       ],
       "xoj-playground-panel-container": [
