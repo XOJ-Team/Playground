@@ -43,7 +43,6 @@ export class LanguagePicker {
         
         if (this._extensionContext.workspaceState.get('language') !== undefined) {
             const currentLang: string = this._extensionContext.workspaceState?.get('language')!;
-            console.log("NOW INIT"+currentLang);
             if (Judge0LanguageId.has(currentLang)) {
                 this._lang = currentLang;
                 globalState.lang = currentLang;

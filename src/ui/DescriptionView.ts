@@ -4,6 +4,8 @@ import { marked, Renderer } from "marked";
 import { Question } from "../api/Question";
 import { globalState } from "../api/Common";
 
+
+
 marked.setOptions({
   renderer: new Renderer,
   gfm: true,
@@ -16,14 +18,16 @@ marked.setOptions({
 });
 
 export class DescriptionView implements vscode.WebviewViewProvider {
+  private _question: Question = new Question('');
+  private static readonly _noQuestionLoadedString = "### No Question Loaded" + '\n'
+    + "Please select a question from [XOJ Website](https://xoj.codes/questions/).";
   private static readonly _viewType = "playground.container.descriptionView";
   private _commandId = "xoj-playground.refresh";
   private _disposable: vscode.Disposable;
 
+
   private _view?: vscode.WebviewView;
   private _description: string = '';
-  // TODO(skk): replace with QuestionId from web activation.
-  private _question: Question = new Question('');
 
   constructor(private readonly _extensionContext: vscode.ExtensionContext) {
     _extensionContext.subscriptions.push(
@@ -46,41 +50,9 @@ export class DescriptionView implements vscode.WebviewViewProvider {
       localResourceRoots: [this._extensionContext.extensionUri],
     };
 
-    const script = `
-      <script>
-          (function() {
-              const vscode = acquireVsCodeApi();
-              vscode.postMessage({
-                command: 'refresh'
-              });
-          }())
-      </script>`;
-
-    webviewView.webview.onDidReceiveMessage(
-      message => {
-        switch (message.command) {
-          case 'refresh':
-            vscode.commands.executeCommand("xoj-playground.refresh");
-            return;
-        }
-      },
-      undefined,
-      this._extensionContext.subscriptions
-    );
-
-    // TODO(skk): replace with API calls
     // TODO(skk): append AC rate and other info to this html
-    try {
-      await this._question.get();
-    } catch (err) {
-      // Built-in render (markdown-language-features)
-      webviewView.webview.html = await vscode.commands.executeCommand('markdown.api.render', '### Error occurred ' + err);
-      // Uncomment this to use marked renderer
-      // webviewView.webview.html = marked.parse('### Error occurred ' + err);
-    }
-
     // Built-in render (markdown-language-features)
-    webviewView.webview.html = await vscode.commands.executeCommand('markdown.api.render', this._question.getConcatenated()) + script;
+    this._renderWebviewContent();
     // Uncomment this to use marked renderer
     // webviewView.webview.html = marked.parse(this._question.getConcatenated());
     // vscode.window.showInformationMessage('Loaded: ' + this._question.title);
@@ -99,10 +71,42 @@ export class DescriptionView implements vscode.WebviewViewProvider {
 
   public async refresh() {
     if (this._view) {
-      this._question.id = globalState.questionId;
-      await this._question.get();
-      this._view.webview.html = marked.parse(this._question.getConcatenated());
-      vscode.window.showInformationMessage('Loaded Question: ' + this._question.title);
+      this._renderWebviewContent();
+    }
+  }
+
+  private async _renderWebviewContent() {
+    if (this._view) {
+      if (globalState.questionId !== undefined) {
+        this._question.id = globalState.questionId;
+      }
+      if (this._question.id === '') {
+        this._view.webview.html = marked.parse(DescriptionView._noQuestionLoadedString);
+        return;
+      }
+      try {
+        await this._question.get();
+        this._view.webview.html = marked.parse(this._getConcatenatedMarkedString());
+        vscode.window.showInformationMessage('Loaded Question: ' + this._question.title);
+      } catch (err) {
+        // Built-in render (markdown-language-features)
+        this._view.webview.html = await vscode.commands.executeCommand('markdown.api.render', '### Oops! Error occurred: ' + err);
+        // Uncomment this to use marked renderer
+        // webviewView.webview.html = marked.parse('### Error occurred ' + err);
+      }
+      this._view.webview.html = await vscode.commands.executeCommand('markdown.api.render', this._getConcatenatedMarkedString());
+    }
+  }
+
+  private _getConcatenatedMarkedString(): string {
+    if (this._question.id !== '') {
+      return '### ' + this._question.title + '\n'
+        + this._question.desc + '\n\n'
+        + '*Time Limit: ' + this._question.timeLimit + 's*'
+        + '\t | \t'
+        + '*Memory Limit: ' + this._question.memLimit + 'MB*';
+    } else {
+      return DescriptionView._noQuestionLoadedString;
     }
   }
 }
