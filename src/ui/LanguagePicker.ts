@@ -5,6 +5,24 @@ import * as vscode from 'vscode';
 import { JudgeServer } from '../api/Judge';
 import { globalState, Judge0LanguageId } from '../api/Common';
 
+const langStringMap = new Map<String, String>([
+    ["C", "c"],
+    ["C++", "cpp"],
+    ["Java", "java"],
+    ["Python 2", "python2"],
+    ["Python 3", "python3"],
+    ["Golang", "go"]
+]);
+
+const stringLangMap = new Map<String, String>([
+    ["c", "C"],
+    ["cpp", "C++"],
+    ["java", "Java"],
+    ["python2", "Python 2"],
+    ["python3", "Python 3"],
+    ["go", "Golang"]
+]);
+
 export class LanguagePicker {
     private _disposable: vscode.Disposable;
     private _command: string = 'xoj-playground.selectLanguage';
@@ -48,7 +66,7 @@ export class LanguagePicker {
                 globalState.lang = currentLang;
                 globalState.langId = Judge0LanguageId.get(currentLang)!;
                 globalState.isLanguageSet = true;
-                vscode.window.showInformationMessage(`Language is set to: ${globalState.lang}`);
+                vscode.window.showInformationMessage(`Language is set to: ${stringLangMap.get(this._lang)}`);
             }
         }
         if (!globalState.isLanguageSet) {
@@ -69,19 +87,7 @@ export class LanguagePicker {
                 if (typeof item === 'string') {
                     vscode.window.showErrorMessage(`${item} is not supported yet.`);
                 } else {
-                    if (item.label === 'C') {
-                        this._lang = 'c';
-                    } else if (item.label === 'C++') {
-                        this._lang = 'cpp';
-                    } else if (item.label === 'Python 2') {
-                        this._lang = 'python2';
-                    } else if (item.label === 'Python 3') {
-                        this._lang = 'python3';
-                    } else if (item.label === 'Java') {
-                        this._lang = 'java';
-                    } else if (item.label === 'Golang') {
-                        this._lang = 'go';
-                    }
+                    this._lang = langStringMap.get(item.label) as string;
                 }
             }
         });
@@ -100,7 +106,7 @@ export class LanguagePicker {
             globalState.lang = this._lang;
             globalState.langId = Judge0LanguageId.get(this._lang)!;
             globalState.isLanguageSet = true;
-            vscode.window.showInformationMessage(`Language is set to: ${globalState.lang}`);
+            vscode.window.showInformationMessage(`Language is set to: ${stringLangMap.get(this._lang)}`);
         }
     }
 }
