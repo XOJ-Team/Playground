@@ -3,8 +3,7 @@ import { compileFunction } from 'vm';
 import * as vscode from 'vscode';
 
 import { JudgeServer } from '../api/Judge';
-import { globalState } from '../api/GlobalInstance';
-import { Judge0LanguageId } from '../api/Common';
+import { globalState, Judge0LanguageId } from '../api/Common';
 
 export class LanguagePicker {
     private _disposable: vscode.Disposable;

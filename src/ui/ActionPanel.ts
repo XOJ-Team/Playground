@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import * as path from 'path';
 
-import { globalState } from "../api/GlobalInstance";
+import { globalState } from "../api/Common";
 import { judgeServerInstance } from "../api/GlobalInstance";
 
 const judgeServer = judgeServerInstance;
