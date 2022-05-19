@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://dev.azure.com/XOJ-Team/XOJ/_git/XOJ_Playground"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "XOJ-Team",
   "license": "AGPL-3.0",
   "engines": {
