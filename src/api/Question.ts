@@ -26,20 +26,25 @@ export class Question {
     }
 
     public async get() {
-        try {
-            let res: rm.IRestResponse<QuestionObject> = await this._client.get<QuestionObject>(endpoint + this._id);
-            this._title = res.result?.obj.name;
-            this._desc = res.result?.obj.content;
-            this._memLimit = res.result?.obj.memoryLimit;
+        let res: rm.IRestResponse<QuestionObject> = await this._client.get<QuestionObject>(endpoint + this._id);
+        this._title = res.result?.obj.name;
+        this._desc = res.result?.obj.content;
+        this._memLimit = res.result?.obj.memoryLimit;
+        this._timeLimit = res.result?.obj.timeLimit;
             this._timeLimit = res.result?.obj.timeLimit;    
-        } catch(err) {
-            console.log(err);
-        }
+        this._timeLimit = res.result?.obj.timeLimit;
     }
 
     public set id(s: string) {
         this._id = s;
     }
+
+
+    public get id(): string {
+        return this._id;
+    }
+
+
 
     public get title(): string | undefined {
         return this._title;
@@ -48,7 +53,7 @@ export class Question {
     public get desc(): string | undefined {
         return this._desc;
     }
-    
+
     public get memLimit(): number | undefined {
         return this._memLimit;
     }
@@ -57,16 +62,5 @@ export class Question {
         return this._timeLimit;
     }
 
-    public getConcatenated(): string {
-        if (this._id !== '') {
-            return '### ' + this._title + '\n'
-            + this._desc + '\n\n'
-            + '*Time Limit: ' + this._timeLimit + 's*'
-            + '\t | \t'
-            + '*Memory Limit: ' + this._memLimit + 'MB*';
-        } else {
-            return "### No Question Loaded" + '\n'
-            + "Please select a question from [XOJ Website](https://xoj.codes/questions/).";
-        }
-    }
+
 }
