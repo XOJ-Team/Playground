@@ -23,8 +23,7 @@
   "activationEvents": [
     "onUri",
     "onCommand:xoj-playground.start",
-    "workspaceContains:**/.xojworkspace",
-    "onStartupFinished"
+    "workspaceContains:**/.xojworkspace"
   ],
   "main": "./dist/extension.js",
   "contributes": {
