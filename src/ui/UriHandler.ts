@@ -15,6 +15,7 @@ class FrontendUriHandler implements vscode.UriHandler {
             }
             globalState.questionId = url.searchParams.get('questionId') || '';
             judgeServerInstance.refreshJudgeClient();
+            vscode.commands.executeCommand("playground.container.descriptionView.focus");
             vscode.commands.executeCommand('xoj-playground.refresh');
         }
     }

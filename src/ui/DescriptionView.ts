@@ -46,6 +46,28 @@ export class DescriptionView implements vscode.WebviewViewProvider {
       localResourceRoots: [this._extensionContext.extensionUri],
     };
 
+    const script = `
+      <script>
+          (function() {
+              const vscode = acquireVsCodeApi();
+              vscode.postMessage({
+                command: 'refresh'
+              });
+          }())
+      </script>`;
+
+    webviewView.webview.onDidReceiveMessage(
+      message => {
+        switch (message.command) {
+          case 'refresh':
+            vscode.commands.executeCommand("xoj-playground.refresh");
+            return;
+        }
+      },
+      undefined,
+      this._extensionContext.subscriptions
+    );
+
     // TODO(skk): replace with API calls
     // TODO(skk): append AC rate and other info to this html
     try {
@@ -58,7 +80,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     }
 
     // Built-in render (markdown-language-features)
-    webviewView.webview.html = await vscode.commands.executeCommand('markdown.api.render', this._question.getConcatenated());
+    webviewView.webview.html = await vscode.commands.executeCommand('markdown.api.render', this._question.getConcatenated()) + script;
     // Uncomment this to use marked renderer
     // webviewView.webview.html = marked.parse(this._question.getConcatenated());
     // vscode.window.showInformationMessage('Loaded: ' + this._question.title);

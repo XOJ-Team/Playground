@@ -1,3 +1,4 @@
+// import * as nls from 'vscode-nls';
 import * as vscode from 'vscode';
 
 import { StatusIndicator } from './ui/StatusIndicator';
@@ -9,6 +10,8 @@ import { ResultView } from './ui/ResultView';
 import { LocalStorageService } from './api/LocalStorageService';
 import { Session } from './api/Session';
 import { DebugConfiguration } from './ui/DebugConfigurationProvider';
+
+// const localize = nls.config({ messageFormat: nls.MessageFormat.file })();
 
 export function activate(context: vscode.ExtensionContext) {
 	
