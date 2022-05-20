@@ -33,7 +33,7 @@ export class ActionPanel {
     if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.getText() !== '') {
       globalState.stdin = await this.getUserInput() || '';
       globalState.code = vscode.window.activeTextEditor.document.getText();
-      vscode.window.showInformationMessage('Your code is pending to run...');
+      vscode.window.showInformationMessage('Your submission is uploaded and queued...');
     } else {
       vscode.window.showErrorMessage("There's no code to run remotely, please review your active document.");
       return;
