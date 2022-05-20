@@ -19,6 +19,11 @@ export class ActionPanel {
     _extensionContext.subscriptions.push(this._disposable);
   }
 
+/**
+ * It takes the code from the active editor, sends it to the server, and then displays the result in a
+ * new panel.
+ * @returns The result of the runCode() function is the result of the judgeServer.run() function.
+ */
   private async runCode() {
     // Run code only (without submitting result to XOJ backend)
 
@@ -55,6 +60,10 @@ export class ActionPanel {
     });
   }
 
+/**
+ * It takes the code from the active editor, sends it to the server, and then displays the result in a
+ * new tab.
+ */
   private async submitCode() {
     // Run code and submit result to XOJ backend
     if (globalState.sessionId === '') {
@@ -85,6 +94,10 @@ export class ActionPanel {
     });
   }
 
+/**
+ * It's a function that returns a promise that resolves to a string.
+ * @returns The result of the user input.
+ */
   private async getUserInput() {
     const result = await vscode.window.showInputBox({
       ignoreFocusOut: true,
