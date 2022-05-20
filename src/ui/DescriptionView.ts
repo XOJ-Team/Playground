@@ -21,8 +21,8 @@ export class DescriptionView implements vscode.WebviewViewProvider {
   private _question: Question = new Question('');
   private static readonly _noQuestionLoadedString = "### No Question Loaded" + '\n'
     + "Please select a question from [XOJ Website](https://xoj.codes/questions/).";
-  private static readonly _viewType = "playground.container.descriptionView";
-  private _commandId = "xoj-playground.refresh";
+  private static readonly _viewType = "xoj-playground.view.descriptionView";
+  private _commandId = "xoj-playground.command.refresh";
   private _disposable: vscode.Disposable;
 
 

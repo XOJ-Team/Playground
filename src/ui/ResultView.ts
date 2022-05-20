@@ -9,7 +9,7 @@ export class ResultView {
 	private _disposable: vscode.Disposable;
 	private static readonly _showResultCommand = 'xoj-playground.showResult';
 	// private static readonly _refreshResultCommand = 'xoj-playground.refreshResult';
-	private static readonly _viewType = 'playground.panel.resultView';
+	private static readonly _viewType = 'xoj-playground.view.resultView';
 	private _submissionResultModelList: SubmissionResultModel[] = [];
 	private _submissionResultModelChildren: Map<SubmissionResultModel, SubmissionResultModel[]> = new Map<SubmissionResultModel, SubmissionResultModel[]>();
 	private _resultDataProvider = new ResultDataProvider(this._submissionResultModelList, this._submissionResultModelChildren);

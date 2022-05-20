@@ -16,8 +16,8 @@ class FrontendUriHandler implements vscode.UriHandler {
             globalState.questionId = url.searchParams.get('questionId') || '';
             judgeServerInstance.refreshJudgeClient();
             vscode.commands.executeCommand('setContext', 'xoj-playground:fromWeb', true);
-            vscode.commands.executeCommand("playground.container.descriptionView.focus");
-            vscode.commands.executeCommand('xoj-playground.refresh');
+            vscode.commands.executeCommand("xoj-playground.view.descriptionView.focus");
+            vscode.commands.executeCommand('xoj-playground.command.refresh');
         }
     }
 }
@@ -25,7 +25,7 @@ class FrontendUriHandler implements vscode.UriHandler {
 export class WebUriHandler {
     private _handler: vscode.UriHandler = new FrontendUriHandler();
     private _disposable: vscode.Disposable;
-    private _command: string = 'xoj-playground.start';
+    private _command: string = 'xoj-playground.command.start';
 
     constructor(private readonly _extensionContext: vscode.ExtensionContext) {
         this._disposable = vscode.commands.registerCommand(this._command, async () => register, _extensionContext);

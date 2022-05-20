@@ -30,7 +30,7 @@ export class StatusIndicator {
 
     // TODO(skk): add running indicator
 
-    private _command = 'xoj-playground.showConnectionStatus';
+    private _command = 'xoj-playground.command.showConnectionStatus';
     private _item: vscode.StatusBarItem;
     private _disposable: vscode.Disposable;
     private _checker: ConnectionChecker = new ConnectionChecker();

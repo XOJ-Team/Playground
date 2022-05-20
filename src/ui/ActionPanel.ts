@@ -7,8 +7,8 @@ import { judgeServerInstance } from "../api/GlobalInstance";
 const judgeServer = judgeServerInstance;
 export class ActionPanel {
   private _commandList = [
-    'xoj-playground.run',
-    'xoj-playground.submit'
+    'xoj-playground.command.run',
+    'xoj-playground.command.submit'
   ];
   private _disposable: vscode.Disposable;
 
@@ -48,7 +48,7 @@ export class ActionPanel {
         console.log("[INFO] runCode success");
         vscode.window.showInformationMessage('Your code is submitted successfully.');
         vscode.commands.executeCommand('xoj-playground.showResult', res.result.obj);
-        vscode.commands.executeCommand('playground.panel.resultView.focus');
+        vscode.commands.executeCommand('xoj-playground.view.resultView.focus');
       } else {
         vscode.window.showErrorMessage('Oops, code submission failed.');
       }
@@ -78,7 +78,7 @@ export class ActionPanel {
         console.log("[INFO] submitCode success"+res.result.obj);
         vscode.window.showInformationMessage('Your code is submitted successfully.');
         vscode.commands.executeCommand('xoj-playground.showResult', res.result.obj);
-        vscode.commands.executeCommand('playground.panel.resultView.focus');
+        vscode.commands.executeCommand('xoj-playground.view.resultView.focus');
       } else {
         vscode.window.showErrorMessage('Oops, code submission failed.');
       }

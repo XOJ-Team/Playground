@@ -25,7 +25,7 @@ const stringLangMap = new Map<String, String>([
 
 export class LanguagePicker {
     private _disposable: vscode.Disposable;
-    private _command: string = 'xoj-playground.selectLanguage';
+    private _command: string = 'xoj-playground.command.selectLanguage';
     private _lang: string = '';
 
     private _items: vscode.QuickPickItem[] = [

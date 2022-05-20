@@ -22,49 +22,49 @@
   ],
   "activationEvents": [
     "onUri",
-    "onCommand:xoj-playground.start",
+    "onCommand:xoj-playground.command.start",
     "workspaceContains:**/.xojworkspace"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "views": {
-      "xoj-playground-container": [
+      "xoj-playground-main": [
         {
           "type": "webview",
-          "id": "playground.container.descriptionView",
+          "id": "xoj-playground.view.descriptionView",
           "name": "Description",
           "visibility": "visible",
           "when": "!xoj-playground:disabled && xoj-playground:fromWeb"
         },
         {
           "type": "tree",
-          "id": "playground.container.actionView",
+          "id": "xoj-playground.view.actionView",
           "name": "Actions",
           "visibility": "visible",
           "when": "!xoj-playground:disabled && xoj-playground:fromWeb"
         }
       ],
-      "xoj-playground-panel-container": [
+      "xoj-playground-result": [
         {
           "type": "tree",
-          "id": "playground.panel.resultView",
+          "id": "xoj-playground.view.resultView",
           "name": "Result",
           "visibility": "visible",
-          "when": "!xoj-playground:disabled"
+          "when": "!xoj-playground:disabled && xoj-playground:fromWeb"
         }
       ]
     },
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "xoj-playground-container",
+          "id": "xoj-playground-main",
           "title": "XOJ Action Center",
           "icon": "assets/logo_50px.svg"
         }
       ],
       "panel": [
         {
-          "id": "xoj-playground-panel-container",
+          "id": "xoj-playground-result",
           "title": "XOJ",
           "icon": "assets/logo_50px.svg"
         }
@@ -72,43 +72,43 @@
     },
     "viewsWelcome": [
       {
-        "view": "playground.container.actionView",
-        "contents": "To get started, please \n[$(library) Select a Language](command:xoj-playground.selectLanguage) \n Other Actions: \n [$(play) Run on XOJ](command:xoj-playground.run) \n [$(cloud-upload) Submit](command:xoj-playground.submit) \n [$(refresh) Refresh / Re-connect](command:xoj-playground.refresh) \n For more help, visit our [website](https://xoj.codes)."
+        "view": "xoj-playground.view.actionView",
+        "contents": "To get started, please \n[$(library) Select a Language](command:xoj-playground.command.selectLanguage) \n Other Actions: \n [$(play) Run on XOJ](command:xoj-playground.command.run) \n [$(cloud-upload) Submit](command:xoj-playground.command.submit) \n [$(refresh) Refresh / Re-connect](command:xoj-playground.command.refresh) \n For more help, visit our [website](https://xoj.codes)."
       }
     ],
     "commands": [
       {
-        "command": "xoj-playground.refresh",
+        "command": "xoj-playground.command.refresh",
         "title": "Playground: Refresh"
       },
       {
-        "command": "xoj-playground.connect",
+        "command": "xoj-playground.command.connect",
         "title": "Playground: Connect / Re-connect"
       },
       {
-        "command": "xoj-playground.start",
+        "command": "xoj-playground.command.start",
         "title": "Playground: Start XOJ from Web"
       },
       {
-        "command": "xoj-playground.showConnectionStatus",
+        "command": "xoj-playground.command.showConnectionStatus",
         "title": "Playground: Show Connection Status"
       },
       {
-        "command": "xoj-playground.run",
+        "command": "xoj-playground.command.run",
         "title": "Playground: Run on XOJ"
       },
       {
-        "command": "xoj-playground.submit",
+        "command": "xoj-playground.command.submit",
         "title": "Playground: Submit"
       },
       {
-        "command": "xoj-playground.selectLanguage",
+        "command": "xoj-playground.command.selectLanguage",
         "title": "Playground: Select Language"
       }
     ],
     "keybindings": [
       {
-        "command": "xoj-playground.run",
+        "command": "xoj-playground.command.run",
         "key": "ctrl+k",
         "mac": "cmd+k",
         "when": "editorTextFocus"
@@ -117,7 +117,7 @@
     "menus": {
       "commandPalette": [
         {
-          "command": "xoj-playground.start",
+          "command": "xoj-playground.command.start",
           "when": "false"
         }
       ]
