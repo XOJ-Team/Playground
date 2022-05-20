@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://dev.azure.com/XOJ-Team/XOJ/_apis/git/repositories/XOJ_Playground/items?path=/assets/banner.png&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=octetStream&api-version=5.0"
   title="XOJ Logo"
-  width="200"
+  width="320"
   />
 </p>
 
