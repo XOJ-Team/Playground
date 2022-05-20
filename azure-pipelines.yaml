@@ -13,16 +13,18 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-  - task: NodeTool@0
-    inputs:
-      versionSpec: "16.14.2"
-    displayName: "Install Node.js"
-
+  # Mirror to GitHub
   - bash: |
       git push --prune https://$(GITHUB_PAT)@github.com/$(REPO_PATH).git \
           +refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/*
     displayName: "Mirror to GitHub"
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+
+  # Setup NodeJS
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "16.14.2"
+    displayName: "Install Node.js"
 
   - script: |
       buildVersionString=$(node -p "require('./package.json').version")
