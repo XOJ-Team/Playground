@@ -1,6 +1,10 @@
-# XOJ Playground
+<p align="center">
+<img src="assets/logo_128px.png" title="XOJ Logo" width="160"/>
+</p>
 
-[![Build Status](https://dev.azure.com/XOJ-Team/CPT202%20Team%20B-3/_apis/build/status/XOJ_Playground?branchName=master)](https://dev.azure.com/XOJ-Team/CPT202%20Team%20B-3/_build/latest?definitionId=8&branchName=master)  
+# <p style="text-align: center;">XOJ Playground </p>
+
+[![Build Status](https://dev.azure.com/XOJ-Team/XOJ/_apis/build/status/XOJ%20Playground?branchName=master)](https://dev.azure.com/XOJ-Team/XOJ/_build/latest?definitionId=8&branchName=master)
 
 This is the repo of XOJ's online editor, which consists an extension for VSC (desktop & web IDE).
 
