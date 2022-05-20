@@ -9,12 +9,12 @@
   },
   "badges": [
     {
-			"url": "https://dev.azure.com/XOJ-Team/XOJ/_apis/build/status/XOJ%20Playground?branchName=master",
-			"href": "https://dev.azure.com/XOJ-Team/XOJ/_build?definitionId=8",
-			"description": "View build status"
-		}
+      "url": "https://dev.azure.com/XOJ-Team/XOJ/_apis/build/status/XOJ%20Playground?branchName=master",
+      "href": "https://dev.azure.com/XOJ-Team/XOJ/_build?definitionId=8",
+      "description": "View build status"
+    }
   ],
-  "version": "1.1.0",
+  "version": "1.1.1",
   "publisher": "XOJ-Team",
   "license": "AGPL-3.0",
   "engines": {
