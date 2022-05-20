@@ -1,8 +1,11 @@
 <p align="center">
-<img src="assets/logo_128px.png" title="XOJ Logo" width="160"/>
+  <img src="https://dev.azure.com/XOJ-Team/XOJ/_apis/git/repositories/XOJ_Playground/items?path=/assets/logo_128px.png&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=octetStream&api-version=5.0"
+  title="XOJ Logo"
+  width="160"
+  />
 </p>
 
-# <p style="text-align: center;">XOJ Playground </p>
+<h1 align="center">XOJ Playground</h1>
 
 [![Build Status](https://dev.azure.com/XOJ-Team/XOJ/_apis/build/status/XOJ%20Playground?branchName=master)](https://dev.azure.com/XOJ-Team/XOJ/_build/latest?definitionId=8&branchName=master)
 
