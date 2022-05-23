@@ -9,8 +9,6 @@ jobs:
   build:
     name: Build Stable Package
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
 
     strategy:
       matrix:
