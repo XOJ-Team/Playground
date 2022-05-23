@@ -35,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Pre-built Package
-          path: *.vsix
+          path: "./*.vsix"
