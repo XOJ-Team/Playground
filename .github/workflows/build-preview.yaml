@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+    name: Build Preview Package
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -28,11 +29,10 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
-      - name: Package extension
+      - name: Package Extension
         run: yarn run pack-vsix
       
       - name: Upload Artifacts 
         uses: actions/upload-artifact@v3
         with:
-          name: Pre-built Package
           path: "./*.vsix"

@@ -7,6 +7,7 @@ on:
 
 jobs:
   build:
+    name: Build Stable Package
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -41,8 +42,8 @@ jobs:
           yarn deploy-ms
           yarn deploy-vsx
         env:
-          VSCE_PAT: ${{secrets.VSCE_PAT}}
-          OVSX_PAT: ${{secrets.OVSX_PAT}}
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
 
       - name: Create GitHub Release
         id: create_release
