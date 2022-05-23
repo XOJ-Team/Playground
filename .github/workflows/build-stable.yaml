@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Pre-built Package
-          path: *.vsix
+          path: "./*.vsix"
 
       - name: Publish to Marketplace (MS & VSX)
         run: |
@@ -64,5 +64,5 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
             upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: *.vsix
+            asset_path: "./*.vsix"
             asset_content_type: application/zip
