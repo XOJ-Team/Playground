@@ -15,7 +15,7 @@ pool:
 steps:
   # Mirror to GitHub
   - bash: |
-      git push --prune https://$(GITHUB_PAT)@github.com/$(REPO_PATH).git \
+      git push --force --prune https://$(GITHUB_PAT)@github.com/$(REPO_PATH).git \
           +refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/*
     displayName: "Mirror to GitHub"
 
