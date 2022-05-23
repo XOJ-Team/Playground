@@ -1,0 +1,67 @@
+name: Stable Build
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Package Extension
+        run: yarn run pack-vsix
+      
+      - name: Upload Artifacts 
+        uses: actions/upload-artifact@v3
+        with:
+          name: Pre-built Package
+          path: *.vsix
+
+      - name: Publish to Marketplace (MS & VSX)
+        run: |
+          yarn deploy-ms
+          yarn deploy-vsx
+        env:
+          VSCE_PAT: ${{secrets.VSCE_PAT}}
+          OVSX_PAT: ${{secrets.OVSX_PAT}}
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            tag_name: ${{ github.ref }}
+            release_name: v${{ env.PACKAGE_VERSION }}
+            body: ${{ steps.changelog.outputs.changes }}
+            draft: false
+            prerelease: false
+
+      - name: Upload GitHub Release
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            upload_url: ${{ steps.create_release.outputs.upload_url }}
+            asset_path: *.vsix
+            asset_content_type: application/zip
