@@ -104,7 +104,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
         + this._question.desc + '\n\n'
         + '*Time Limit: ' + this._question.timeLimit + 's*'
         + '\t | \t'
-        + '*Memory Limit: ' + this._question.memLimit + 'MB*';
+        + '*Memory Limit: ' + this._question.memLimit + 'KB*';
     } else {
       return DescriptionView._noQuestionLoadedString;
     }
