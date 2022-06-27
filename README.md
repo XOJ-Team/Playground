@@ -1,13 +1,14 @@
 <p align="center">
-  <img src="https://dev.azure.com/XOJ-Team/XOJ/_apis/git/repositories/XOJ_Playground/items?path=/assets/banner.png&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=octetStream&api-version=5.0"
+  <img src="assets/banner.png"
   title="XOJ Logo"
   width="320"
   />
 </p>
 
-<h1 align="center">XOJ Playground</h1>
+<h1 align="center"> XOJ Playground </h1>
 
-[![Build Status](https://dev.azure.com/XOJ-Team/XOJ/_apis/build/status/XOJ%20Playground?branchName=master)](https://dev.azure.com/XOJ-Team/XOJ/_build/latest?definitionId=8&branchName=master)
+[![Stable Build Status](https://github.com/XOJ-Team/Playground/actions/workflows/build-stable.yaml/badge.svg)](https://github.com/XOJ-Team/Playground/actions/workflows/build-stable.yaml)
+[![Preview Build Status](https://github.com/XOJ-Team/Playground/actions/workflows/build-preview.yaml/badge.svg)](https://github.com/XOJ-Team/Playground/actions/workflows/build-preview.yaml)
 
 This is the repo of XOJ's online editor, which consists an extension for VSC (desktop & web IDE).
 
@@ -42,7 +43,7 @@ This is the repo of XOJ's online editor, which consists an extension for VSC (de
 
 ### Installation
 
-To install the extension, you can download the prebuilt extension package (VSIX) from [Azure Pipelines](https://dev.azure.com/XOJ-Team/CPT202%20Team%20B-3/_build?definitionId=8), or download directly from [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=XOJ-Team.xoj-playground) or [Open VSX Registry](https://open-vsx.org/extension/XOJ-Team/xoj-playground).
+To install the extension, you can download the prebuilt extension package (VSIX) from [GitHub Actions](https://github.com/XOJ-Team/Playground/actions/workflows/build-stable.yaml), or download directly from [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=XOJ-Team.xoj-playground) or [Open VSX Registry](https://open-vsx.org/extension/XOJ-Team/xoj-playground).
 
 ### Development
 

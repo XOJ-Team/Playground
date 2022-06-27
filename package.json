@@ -5,12 +5,12 @@
   "icon": "assets/logo_128px.png",
   "repository": {
     "type": "git",
-    "url": "https://dev.azure.com/XOJ-Team/XOJ/_git/XOJ_Playground"
+    "url": "https://github.com/XOJ-Team/Playground"
   },
   "badges": [
     {
-      "url": "https://dev.azure.com/XOJ-Team/XOJ/_apis/build/status/XOJ%20Playground?branchName=master",
-      "href": "https://dev.azure.com/XOJ-Team/XOJ/_build?definitionId=8",
+      "url": "https://github.com/XOJ-Team/Playground/actions/workflows/build-stable.yaml/badge.svg",
+      "href": "https://github.com/XOJ-Team/Playground/actions/workflows/build-stable.yaml",
       "description": "View build status"
     }
   ],
@@ -130,7 +130,7 @@
       ]
     },
     "configuration": {
-      "title": "Default Server",
+      "title": "XOJ Playground",
       "properties": {
         "xoj-playground.targetServer": {
           "type": "string",
@@ -141,6 +141,11 @@
           "type": "string",
           "default": "https://api.xoj.codes/judge",
           "description": "Judge server to connect to."
+        },
+        "xoj-playground.debugMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable/disable debug mode."
         }
       }
     }
