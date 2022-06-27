@@ -102,9 +102,9 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     if (this._question.id !== '') {
       return '### ' + this._question.title + '\n'
         + this._question.desc + '\n\n'
-        + '*Time Limit: ' + this._question.timeLimit + 's*'
+        + '*Time Limit: ' + this._question.timeLimit + 'ms*'
         + '\t | \t'
-        + '*Memory Limit: ' + this._question.memLimit + 'MB*';
+        + '*Memory Limit: ' + this._question.memLimit + 'KB*';
     } else {
       return DescriptionView._noQuestionLoadedString;
     }

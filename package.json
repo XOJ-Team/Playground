@@ -14,7 +14,7 @@
       "description": "View build status"
     }
   ],
-  "version": "1.1.6",
+  "version": "1.1.8",
   "publisher": "XOJ-Team",
   "license": "AGPL-3.0",
   "engines": {
